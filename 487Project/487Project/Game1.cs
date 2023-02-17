@@ -1,12 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.ComponentModel;
 
 namespace MainProgram
 {
     public class Game1 : Game
     {
         UserSprite user;
+        Texture2D background;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -14,6 +16,8 @@ namespace MainProgram
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
+            _graphics.PreferredBackBufferWidth = 1600;
+            _graphics.PreferredBackBufferHeight = 1400;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -33,6 +37,7 @@ namespace MainProgram
             // TODO: use this.Content to load your game content here
             // user.ballTexture = Content.Load<Texture2D>("ball");
             user = new UserSprite(Content.Load<Texture2D>("ball"), _graphics);
+            background = Content.Load<Texture2D>("tempoverlay");
         }
 
         protected override void Update(GameTime gameTime)
@@ -55,6 +60,7 @@ namespace MainProgram
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
+            _spriteBatch.Draw(background, new Rectangle(0, 0, 1600, 1400), Color.White);
             user.Draw(_spriteBatch);
             _spriteBatch.End();
 

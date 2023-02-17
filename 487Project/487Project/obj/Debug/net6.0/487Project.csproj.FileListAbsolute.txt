@@ -25,3 +25,4 @@ C:\School\Spring 2023\CptS 487\487\487Project\487Project\obj\Debug\net6.0\487Pro
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\obj\Debug\net6.0\ref\487Project.dll
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net6.0\Content\couglogo.xnb
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net6.0\Content\ball.xnb
+C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net6.0\Content\tempoverlay.xnb
