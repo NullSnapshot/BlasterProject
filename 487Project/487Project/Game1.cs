@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace MainProgram
 {
@@ -12,7 +13,6 @@ namespace MainProgram
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -50,8 +50,6 @@ namespace MainProgram
 
             user.move(kstate, gameTime, _graphics);
            
-            
-            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -63,8 +61,6 @@ namespace MainProgram
             _spriteBatch.Draw(background, new Rectangle(0, 0, 1600, 1400), Color.White);
             user.Draw(_spriteBatch);
             _spriteBatch.End();
-
-            base.Draw(gameTime);
         }
     }
 }

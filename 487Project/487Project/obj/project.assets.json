@@ -102,24 +102,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\seaha\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Mathe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\School\\Spring 2023\\CptS 487\\487\\487Project\\487Project\\487Project.csproj",
+      "projectUniqueName": "C:\\Users\\Mathe\\OneDrive\\Documents\\Cpt_487\\teamblaster\\487Project\\487Project\\487Project.csproj",
       "projectName": "487Project",
-      "projectPath": "C:\\School\\Spring 2023\\CptS 487\\487\\487Project\\487Project\\487Project.csproj",
-      "packagesPath": "C:\\Users\\seaha\\.nuget\\packages\\",
-      "outputPath": "C:\\School\\Spring 2023\\CptS 487\\487\\487Project\\487Project\\obj\\",
+      "projectPath": "C:\\Users\\Mathe\\OneDrive\\Documents\\Cpt_487\\teamblaster\\487Project\\487Project\\487Project.csproj",
+      "packagesPath": "C:\\Users\\Mathe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mathe\\OneDrive\\Documents\\Cpt_487\\teamblaster\\487Project\\487Project\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\seaha\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Mathe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -127,7 +122,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -161,8 +155,7 @@
           "net47",
           "net471",
           "net472",
-          "net48",
-          "net481"
+          "net48"
         ],
         "assetTargetFallback": true,
         "warn": true,
@@ -171,7 +164,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
