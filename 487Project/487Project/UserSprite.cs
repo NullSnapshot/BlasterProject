@@ -86,9 +86,7 @@ namespace MainProgram
             {
                 tempV.Y = 104 + this.ballTexture.Height / 2;
                 this.ballPosition = tempV;
-            }
-            
+            }            
         }
-
     }
 }
