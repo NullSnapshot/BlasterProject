@@ -15,11 +15,13 @@ namespace MainProgram
         public Vector2 ballPosition { get; set; }
         public float ballSpeed { get; set; }
 
+
         public UserSprite(Texture2D ballTexture, GraphicsDeviceManager _graphics)
         {
             this.ballTexture = ballTexture;
             this.ballPosition = new Vector2(500, 1200);
             this.ballSpeed = 100f;
+            UserMovement usersMovements = new UserMovement(this.ballPosition);
         }
 
         public void Draw(SpriteBatch sb)
@@ -86,7 +88,9 @@ namespace MainProgram
             {
                 tempV.Y = 104 + this.ballTexture.Height / 2;
                 this.ballPosition = tempV;
-            }            
+            }
+
+            UserMovement usersMovements = new UserMovement(this.ballPosition);
         }
     }
 }

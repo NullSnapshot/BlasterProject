@@ -54,10 +54,10 @@ namespace MainProgram
 
             // TODO: use this.Content to load your game content here
             // user.ballTexture = Content.Load<Texture2D>("ball");
-            user = new UserSprite(Content.Load<Texture2D>("ball"), _graphics);
+            user = new UserSprite(Content.Load<Texture2D>("Coug"), _graphics);
             background = Content.Load<Texture2D>("tempoverlay");
-            midBoss = new MidBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 300), 150, Content.Load<Texture2D>("ball"));
-            finalBoss = new FinalBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 600), 100, 100, Content.Load<Texture2D>("ball"));
+            midBoss = new MidBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 300), 150, Content.Load<Texture2D>("bullet"));
+            finalBoss = new FinalBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 600), 100, 100, Content.Load<Texture2D>("bullet"));
         }
 
         float spawn = 0;
@@ -117,7 +117,7 @@ namespace MainProgram
 
         public void Shoot()
         {
-            Bullets newBullet = new Bullets(Content.Load<Texture2D>("Bullet"));
+            Bullets newBullet = new Bullets(Content.Load<Texture2D>("bullet"));
             newBullet.velocity = new Vector2((float)Math.Cos(rotation), (float)Math.Sin(rotation)) * 5f + spriteVelocity;
             newBullet.position = spritePosition + newBullet.velocity * 5;
             newBullet.isVisible = true;
@@ -140,7 +140,7 @@ namespace MainProgram
                         spawn = 0;
                         if(enemies.Count < 5)
                         {
-                            enemies.Add(new Enemies(Content.Load<Texture2D>("ball"), new Vector2(randX, 105), Content.Load<Texture2D>("ball")));
+                            enemies.Add(new Enemies(Content.Load<Texture2D>("ball"), new Vector2(randX, 105), Content.Load<Texture2D>("bullet")));
                         }
                     }
                 }
@@ -167,7 +167,7 @@ namespace MainProgram
                         spawnTwo = 0;
                         if(enemiesTwo.Count < 5)
                         {
-                            enemiesTwo.Add(new EnemiesTwo(Content.Load<Texture2D>("ball"), new Vector2(110, randY), Content.Load<Texture2D>("ball")));
+                            enemiesTwo.Add(new EnemiesTwo(Content.Load<Texture2D>("ball"), new Vector2(110, randY), Content.Load<Texture2D>("bullet")));
                         }
                     }
                 }
