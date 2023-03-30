@@ -9,8 +9,26 @@ namespace MainProgram
 {
     public class Game1 : Game
     {
+        Dictionary<Keys, string> keyBindings = new Dictionary<Keys, string>()
+            {
+                { Keys.A, "Left" },
+                { Keys.W, "Up" },
+                { Keys.D, "Right" },
+                { Keys.S, "Down" },
+                { Keys.Left, "Left" },
+                { Keys.Up, "Up" },
+                { Keys.Right, "Right" },
+                { Keys.Down, "Down" },
+            };
+
+        Vector2 StartingPosition = new Vector2(500, 1200);
+        float StartingSpeed = 100f;
+
+        InputInterceptor inputInterceptor;
+
         UserSprite user;
         Texture2D background;
+        UserMovement userMovements;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -54,8 +72,10 @@ namespace MainProgram
 
             // TODO: use this.Content to load your game content here
             // user.ballTexture = Content.Load<Texture2D>("ball");
-            user = new UserSprite(Content.Load<Texture2D>("Coug"), _graphics);
+            userMovements = new UserMovement(StartingPosition, StartingSpeed);
+            user = new UserSprite(Content.Load<Texture2D>("Coug"), _graphics, userMovements);
             background = Content.Load<Texture2D>("tempoverlay");
+            inputInterceptor = new InputInterceptor("Mouse", keyBindings, userMovements);
             midBoss = new MidBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 300), 150, Content.Load<Texture2D>("bullet"));
             finalBoss = new FinalBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 600), 100, 100, Content.Load<Texture2D>("bullet"));
         }
@@ -67,6 +87,8 @@ namespace MainProgram
 
         protected override void Update(GameTime gameTime)
         {
+            inputInterceptor.Update(gameTime, user);
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             // TODO: Add your update logic here
@@ -89,9 +111,11 @@ namespace MainProgram
             finalBoss.Update(gameTime);
             UpdateBullets();
             
-            var kstate = Keyboard.GetState();
 
-            user.move(kstate, gameTime, _graphics);
+
+            //var kstate = Keyboard.GetState();
+
+            //user.Update(kstate, gameTime);
            
         }
 

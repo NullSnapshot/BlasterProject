@@ -12,6 +12,7 @@ namespace MainProgram
         public Texture2D texture;
         public Vector2 position;
         public Vector2 velocity;
+
         public bool isVisible = true;
 
         public Bullets(Texture2D newTexture)
