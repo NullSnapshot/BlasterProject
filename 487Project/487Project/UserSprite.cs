@@ -17,6 +17,9 @@ namespace MainProgram
 
         UserMovement usersMovements;
 
+        int health = 10;
+        bool alive = false;
+
 
         public UserSprite(Texture2D ballTexture, GraphicsDeviceManager _graphics, UserMovement movement)
         {
@@ -49,54 +52,15 @@ namespace MainProgram
             this.ballPosition = this.usersMovements.getLocation();
             this.ballTexture = this.usersMovements.getTexture();
             this.ballSpeed = this.usersMovements.getSpeed();
-            //Vector2 tempV = this.ballPosition;
+        }
 
-            //if (kstate.IsKeyDown(Keys.Up))
-            //{
-            //    tempV.Y -= this.ballSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //    this.ballPosition = tempV;
-            //}
-
-            //if (kstate.IsKeyDown(Keys.Down))
-            //{
-            //    tempV.Y += this.ballSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //    this.ballPosition = tempV;
-            //}
-
-            //if (kstate.IsKeyDown(Keys.Left))
-            //{
-            //    tempV.X -= this.ballSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //    this.ballPosition = tempV;
-            //}
-
-            //if (kstate.IsKeyDown(Keys.Right))
-            //{
-            //    tempV.X += this.ballSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-            //    this.ballPosition = tempV;
-            //}
-
-            //if (this.ballPosition.X > 1013 - this.ballTexture.Width / 2)
-            //{
-            //    tempV.X = 1013 - this.ballTexture.Width / 2;
-            //    this.ballPosition = tempV;
-            //}
-            //else if (this.ballPosition.X < 89 + this.ballTexture.Width / 2)
-            //{
-            //    tempV.X = 89 + this.ballTexture.Width / 2;
-            //    this.ballPosition = tempV;
-            //}
-
-
-            //if (this.ballPosition.Y > 1266 - this.ballTexture.Height / 2)
-            //{
-            //    tempV.Y = 1266 - this.ballTexture.Height / 2;
-            //    this.ballPosition = tempV;
-            //}
-            //else if (this.ballPosition.Y < 104 + this.ballTexture.Height / 2)
-            //{
-            //    tempV.Y = 104 + this.ballTexture.Height / 2;
-            //    this.ballPosition = tempV;
-            //}
+        public void TakeDamage(int amount)
+        {
+            this.health -= amount;
+            if(this.health <= 0)
+            {
+                this.alive = true;
+            }
         }
     }
 }
