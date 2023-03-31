@@ -28,7 +28,6 @@ namespace MainProgram
             distance = newDistance;
             bulletTexture = newBulletTexture;
             oldDistance = distance;
-
         }
 
         public float shoot = 0;
@@ -62,52 +61,22 @@ namespace MainProgram
                 shoot = 0;
                 ShootBullets();
             }
-            UpdateBullets();
-        }
-
-        public void UpdateBullets()
-        {
-            foreach(Bullets bullet in bullets)
-            {
-                bullet.position += bullet.velocity;
-                if(bullet.position.Y > 1200 || bullet.position.X < 90 || bullet.position.X > 950)
-                {
-                    bullet.isVisible = false;
-                }
-            }
-            for(int i = 0; i < bullets.Count; i++)
-            {
-                if(!bullets[i].isVisible)
-                {
-                    bullets.RemoveAt(i);
-                    i--;
-                }
-            }
+            Bullets.UpdateBullets(bullets);
         }
 
         public void ShootBullets()
         {
-            Bullets newBullet = new Bullets(bulletTexture);
-            Bullets newBulletTwo = new Bullets(bulletTexture);
-            Bullets newBulletThree = new Bullets(bulletTexture);
-            newBullet.velocity.Y = velocity.Y + 6f;
-            newBulletTwo.velocity.Y = velocity.Y + 6f;
-            newBulletTwo.velocity.X = velocity.X + 1f; 
-            newBulletThree.velocity.Y = velocity.Y + 6f;
-            newBulletThree.velocity.X = velocity.X - 1f;
-            newBullet.position = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height/ 2), position.Y + newBullet.velocity.Y);
-            newBulletTwo.position = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height/ 2), position.Y + newBullet.velocity.Y);
-            newBulletThree.position = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height/ 2), position.Y + newBullet.velocity.Y);
-            newBullet.isVisible = true;
-            newBulletTwo.isVisible = true;
-            newBulletThree.isVisible = true;
-            if(bullets.Count() < 12)
+            Vector2 startPosition = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height / 2), position.Y);
+            Vector2[] velocities =
             {
-                bullets.Add(newBullet);
-                bullets.Add(newBulletTwo);
-                bullets.Add(newBulletThree);
-            }
+                new Vector2(0, velocity.Y + 6f),
+                new Vector2(velocity.X + 1f, velocity.Y + 6f),
+                new Vector2(velocity.X - 1f, velocity.Y + 6f)
+            };
+
+            Bullets.ShootMultipleBullets(bullets, bulletTexture, startPosition, velocities, 12);
         }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Bullets bullet in bullets)
