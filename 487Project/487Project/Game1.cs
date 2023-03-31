@@ -117,28 +117,8 @@ namespace MainProgram
 
             midBoss.Update(gameTime);
             finalBoss.Update(gameTime);
-            UpdateBullets();
+            Bullets.UpdateBullets(bullets);
            
-        }
-
-        public void UpdateBullets()
-        {
-            foreach(Bullets bullet in bullets)
-            {
-                bullet.position += bullet.velocity;
-                if(Vector2.Distance(bullet.position, spritePosition) > 500)
-                {
-                    bullet.isVisible = false;
-                }
-            }
-            for(int i = 0; i < bullets.Count; i++)
-            {
-                if(!bullets[i].isVisible)
-                {
-                    bullets.RemoveAt(i);
-                    i--;
-                }
-            }
         }
 
         public void Shoot()
