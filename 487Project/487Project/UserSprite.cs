@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using System.Reflection.Metadata;
 
 namespace MainProgram
 {
@@ -17,19 +18,21 @@ namespace MainProgram
 
         UserMovement usersMovements;
 
-        int health = 10;
-        bool alive = false;
+        public int health { get; set;}
+        public bool alive { get; set; }
+        public int score { get; set; }
 
 
-        public UserSprite(Texture2D ballTexture, GraphicsDeviceManager _graphics, UserMovement movement)
+        public UserSprite(Texture2D ballTexture, GraphicsDeviceManager _graphics, UserMovement movement, int health)
         {
             this.ballTexture = ballTexture;
-            //this.ballPosition = new Vector2(500, 1200);
-            //this.ballSpeed = 100f;
             this.usersMovements = movement;
             movement.setTexture(this.ballTexture);
             this.ballPosition = movement.getLocation();
             this.ballSpeed = movement.getSpeed();
+            this.health = health;
+            this.alive = true;
+            this.score = 0;
         }
 
         public void Draw(SpriteBatch sb)
@@ -49,6 +52,7 @@ namespace MainProgram
         //public void Update(KeyboardState kstate, GameTime gameTime)
         public void Update()
         {
+            this.score += 1;
             this.ballPosition = this.usersMovements.getLocation();
             this.ballTexture = this.usersMovements.getTexture();
             this.ballSpeed = this.usersMovements.getSpeed();
@@ -59,7 +63,7 @@ namespace MainProgram
             this.health -= amount;
             if(this.health <= 0)
             {
-                this.alive = true;
+                this.alive = false;
             }
         }
     }

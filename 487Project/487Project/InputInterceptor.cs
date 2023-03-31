@@ -22,20 +22,20 @@ namespace MainProgram
             this.userPosition = userPosition;
         }
 
-        public void Update(GameTime gameTime, UserSprite user)
+        public void Update(GameTime gameTime)
         {
             if(this.inputType == "Keyboard")
             {
-                updateKeyboard(gameTime, user);
+                updateKeyboard(gameTime);
             }
 
             if(this.inputType == "Mouse")
             {
-                updateMouse(gameTime, user);
+                updateMouse(gameTime);
             }
         }
 
-        private void updateKeyboard(GameTime gameTime, UserSprite user)
+        private void updateKeyboard(GameTime gameTime)
         {
             var kstate = Keyboard.GetState();
 
@@ -50,7 +50,6 @@ namespace MainProgram
                 System.Diagnostics.Debug.WriteLine(direction);
                 if (direction == "Up")
                 {
-                    System.Diagnostics.Debug.WriteLine("In UP");
                     tempV.Y -= tempSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
                     userPosition.updateLocation(tempV);
                 }
@@ -95,20 +94,17 @@ namespace MainProgram
                     tempV.Y = 104 + texture.Height / 2;
                     userPosition.updateLocation(tempV);
                 }
-
-                user.Update();
             }
         }
 
         // NEEDS WORK: Mouse is allowed to go outside of boundaries which is something we don't want
-        private void updateMouse(GameTime gameTime, UserSprite user)
+        private void updateMouse(GameTime gameTime)
         {
             MouseState state = Mouse.GetState();
 
             Vector2 tempV = new Vector2(state.X, state.Y);
             Texture2D texture = userPosition.getTexture();
             userPosition.updateLocation(tempV);
-            user.Update();
         }
     }
 }
