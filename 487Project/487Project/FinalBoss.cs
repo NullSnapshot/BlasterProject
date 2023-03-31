@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Graphics;
+using System.Collections.Generic;
 
-namespace MainProgram 
+namespace MainProgram
 {
     class FinalBoss
     {
@@ -37,12 +33,12 @@ namespace MainProgram
 
         public float shoot = 0;
 
-        public void Update (GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             position += velocity;
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
 
-            if(distanceX <= 0)
+            if (distanceX <= 0)
             {
                 right = true;
                 up = true;
@@ -61,7 +57,7 @@ namespace MainProgram
                 distanceX += 1;
                 distanceY += 1;
             }
-            else 
+            else
             {
                 distanceX -= 1;
                 distanceY -= 1;
@@ -70,60 +66,10 @@ namespace MainProgram
             if (shoot > 1)
             {
                 shoot = 0;
-                ShootBullets();
+                Vector2 startPosition = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height / 2), position.Y + velocity.Y);
+                Bullets.ShootMultipleBullets(bullets, bulletTexture, startPosition, new Vector2[] { velocity + new Vector2(0, 3f), velocity + new Vector2(1f, 6f), velocity + new Vector2(-0.5f, 4f), velocity + new Vector2(-0.5f, 2f) }, 21);
             }
-            UpdateBullets();
-        }
-        
-
-        public void UpdateBullets()
-        {
-            foreach(Bullets bullet in bullets)
-            {
-                bullet.position += bullet.velocity;
-                if(bullet.position.Y > 1200 || bullet.position.X < 90 || bullet.position.X > 950 || bullet.position.Y < 105)
-                {
-                    bullet.isVisible = false;
-                }
-            }
-            for(int i = 0; i < bullets.Count; i++)
-            {
-                if(!bullets[i].isVisible)
-                {
-                    bullets.RemoveAt(i);
-                    i--;
-                }
-            }
-        }
-
-        public void ShootBullets()
-        {
-            Bullets newBullet = new Bullets(bulletTexture);
-            Bullets newBulletTwo = new Bullets(bulletTexture);
-            Bullets newBulletThree = new Bullets(bulletTexture);
-            Bullets newBulletFour = new Bullets(bulletTexture);
-            newBullet.velocity.Y = velocity.Y + 3f;
-            newBulletTwo.velocity.Y = velocity.Y + 6f;
-            newBulletTwo.velocity.X = velocity.X + 1f; 
-            newBulletThree.velocity.Y = velocity.Y + 4f;
-            newBulletThree.velocity.X = velocity.X - .5f;
-            newBulletFour.velocity.Y = velocity.Y + 2f;
-            newBulletFour.velocity.X = velocity.X - .5f;
-            newBullet.position = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height/ 2), position.Y + newBullet.velocity.Y);
-            newBulletTwo.position = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height/ 2), position.Y + newBullet.velocity.Y);
-            newBulletThree.position = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height/ 2), position.Y + newBullet.velocity.Y);
-            newBulletFour.position = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height/ 2), position.Y + newBullet.velocity.Y);
-            newBullet.isVisible = true;
-            newBulletTwo.isVisible = true;
-            newBulletThree.isVisible = true;
-            newBulletFour.isVisible = true;
-            if(bullets.Count() < 21)
-            {
-                bullets.Add(newBullet);
-                bullets.Add(newBulletTwo);
-                bullets.Add(newBulletThree);
-                bullets.Add(newBulletFour);
-            }
+            Bullets.UpdateBullets(bullets);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -132,7 +78,7 @@ namespace MainProgram
             {
                 bullet.Draw(spriteBatch);
             }
-            if(velocity.X > 0)
+            if (velocity.X > 0)
             {
                 spriteBatch.Draw(texture, position, null, Color.White, rotation, origin, 1f, SpriteEffects.FlipHorizontally, 0f);
             }
