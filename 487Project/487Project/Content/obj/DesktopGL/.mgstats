@@ -1,0 +1,7 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/ball.png","C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bin/DesktopGL/ball.xnb","TextureProcessor","Texture2DContent",8368,16469,0.2203249
+"C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bullet.png","C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bin/DesktopGL/bullet.xnb","TextureProcessor","Texture2DContent",1621,22585,0.0048978
+"C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/Coug.png","C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bin/DesktopGL/Coug.xnb","TextureProcessor","Texture2DContent",2843,22585,0.0088923
+"C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/firstoverlay.png","C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bin/DesktopGL/firstoverlay.xnb","TextureProcessor","Texture2DContent",1776775,8960085,0.6854017
+"C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/Fonts/Test.spritefont","C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bin/DesktopGL/Fonts/Test.xnb","FontDescriptionProcessor","SpriteFontContent",2068,21535,0.235022
+"C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/tempoverlay.png","C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bin/DesktopGL/tempoverlay.xnb","TextureProcessor","Texture2DContent",25808,8960085,0.3213541
