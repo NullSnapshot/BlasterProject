@@ -20,6 +20,7 @@ namespace MainProgram
                 { Keys.Up, "Up" },
                 { Keys.Right, "Right" },
                 { Keys.Down, "Down" },
+                { Keys.Space, "Space"},
             };
 
         Vector2 StartingPosition = new Vector2(500, 1200);
@@ -80,7 +81,7 @@ namespace MainProgram
             background = Content.Load<Texture2D>("tempoverlay");
             testFont = Content.Load<SpriteFont>("Fonts/test");
             sideBar = new SideBar(testFont, user, 10000);
-            inputInterceptor = new InputInterceptor("Keyboard", keyBindings, userMovements);
+            inputInterceptor = new InputInterceptor("Keyboard", keyBindings, userMovements, Content.Load<Texture2D>("ball"));
             midBoss = new MidBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 300), 150, Content.Load<Texture2D>("bullet"));
             finalBoss = new FinalBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 600), 100, 100, Content.Load<Texture2D>("bullet"));
 
@@ -198,6 +199,7 @@ namespace MainProgram
             _spriteBatch.Draw(background, new Rectangle(0, 0, 1600, 1400), Color.White);
             sideBar.draw(_spriteBatch);
             user.Draw(_spriteBatch);
+            inputInterceptor.Draw(_spriteBatch);
             foreach(Enemies enemy in enemies)
             {
                 enemy.Draw(_spriteBatch);

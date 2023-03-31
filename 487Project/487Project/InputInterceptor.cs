@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,11 +16,14 @@ namespace MainProgram
         PlayerConfig config;
         string inputType;
         UserMovement userPosition;
-        public InputInterceptor(String inputType, Dictionary<Keys, string> config, UserMovement userPosition) 
+        public Texture2D bulletTexture;
+        List<Bullets> bullets = new List<Bullets>();
+        public InputInterceptor(String inputType, Dictionary<Keys, string> config, UserMovement userPosition, Texture2D bullet) 
         {
             this.config = new PlayerConfig(config);
             this.inputType = inputType;
             this.userPosition = userPosition;
+            this.bulletTexture = bullet;
         }
 
         public void Update(GameTime gameTime)
@@ -72,6 +76,15 @@ namespace MainProgram
                     userPosition.updateLocation(tempV);
                 }
 
+                if (direction == "Space")
+                {
+                    Vector2 velocity = new Vector2(0, 3);
+                    Vector2 startPosition = new Vector2(userPosition.getLocation().X + (texture.Height / 2) - (bulletTexture.Height / 2), userPosition.getLocation().Y + velocity.Y);
+                    Bullets bullet = new Bullets(bulletTexture);
+                    this.bullets.Add(bullet);
+                    Bullets.ShootBullets(bullets, bulletTexture, startPosition, velocity + new Vector2(0, -6f), 3);
+                }
+
                 if (tempV.X > 1013 - texture.Width / 2)
                 {
                     tempV.X = 1013 - texture.Width / 2;
@@ -95,6 +108,7 @@ namespace MainProgram
                     userPosition.updateLocation(tempV);
                 }
             }
+            Bullets.UpdateBullets(bullets);
         }
 
         // NEEDS WORK: Mouse is allowed to go outside of boundaries which is something we don't want
@@ -105,6 +119,14 @@ namespace MainProgram
             Vector2 tempV = new Vector2(state.X, state.Y);
             Texture2D texture = userPosition.getTexture();
             userPosition.updateLocation(tempV);
+        }
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            foreach (Bullets bullet in bullets)
+            {
+                bullet.Draw(spriteBatch);
+            }
         }
     }
 }

@@ -18,6 +18,8 @@ namespace MainProgram
 
         UserMovement usersMovements;
 
+        public bool isVisible = true;
+
         public int health { get; set;}
         public bool alive { get; set; }
         public int score { get; set; }
@@ -49,7 +51,6 @@ namespace MainProgram
                 0f);
         }
 
-        //public void Update(KeyboardState kstate, GameTime gameTime)
         public void Update()
         {
             this.score += 1;
@@ -64,7 +65,13 @@ namespace MainProgram
             if(this.health <= 0)
             {
                 this.alive = false;
+                Dead();
             }
+        }
+
+        private void Dead()
+        {
+            this.isVisible= false;
         }
     }
 }

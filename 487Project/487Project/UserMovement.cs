@@ -24,7 +24,6 @@ namespace MainProgram
 
         public void updateLocation(Vector2 newPosition)
         {
-            System.Diagnostics.Debug.WriteLine("Updated location");
             this.userPosition = newPosition;
         }
 

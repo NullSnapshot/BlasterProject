@@ -32,6 +32,10 @@ namespace MainProgram
                 {
                     bullet.isVisible = false;
                 }
+                if (bullet.position.Y < 104)
+                {
+                    bullet.isVisible = false;
+                }
             }
             for (int i = 0; i < bullets.Count; i++)
             {
