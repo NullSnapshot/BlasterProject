@@ -32,3 +32,37 @@ C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net7.0\Conten
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net7.0\Content\Fonts\Test.xnb
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net7.0\MonoGame.Extended.dll
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\Content\couglogo.xnb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\Content\ball.xnb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\Content\bullet.xnb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\Content\Coug.xnb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\Content\firstoverlay.xnb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\Content\Fonts\Test.xnb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\Content\tempoverlay.xnb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\487Project.exe
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\487Project.deps.json
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\487Project.runtimeconfig.json
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\487Project.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\487Project.pdb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\MonoGame.Extended.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\MonoGame.Framework.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\runtimes\linux-x64\native\libSDL2-2.0.so.0
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\runtimes\linux-x64\native\libopenal.so.1
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\runtimes\osx\native\libSDL2.dylib
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\runtimes\osx\native\libopenal.1.dylib
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\runtimes\win-x64\native\SDL2.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\runtimes\win-x64\native\soft_oal.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\runtimes\win-x86\native\SDL2.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\bin\Debug\net7.0\runtimes\win-x86\native\soft_oal.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.csproj.AssemblyReference.cache
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.AssemblyInfoInputs.cache
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.AssemblyInfo.cs
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.csproj.CoreCompileInputs.cache
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.csproj.CopyComplete
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\refint\487Project.dll
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.pdb
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\487Project.genruntimeconfig.cache
+C:\Users\xopox\Documents\CS_487\teamblaster\487Project\487Project\obj\Debug\net7.0\ref\487Project.dll

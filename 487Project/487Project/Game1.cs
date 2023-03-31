@@ -104,21 +104,139 @@ namespace MainProgram
             spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
             spawnTwo += (float)gameTime.ElapsedGameTime.TotalSeconds;
             vanish += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            foreach(Enemies enemy in enemies)
-            {
-                enemy.Update(_graphics.GraphicsDevice, gameTime);
-            }
-            foreach(EnemiesTwo enemy in enemiesTwo)
-            {
-                enemy.Update(_graphics.GraphicsDevice, gameTime);
-            }
             LoadEnemies();
             LoadEnemiesTwo();
-
             midBoss.Update(gameTime);
             finalBoss.Update(gameTime);
             Bullets.UpdateBullets(bullets);
+
+            foreach (Bullets bullet in bullets)
+            {
+                // Check for collisions with the user
+                if (user.CheckCollision(bullet.BoundingBox))
+                {
+                    // Collision detected, remove bullet and damage user
+                    bullet.isVisible = false;
+                    user.TakeDamage(1);
+                }
+
+                // Check for collisions with enemies
+                foreach (Enemies enemy in enemies)
+                {
+                    if (bullet.BoundingBox.Intersects(enemy.BoundingBox))
+                    {
+                        // Collision detected, remove bullet and enemy
+                        bullet.isVisible = false;
+                        enemy.isVisible = false;
+                    }
+                }
+
+                // Check for collisions with enemiesTwo
+                foreach (EnemiesTwo enemyTwo in enemiesTwo)
+                {
+                    if (bullet.BoundingBox.Intersects(enemyTwo.BoundingBox))
+                    {
+                        // Collision detected, remove bullet and enemyTwo
+                        bullet.isVisible = false;
+                        enemyTwo.isVisible = false;
+                    }
+                }
+                // Check for collisions with midBoss
+                if (bullet.BoundingBox.Intersects(midBoss.BoundingBox))
+                {
+                    // Collision detected, remove bullet and damage midBoss
+                    bullet.isVisible = false;
+                    midBoss.TakeDamage(1);
+                }
+
+                // Check for collisions with finalBoss
+                if (bullet.BoundingBox.Intersects(finalBoss.BoundingBox))
+                {
+                    // Collision detected, remove bullet and damage finalBoss
+                    bullet.isVisible = false;
+                    finalBoss.TakeDamage(1);
+                }
+            }
+            // Update enemies
+            foreach (Enemies enemy in enemies)
+            {
+                enemy.Update(_graphics.GraphicsDevice, gameTime);
+
+                // Check for collisions with the user
+                if (user.CheckCollision(enemy.BoundingBox))
+                {
+                    // Collision detected, remove enemy and damage user
+                    enemy.isVisible = false;
+                    user.TakeDamage(1);
+                }
+            }
+
+            // Remove any enemies that are no longer visible
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                if (!enemies[i].isVisible)
+                {
+                    enemies.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            // Update enemiesTwo
+            foreach (EnemiesTwo enemyTwo in enemiesTwo)
+            {
+                enemyTwo.Update(_graphics.GraphicsDevice, gameTime);
+
+                // Check for collisions with the user
+                if (user.CheckCollision(enemyTwo.BoundingBox))
+                {
+                    // Collision detected, remove enemyTwo and damage user
+                    enemyTwo.isVisible = false;
+                    user.TakeDamage(1);
+                }
+            }
+
+            // Remove any enemiesTwo that are no longer visible
+            for (int i = 0; i < enemiesTwo.Count; i++)
+            {
+                if (!enemiesTwo[i].isVisible)
+                {
+                    enemiesTwo.RemoveAt(i);
+                    i--;
+                }
+            }
+
+            // Update midBoss
+            midBoss.Update(gameTime);
+
+            // Check for collisions with the user
+            if (user.CheckCollision(midBoss.BoundingBox))
+            {
+                // Collision detected, damage user
+                user.TakeDamage(1);
+            }
+
+            // Update finalBoss
+            finalBoss.Update(gameTime);
+
+            // Check for collisions with the user
+            if (user.CheckCollision(finalBoss.BoundingBox))
+            {
+                // Collision detected, damage user
+                user.TakeDamage(1);
+            }
+
+            if (user.health <= 0)
+            {
+                // User has lost
+                Exit();
+            }
+            else if (vanish >= 120 && enemies.Count == 0 && enemiesTwo.Count == 0 && !midBoss.isVisible && !finalBoss.isVisible)
+            {
+                // User has won
+                Exit();
+            }
+
+            base.Update(gameTime);
            
         }
 

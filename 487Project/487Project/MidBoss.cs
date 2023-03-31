@@ -20,6 +20,8 @@ namespace MainProgram
         float oldDistance;
         List<Bullets> bullets = new List<Bullets>();
         public Texture2D bulletTexture;
+        public int health = 10;
+        public bool isVisible = true;
 
         public MidBoss(Texture2D newtexture, Vector2 newPosition, float newDistance, Texture2D newBulletTexture)
         {
@@ -28,6 +30,11 @@ namespace MainProgram
             distance = newDistance;
             bulletTexture = newBulletTexture;
             oldDistance = distance;
+        }
+
+        public Rectangle BoundingBox // Add this property
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); }
         }
 
         public float shoot = 0;
@@ -90,6 +97,15 @@ namespace MainProgram
             else
             {
                 spriteBatch.Draw(texture, position, null, Color.White, rotation, origin, 1f, SpriteEffects.None, 0f);
+            }
+        }
+
+        public void TakeDamage(int damage)
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                isVisible = false;
             }
         }
     }

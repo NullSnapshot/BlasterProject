@@ -23,6 +23,11 @@ namespace MainProgram
             spriteBatch.Draw(texture, position, Color.Black);
         }
 
+        public Rectangle BoundingBox // Add this property
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); }
+        }
+
         public static void UpdateBullets(List<Bullets> bullets)
         {
             foreach (Bullets bullet in bullets)

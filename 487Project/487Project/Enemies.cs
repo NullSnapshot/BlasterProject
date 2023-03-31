@@ -22,6 +22,11 @@ namespace MainProgram
             velocity = new Vector2(0, 3);
         }
 
+        public Rectangle BoundingBox // Add this property
+        {
+            get { return new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height); }
+        }
+
         public float shoot = 0;
         public void Update(GraphicsDevice graphics, GameTime gameTime)
         {
