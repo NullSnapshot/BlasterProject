@@ -109,7 +109,7 @@ namespace MainProgram
 
             midBoss.Update(gameTime);
             finalBoss.Update(gameTime);
-            UpdateBullets();
+            Bullets.UpdateBullets(bullets);
             
 
 
@@ -119,26 +119,6 @@ namespace MainProgram
            
         }
 
-        public void UpdateBullets()
-        {
-            foreach(Bullets bullet in bullets)
-            {
-                bullet.position += bullet.velocity;
-                if(Vector2.Distance(bullet.position, spritePosition) > 500)
-                {
-                    bullet.isVisible = false;
-                }
-            }
-            for(int i = 0; i < bullets.Count; i++)
-            {
-                if(!bullets[i].isVisible)
-                {
-                    bullets.RemoveAt(i);
-                    i--;
-                }
-            }
-        }
-
         public void Shoot()
         {
             Bullets newBullet = new Bullets(Content.Load<Texture2D>("bullet"));
@@ -146,11 +126,11 @@ namespace MainProgram
             newBullet.position = spritePosition + newBullet.velocity * 5;
             newBullet.isVisible = true;
 
-            if(bullets.Count < 40)
+            if (bullets.Count < 40)
             {
                 bullets.Add(newBullet);
             }
-        }   
+        }  
 
         public void LoadEnemies()
         {
