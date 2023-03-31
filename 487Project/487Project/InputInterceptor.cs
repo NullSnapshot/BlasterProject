@@ -16,12 +16,10 @@ namespace MainProgram
         string inputType;
         UserMovement userPosition;
      
-        public InputInterceptor(String inputType, Dictionary<Keys, string> config, UserMovement userPosition)
+        public InputInterceptor(String inputType, Dictionary<Keys, string> config)
         {
             this.config = new PlayerConfig(config);
             this.inputType = inputType;
-            this.userPosition = userPosition;
-            
         }
 
         public void Update(GameTime gameTime, UserSprite user)
