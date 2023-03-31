@@ -15,11 +15,13 @@ namespace MainProgram
         PlayerConfig config;
         string inputType;
         UserMovement userPosition;
-        public InputInterceptor(String inputType, Dictionary<Keys, string> config, UserMovement userPosition) 
+     
+        public InputInterceptor(String inputType, Dictionary<Keys, string> config, UserMovement userPosition)
         {
             this.config = new PlayerConfig(config);
             this.inputType = inputType;
             this.userPosition = userPosition;
+            
         }
 
         public void Update(GameTime gameTime, UserSprite user)
@@ -100,13 +102,33 @@ namespace MainProgram
             }
         }
 
-        // NEEDS WORK: Mouse is allowed to go outside of boundaries which is something we don't want
+        // NEEDS WORK: Mouse is allowed to go outside of boundaries which is something we don't want (Resolved)
         private void updateMouse(GameTime gameTime, UserSprite user)
         {
             MouseState state = Mouse.GetState();
-
             Vector2 tempV = new Vector2(state.X, state.Y);
             Texture2D texture = userPosition.getTexture();
+
+            // left side
+            if (tempV.X <= 122)
+            {
+                tempV.X = 122;
+            }
+            // right side
+            if (tempV.X + texture.Width > 1050)
+            {
+                tempV.X = 1050 - texture.Width;
+            }
+            // bottom screen
+            if (tempV.Y > 1230)
+            {
+                tempV.Y = 1230;
+            }
+            // top screen
+            if (tempV.Y + texture.Height < 210)
+            {
+                tempV.Y = 210 - texture.Height;
+            }
             userPosition.updateLocation(tempV);
             user.Update();
         }

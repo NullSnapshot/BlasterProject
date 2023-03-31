@@ -47,8 +47,6 @@ namespace MainProgram
         public Vector2 spriteVelocity;
         //Vector2 distance;
 
-
-
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
