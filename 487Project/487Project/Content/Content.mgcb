@@ -61,6 +61,13 @@
 /processorParam:TextureFormat=Color
 /build:firstoverlay.png
 
+#begin Fonts/Test.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Test.spritefont
+
 #begin tempoverlay.png
 /importer:TextureImporter
 /processor:TextureProcessor

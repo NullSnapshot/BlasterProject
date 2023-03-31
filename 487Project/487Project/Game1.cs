@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System;
+using mainProgram;
 
 namespace MainProgram
 {
@@ -45,7 +46,9 @@ namespace MainProgram
         public Vector2 spritePosition;
         public float rotation;
         public Vector2 spriteVelocity;
-        //Vector2 distance;
+
+        SpriteFont testFont;
+        SideBar sideBar;
 
 
 
@@ -73,11 +76,14 @@ namespace MainProgram
             // TODO: use this.Content to load your game content here
             // user.ballTexture = Content.Load<Texture2D>("ball");
             userMovements = new UserMovement(StartingPosition, StartingSpeed);
-            user = new UserSprite(Content.Load<Texture2D>("Coug"), _graphics, userMovements);
+            user = new UserSprite(Content.Load<Texture2D>("Coug"), _graphics, userMovements, 10);
             background = Content.Load<Texture2D>("tempoverlay");
-            inputInterceptor = new InputInterceptor("Mouse", keyBindings, userMovements);
+            testFont = Content.Load<SpriteFont>("Fonts/test");
+            sideBar = new SideBar(testFont, user, 10000);
+            inputInterceptor = new InputInterceptor("Keyboard", keyBindings, userMovements);
             midBoss = new MidBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 300), 150, Content.Load<Texture2D>("bullet"));
             finalBoss = new FinalBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 600), 100, 100, Content.Load<Texture2D>("bullet"));
+
         }
 
         float spawn = 0;
@@ -87,7 +93,9 @@ namespace MainProgram
 
         protected override void Update(GameTime gameTime)
         {
-            inputInterceptor.Update(gameTime, user);
+            inputInterceptor.Update(gameTime);
+            user.Update();
+            sideBar.update();
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -110,12 +118,6 @@ namespace MainProgram
             midBoss.Update(gameTime);
             finalBoss.Update(gameTime);
             UpdateBullets();
-            
-
-
-            //var kstate = Keyboard.GetState();
-
-            //user.Update(kstate, gameTime);
            
         }
 
@@ -214,6 +216,7 @@ namespace MainProgram
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             _spriteBatch.Draw(background, new Rectangle(0, 0, 1600, 1400), Color.White);
+            sideBar.draw(_spriteBatch);
             user.Draw(_spriteBatch);
             foreach(Enemies enemy in enemies)
             {

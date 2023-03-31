@@ -29,3 +29,6 @@ C:\School\Spring 2023\CptS 487\487\487Project\487Project\obj\Debug\net7.0\487Pro
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\obj\Debug\net7.0\487Project.genruntimeconfig.cache
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\obj\Debug\net7.0\ref\487Project.dll
 C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net7.0\Content\firstoverlay.xnb
+C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net7.0\Content\Fonts\Test.xnb
+C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net7.0\MonoGame.Extended.dll
+C:\School\Spring 2023\CptS 487\487\487Project\487Project\bin\Debug\net7.0\Newtonsoft.Json.dll
