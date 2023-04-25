@@ -37,7 +37,6 @@ namespace mainProgram
         {
             this.score = user.score;
             this.health = user.health;
-            System.Diagnostics.Debug.WriteLine(this.score.ToString());
         }
     }
 }

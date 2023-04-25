@@ -31,6 +31,7 @@ namespace MainProgram
         UserSprite user;
         Texture2D background;
         UserMovement userMovements;
+        Button easyModeButton;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -84,7 +85,26 @@ namespace MainProgram
             inputInterceptor = new InputInterceptor("Keyboard", keyBindings, userMovements, Content.Load<Texture2D>("ball"));
             midBoss = new MidBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 300), 150, Content.Load<Texture2D>("bullet"));
             finalBoss = new FinalBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 600), 100, 100, Content.Load<Texture2D>("bullet"));
+            
+            easyModeButton = new Button(Content.Load<Texture2D>("Coug"), Content.Load<SpriteFont>("Fonts/test"))
+            {
+                Position = new Vector2(1250, 500),
+                Text = "Easy Mode",
+            };
+            easyModeButton.Click += EasyModeButton_Click;
 
+        }
+
+        private void EasyModeButton_Click(object sender, EventArgs e)
+        {
+            if(user.cheatMode == false)
+            {
+                user.cheatMode = true;
+            }
+            else
+            {
+                user.cheatMode = false;
+            }
         }
 
         float spawn = 0;
@@ -97,6 +117,7 @@ namespace MainProgram
             inputInterceptor.Update(gameTime);
             user.Update();
             sideBar.update();
+            easyModeButton.Update(gameTime);
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -223,16 +244,19 @@ namespace MainProgram
             {
                 // Collision detected, damage user
                 user.TakeDamage(1);
+                System.Diagnostics.Debug.WriteLine("Collision Detected");
             }
 
-            if (user.health <= 0)
+            if (!user.alive)
             {
                 // User has lost
+                System.Diagnostics.Debug.WriteLine("User Lost");
                 Exit();
             }
             else if (vanish >= 120 && enemies.Count == 0 && enemiesTwo.Count == 0 && !midBoss.isVisible && !finalBoss.isVisible)
             {
                 // User has won
+                System.Diagnostics.Debug.WriteLine("User Won");
                 Exit();
             }
 
@@ -317,6 +341,7 @@ namespace MainProgram
             _spriteBatch.Draw(background, new Rectangle(0, 0, 1600, 1400), Color.White);
             sideBar.draw(_spriteBatch);
             user.Draw(_spriteBatch);
+            easyModeButton.Draw(gameTime, _spriteBatch);
             inputInterceptor.Draw(_spriteBatch);
             foreach(Enemies enemy in enemies)
             {

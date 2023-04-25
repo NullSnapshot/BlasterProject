@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Users/xopox/Documents/CS_487/teamblaster/487Project/487Project/Content/tempoverlay.png</SourceFile>
-  <SourceTime>2023-03-31T03:48:11.7501713-07:00</SourceTime>
-  <DestFile>C:/Users/xopox/Documents/CS_487/teamblaster/487Project/487Project/Content/bin/DesktopGL/Content/tempoverlay.xnb</DestFile>
-  <DestTime>2023-03-31T03:48:50.6211831-07:00</DestTime>
+  <SourceFile>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/tempoverlay.png</SourceFile>
+  <SourceTime>2023-02-16T18:44:49.1112982-08:00</SourceTime>
+  <DestFile>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bin/DesktopGL/Content/tempoverlay.xnb</DestFile>
+  <DestTime>2023-03-31T09:53:48.0618185-07:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2022-07-26T04:44:56-07:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

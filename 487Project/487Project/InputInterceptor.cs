@@ -78,7 +78,7 @@ namespace MainProgram
 
                 if (direction == "Space")
                 {
-                    Vector2 velocity = new Vector2(0, 3);
+                    Vector2 velocity = new Vector2(0, -6);
                     Vector2 startPosition = new Vector2(userPosition.getLocation().X + (texture.Height / 2) - (bulletTexture.Height / 2), userPosition.getLocation().Y + velocity.Y);
                     Bullets bullet = new Bullets(bulletTexture);
                     this.bullets.Add(bullet);
@@ -115,10 +115,31 @@ namespace MainProgram
         private void updateMouse(GameTime gameTime)
         {
             MouseState state = Mouse.GetState();
-
             Vector2 tempV = new Vector2(state.X, state.Y);
             Texture2D texture = userPosition.getTexture();
+
+            // left side
+            if (tempV.X <= 122)
+            {
+                tempV.X = 122;
+            }
+            // right side
+            if (tempV.X + texture.Width > 1050)
+            {
+                tempV.X = 1050 - texture.Width;
+            }
+            // bottom screen
+            if (tempV.Y > 1230)
+            {
+                tempV.Y = 1230;
+            }
+            // top screen
+            if (tempV.Y + texture.Height < 210)
+            {
+                tempV.Y = 210 - texture.Height;
+            }
             userPosition.updateLocation(tempV);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
