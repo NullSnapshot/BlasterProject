@@ -32,6 +32,7 @@ namespace MainProgram
         Texture2D background;
         UserMovement userMovements;
         Button easyModeButton;
+        Reward healthReward;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -78,17 +79,18 @@ namespace MainProgram
             // TODO: use this.Content to load your game content here
             // user.ballTexture = Content.Load<Texture2D>("ball");
             userMovements = new UserMovement(StartingPosition, StartingSpeed);
-            user = new UserSprite(Content.Load<Texture2D>("Coug"), _graphics, userMovements, 10);
-            background = Content.Load<Texture2D>("tempoverlay");
+            user = new UserSprite(Content.Load<Texture2D>("coug"), _graphics, userMovements, 10);
+            background = Content.Load<Texture2D>("firstoverlay");
             testFont = Content.Load<SpriteFont>("Fonts/test");
             sideBar = new SideBar(testFont, user, 10000);
+            healthReward = new Reward(Content.Load<Texture2D>("health"), new Vector2(800, 500), new TimeSpan(0, 0, 10), new TimeSpan(0,0,15), user);
             inputInterceptor = new InputInterceptor("Keyboard", keyBindings, userMovements, Content.Load<Texture2D>("ball"));
             midBoss = new MidBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 300), 150, Content.Load<Texture2D>("bullet"));
             finalBoss = new FinalBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 600), 100, 100, Content.Load<Texture2D>("bullet"));
             
-            easyModeButton = new Button(Content.Load<Texture2D>("Coug"), Content.Load<SpriteFont>("Fonts/test"))
+            easyModeButton = new Button(Content.Load<Texture2D>("godbutton"), Content.Load<SpriteFont>("Fonts/test"))
             {
-                Position = new Vector2(1250, 500),
+                Position = new Vector2(1100, 500),
                 Text = "Easy Mode",
             };
             easyModeButton.Click += EasyModeButton_Click;
@@ -118,6 +120,7 @@ namespace MainProgram
             user.Update();
             sideBar.update();
             easyModeButton.Update(gameTime);
+            healthReward.Update(gameTime);
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -342,6 +345,7 @@ namespace MainProgram
             sideBar.draw(_spriteBatch);
             user.Draw(_spriteBatch);
             easyModeButton.Draw(gameTime, _spriteBatch);
+            healthReward.Draw(_spriteBatch);
             inputInterceptor.Draw(_spriteBatch);
             foreach(Enemies enemy in enemies)
             {

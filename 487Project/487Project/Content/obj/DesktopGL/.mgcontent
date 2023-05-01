@@ -4,6 +4,7 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/user_sprite.png</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/ball.png</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bullet.png</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/Coug.png</File>
@@ -12,11 +13,6 @@
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/tempoverlay.png</File>
   </SourceFiles>
   <DestFiles>
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
-    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

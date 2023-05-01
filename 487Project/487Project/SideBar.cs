@@ -28,7 +28,7 @@ namespace mainProgram
 
         public void draw(SpriteBatch _spriteBatch)
         {
-            _spriteBatch.DrawString(testFont, "High Score: " + highScore.ToString(), new Vector2(1050, 115), Color.Black);
+            _spriteBatch.DrawString(testFont, "High Score: " + highScore.ToString(), new Vector2(1050, 115), Color.Gray);
             _spriteBatch.DrawString(testFont, "Score: " + score.ToString(), new Vector2(1050, 165), Color.White);
             _spriteBatch.DrawString(testFont, "Health: " + health.ToString(), new Vector2(1050, 215), Color.Red);
         }

@@ -4,14 +4,28 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/../../../../firstoverlay.png</File>
+    <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/../../../user_sprite.png</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/ball.png</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/bullet.png</File>
+    <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/button.png</File>
+    <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/chr1_fr1.gif</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/Coug.png</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/firstoverlay.png</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/Fonts/Test.spritefont</File>
+    <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/godbutton.png</File>
+    <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/health.png</File>
     <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/tempoverlay.png</File>
+    <File>C:/School/Spring 2023/CptS 487/487/487Project/487Project/Content/user_sprite.png</File>
   </SourceFiles>
   <DestFiles>
+    <File>firstoverlay.png</File>
+    <File>user_sprite.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
