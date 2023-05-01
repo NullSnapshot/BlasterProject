@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace MainProgram
 {
-    internal class SpriteParent
+    internal class LevelConfig
     {
-        
+        public PlayerConfig player { get; set; }
+        public List<WaveConfig> phases { get; set; }
     }
 }

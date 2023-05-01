@@ -23,15 +23,7 @@ namespace MainProgram
                 { Keys.Space, "Space"},
             };
 
-        Vector2 StartingPosition = new Vector2(500, 1200);
-        float StartingSpeed = 100f;
-
-        InputInterceptor inputInterceptor;
-
-        UserSprite user;
-        Texture2D background;
-        UserMovement userMovements;
-        Button easyModeButton;
+        GameController gameController;
         Reward healthReward;
 
         private GraphicsDeviceManager _graphics;
@@ -50,9 +42,6 @@ namespace MainProgram
         public float rotation;
         public Vector2 spriteVelocity;
 
-        SpriteFont testFont;
-        SideBar sideBar;
-
 
 
         public Game1()
@@ -62,6 +51,7 @@ namespace MainProgram
             _graphics.PreferredBackBufferHeight = 1400;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            this.gameController = new GameController(this);
         }
 
         protected override void Initialize()
@@ -76,37 +66,15 @@ namespace MainProgram
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            gameController.LoadContent(Content, _graphics);
             // TODO: use this.Content to load your game content here
             // user.ballTexture = Content.Load<Texture2D>("ball");
-            userMovements = new UserMovement(StartingPosition, StartingSpeed);
-            user = new UserSprite(Content.Load<Texture2D>("coug"), _graphics, userMovements, 10);
-            background = Content.Load<Texture2D>("firstoverlay");
-            testFont = Content.Load<SpriteFont>("Fonts/test");
-            sideBar = new SideBar(testFont, user, 10000);
-            healthReward = new Reward(Content.Load<Texture2D>("health"), new Vector2(800, 500), new TimeSpan(0, 0, 10), new TimeSpan(0,0,15), user);
-            inputInterceptor = new InputInterceptor("Keyboard", keyBindings, userMovements, Content.Load<Texture2D>("ball"));
+            //healthReward = new Reward(Content.Load<Texture2D>("health"), new Vector2(800, 500), new TimeSpan(0, 0, 10), new TimeSpan(0,0,15), user);
             midBoss = new MidBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 300), 150, Content.Load<Texture2D>("bullet"));
             finalBoss = new FinalBoss(Content.Load<Texture2D>("ball"), new Vector2(800, 600), 100, 100, Content.Load<Texture2D>("bullet"));
             
-            easyModeButton = new Button(Content.Load<Texture2D>("godbutton"), Content.Load<SpriteFont>("Fonts/test"))
-            {
-                Position = new Vector2(1100, 500),
-                Text = "Easy Mode",
-            };
-            easyModeButton.Click += EasyModeButton_Click;
+  
 
-        }
-
-        private void EasyModeButton_Click(object sender, EventArgs e)
-        {
-            if(user.cheatMode == false)
-            {
-                user.cheatMode = true;
-            }
-            else
-            {
-                user.cheatMode = false;
-            }
         }
 
         float spawn = 0;
@@ -116,15 +84,9 @@ namespace MainProgram
 
         protected override void Update(GameTime gameTime)
         {
-            inputInterceptor.Update(gameTime);
-            user.Update();
-            sideBar.update();
-            easyModeButton.Update(gameTime);
-            healthReward.Update(gameTime);
+            gameController.update(gameTime);
+            //healthReward.Update(gameTime);
 
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-            // TODO: Add your update logic here
             spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
             spawnTwo += (float)gameTime.ElapsedGameTime.TotalSeconds;
             vanish += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -134,134 +96,7 @@ namespace MainProgram
             finalBoss.Update(gameTime);
             Bullets.UpdateBullets(bullets);
 
-            foreach (Bullets bullet in bullets)
-            {
-                // Check for collisions with the user
-                if (user.CheckCollision(bullet.BoundingBox))
-                {
-                    // Collision detected, remove bullet and damage user
-                    bullet.isVisible = false;
-                    user.TakeDamage(1);
-                }
-
-                // Check for collisions with enemies
-                foreach (Enemies enemy in enemies)
-                {
-                    if (bullet.BoundingBox.Intersects(enemy.BoundingBox))
-                    {
-                        // Collision detected, remove bullet and enemy
-                        bullet.isVisible = false;
-                        enemy.isVisible = false;
-                    }
-                }
-
-                // Check for collisions with enemiesTwo
-                foreach (EnemiesTwo enemyTwo in enemiesTwo)
-                {
-                    if (bullet.BoundingBox.Intersects(enemyTwo.BoundingBox))
-                    {
-                        // Collision detected, remove bullet and enemyTwo
-                        bullet.isVisible = false;
-                        enemyTwo.isVisible = false;
-                    }
-                }
-                // Check for collisions with midBoss
-                if (bullet.BoundingBox.Intersects(midBoss.BoundingBox))
-                {
-                    // Collision detected, remove bullet and damage midBoss
-                    bullet.isVisible = false;
-                    midBoss.TakeDamage(1);
-                }
-
-                // Check for collisions with finalBoss
-                if (bullet.BoundingBox.Intersects(finalBoss.BoundingBox))
-                {
-                    // Collision detected, remove bullet and damage finalBoss
-                    bullet.isVisible = false;
-                    finalBoss.TakeDamage(1);
-                }
-            }
-            // Update enemies
-            foreach (Enemies enemy in enemies)
-            {
-                enemy.Update(_graphics.GraphicsDevice, gameTime);
-
-                // Check for collisions with the user
-                if (user.CheckCollision(enemy.BoundingBox))
-                {
-                    // Collision detected, remove enemy and damage user
-                    enemy.isVisible = false;
-                    user.TakeDamage(1);
-                }
-            }
-
-            // Remove any enemies that are no longer visible
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                if (!enemies[i].isVisible)
-                {
-                    enemies.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            // Update enemiesTwo
-            foreach (EnemiesTwo enemyTwo in enemiesTwo)
-            {
-                enemyTwo.Update(_graphics.GraphicsDevice, gameTime);
-
-                // Check for collisions with the user
-                if (user.CheckCollision(enemyTwo.BoundingBox))
-                {
-                    // Collision detected, remove enemyTwo and damage user
-                    enemyTwo.isVisible = false;
-                    user.TakeDamage(1);
-                }
-            }
-
-            // Remove any enemiesTwo that are no longer visible
-            for (int i = 0; i < enemiesTwo.Count; i++)
-            {
-                if (!enemiesTwo[i].isVisible)
-                {
-                    enemiesTwo.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            // Update midBoss
-            midBoss.Update(gameTime);
-
-            // Check for collisions with the user
-            if (user.CheckCollision(midBoss.BoundingBox))
-            {
-                // Collision detected, damage user
-                user.TakeDamage(1);
-            }
-
-            // Update finalBoss
-            finalBoss.Update(gameTime);
-
-            // Check for collisions with the user
-            if (user.CheckCollision(finalBoss.BoundingBox))
-            {
-                // Collision detected, damage user
-                user.TakeDamage(1);
-                System.Diagnostics.Debug.WriteLine("Collision Detected");
-            }
-
-            if (!user.alive)
-            {
-                // User has lost
-                System.Diagnostics.Debug.WriteLine("User Lost");
-                Exit();
-            }
-            else if (vanish >= 120 && enemies.Count == 0 && enemiesTwo.Count == 0 && !midBoss.isVisible && !finalBoss.isVisible)
-            {
-                // User has won
-                System.Diagnostics.Debug.WriteLine("User Won");
-                Exit();
-            }
+            
 
             base.Update(gameTime);
            
@@ -338,15 +173,13 @@ namespace MainProgram
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(background, new Rectangle(0, 0, 1600, 1400), Color.White);
-            sideBar.draw(_spriteBatch);
-            user.Draw(_spriteBatch);
-            easyModeButton.Draw(gameTime, _spriteBatch);
-            healthReward.Draw(_spriteBatch);
-            inputInterceptor.Draw(_spriteBatch);
+            gameController.draw(gameTime, _spriteBatch);
+
+            //healthReward.Draw(_spriteBatch);
             foreach(Enemies enemy in enemies)
             {
                 enemy.Draw(_spriteBatch);

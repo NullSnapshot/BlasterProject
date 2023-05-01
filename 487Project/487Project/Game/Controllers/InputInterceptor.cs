@@ -18,13 +18,16 @@ namespace MainProgram
         UserMovement userPosition;
         public Texture2D bulletTexture;
         List<Bullets> bullets = new List<Bullets>();
-        public InputInterceptor(String inputType, Dictionary<Keys, string> config, UserMovement userPosition, Texture2D bullet) 
+        public InputInterceptor(String inputType, Dictionary<Keys, string> config, PlayerConfig playerConfig, UserMovement userPosition, Texture2D bullet) 
         {
-            this.config = new PlayerConfig(config);
+            this.config = playerConfig;
+            this.config.BindKeys(config);
             this.inputType = inputType;
             this.userPosition = userPosition;
             this.bulletTexture = bullet;
         }
+
+
 
         public void Update(GameTime gameTime)
         {

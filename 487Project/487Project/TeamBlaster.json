@@ -1,0 +1,377 @@
+{
+  "player": {
+    "player_sprite" : "coug",
+    "player_speed" : 100,
+    "maxHealth" : 500,
+    "size" : {
+      "width": 50,
+      "height": 50
+    },
+    "position" : {
+      "x": 500,
+      "y": 1200
+    },
+    "weapon": {
+      "weapon_sprite" : "images/playerBullets.png",
+      "weapon_type": "laser",
+      "weapon_damage": 100,
+      "weapon_speed": 20
+    }
+  },
+  "phases" : [
+    {
+      "name": "Phase 1",
+      "start_time": 0,
+      "duration" : 48,
+      "background": "firstoverlay",
+      "enemies" : [
+        {
+          "enemy_sprite" : "images/grunt1.png",
+          "enemyType" : "A",
+          "enemyAmount" : 2,
+          "maxHealth": 100,
+          "size": {
+            "width": 50,
+            "height": 50
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "linear",
+            "direction" : "right", 
+            "movement_speed" : 5
+          },
+          "enemyBulletType" : {
+            "color" : "red",
+            "bullet_sprite": "gruntBullet.png",
+            "bullet_type" : "basicBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 20,
+            "bullet_speed" : 10,
+            "damage": 50  
+          }
+        },
+        {
+          "enemy_sprite" : "images/grunt2.png",
+          "enemyType" : "B",
+          "enemyAmount" : 2,
+          "maxHealth": 100,
+          "size": {
+            "width": 50,
+            "height": 50
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "linear",
+            "direction" : "left", 
+            "movement_speed" : 5
+          },
+          "enemyBulletType" : {
+            "color" : "red",
+            "bullet_sprite": "gruntBullet.png",
+            "bullet_type" : "basicBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 20,
+            "bullet_speed" : 10,
+            "damage": 50  
+          }
+        },
+        {
+          "enemy_sprite" : "images/grunt3.png",
+          "enemyType" : "C",
+          "enemyAmount" : 2,
+          "maxHealth": 100,
+          "size": {
+            "width": 50,
+            "height": 50
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "linear",
+            "direction" : "down", 
+            "movement_speed" : 5
+          },
+          "enemyBulletType" : {
+            "color" : "red",
+            "bullet_sprite": "gruntBullet.png",
+            "bullet_type" : "basicBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 20,
+            "bullet_speed" : 10,
+            "damage": 50  
+          }
+        },
+        {
+          "enemy_sprite" : "images/elite.png",
+          "enemyType" : "elite",
+          "enemyAmount" : 4,
+          "maxHealth": 400,
+          "size": {
+            "width": 75,
+            "height": 75
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "linear",
+            "movement_speed" : 5
+          },
+          "enemyBulletType" : {
+            "color" : "blue",
+            "bullet_sprite": "eliteBullet.png",
+            "bullet_type" : "eliteBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 20,
+            "bullet_speed" : 10,
+            "damage": 50  
+          }
+        }
+      ] 
+    },
+    {
+      "name" : "Phase 2",
+      "start_time": 48,
+      "duration" : 27,
+      "background": "firstoverlay",
+      "MidBoss" :  {
+          "midBoss_sprite" : "images/midBoss.png",
+          "enemyType" : "midBoss",
+          "maxHealth": 1500,
+          "size": {
+            "width": 100,
+            "height": 100
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "sine",
+            "direction" : "side-to-side", 
+            "amplitude": 50,
+            "period": 2
+          },
+          "enemyBulletType" : {
+            "color" : "green",
+            "bullet_sprite": "midBossBullet.png",
+            "bullet_type" : "midBossBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 50,
+            "bullet_speed" : 25,
+            "damage": 50  
+          }
+        }
+    },
+    {
+      "name" : "Phase 3",
+      "start_time": 75,
+      "duration" : 15,
+      "background": "firstoverlay",
+      "enemies" : [
+        {
+          "enemy_sprite" : "images/grunt1.png",
+          "enemyType" : "A",
+          "enemyAmount" : 2,
+          "maxHealth": 100,
+          "size": {
+            "width": 50,
+            "height": 50
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "linear",
+            "direction" : "right", 
+            "movement_speed" : 5
+          },
+          "enemyBulletType" : {
+            "color" : "red",
+            "bullet_sprite": "gruntBullet.png",
+            "bullet_type" : "basicBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 20,
+            "bullet_speed" : 10,
+            "damage": 50  
+          }
+        },
+        {
+          "enemy_sprite" : "images/grunt2.png",
+          "enemyType" : "B",
+          "enemyAmount" : 2,
+          "maxHealth": 100,
+          "size": {
+            "width": 50,
+            "height": 50
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "linear",
+            "direction" : "left", 
+            "movement_speed" : 5
+          },
+          "enemyBulletType" : {
+            "color" : "red",
+            "bullet_sprite": "gruntBullet.png",
+            "bullet_type" : "basicBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 20,
+            "bullet_speed" : 10,
+            "damage": 50  
+          }
+        },
+        {
+          "enemy_sprite" : "images/grunt3.png",
+          "enemyType" : "C",
+          "enemyAmount" : 2,
+          "maxHealth": 100,
+          "size": {
+            "width": 50,
+            "height": 50
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "linear",
+            "direction" : "down", 
+            "movement_speed" : 5
+          },
+          "enemyBulletType" : {
+            "color" : "red",
+            "bullet_sprite": "gruntBullet.png",
+            "bullet_type" : "basicBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 20,
+            "bullet_speed" : 10,
+            "damage": 50  
+          }
+        },
+        {
+          "enemy_sprite" : "images/elite.png",
+          "enemyType" : "elite",
+          "enemyAmount" : 1,
+          "maxHealth": 400,
+          "size": {
+            "width": 75,
+            "height": 75
+          },
+          "position" : {
+            "x": 100,
+            "y": 400
+          },
+          "enemyMovement" : {
+            "movement_type" : "linear",
+            "movement_speed" : 5
+          },
+          "enemyBulletType" : {
+            "color" : "blue",
+            "bullet_sprite": "eliteBullet.png",
+            "bullet_type" : "eliteBullet",
+            "bullet_movement" : "straight",
+            "bullet_count": 20,
+            "bullet_speed" : 10,
+            "damage": 50  
+          }
+        }
+      ] 
+    },
+    {
+      "name": "Phase 4",
+      "finalBoss_sprite": "images/final_boss_enemy.png",
+      "enemyType": "FinalBoss",
+      "maxHealth": 3000,
+      "start_time": 90,
+      "duration" : 60,
+      "background": "firstoverlay",
+      "size" : {
+        "width": 100,
+        "height": 100
+      },
+      "position" : {
+        "x": 100,
+        "y": 400
+      },
+      "movement": {
+        "movement_type": "zigag",
+        "amplitude": 100,
+        "period": 4,
+        "direction": "down"
+        
+      },
+      "attacks" : [
+        {
+          "name" : "circle",
+          "sprite" : "images/circleBullet.png",
+          "bullet_type": "basicBullet",
+          "bullet_movement": "straight",
+          "bullet_count": 20,
+          "bullet_spread": 50,  
+          "bullet_speed" : 10
+        },
+        {
+          "name" : "burst",
+          "bullet_sprite" : "images/circleBullet.png",
+          "bullet_type": "circleBullet",
+          "bullet_movement": "straight",
+          "bullet_count": 20,
+          "bullet_spread": 20,
+          "bullet_speed" : 10  
+        },
+        {
+          "name" : "triangle",
+          "bullet_sprite" : "images/triangleBullet.png",
+          "bullet_type": "triangleBullet",
+          "bullet_movement": "tracking",
+          "bullet_count": 20,
+          "bullet_speed" : 10,
+          "bullet_size": {
+            "width" : 50,
+            "height" : 50
+          } 
+        },
+        {
+          "name" : "AOE",
+          "bullet_sprite" : "images/AOEBullet.png",
+          "bullet_type": "AOEBullet",
+          "bullet_movement": "straight",
+          "bullet_count": 100,
+          "bullet_spread": 20,
+          "bullet_speed" : 10,
+          "bullet_size": {
+            "width" : 25,
+            "height" : 25
+          }   
+        }
+      ]
+    }
+  ],
+  "powerups" : [
+    {
+      "type" : "damage",
+      "weapon_damage" : 200
+    },
+    {
+      "type" : "rate of fire",
+      "weapon_speed" : 50 
+    }
+  ],
+  "music" : {
+    "path" : "music/"
+  }
+}
