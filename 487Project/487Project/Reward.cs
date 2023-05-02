@@ -23,12 +23,12 @@ namespace MainProgram
 
         public Rectangle rectangle { get; set; }
 
-        public UserSprite user;
+        public UserEntity user;
 
         public bool collected;
 
 
-        public Reward(Texture2D rewardTexture, Vector2 rewardPosition, TimeSpan spawnTime, TimeSpan despawnTime, UserSprite user)
+        public Reward(Texture2D rewardTexture, Vector2 rewardPosition, TimeSpan spawnTime, TimeSpan despawnTime, UserEntity user)
         {
             this.rewardTexture = rewardTexture;
             this.rewardPosition = rewardPosition;

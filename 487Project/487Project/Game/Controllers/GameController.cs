@@ -18,7 +18,7 @@ namespace MainProgram
     {
         // User related variables
         InputInterceptor inputInterceptor;
-        UserSprite user;
+        UserEntity user;
         UserMovement userMovements;
 
         //UI related Variables
@@ -64,8 +64,13 @@ namespace MainProgram
             // Generate user sprite
             userMovements = new UserMovement(new Vector2(levelConfig.player.position.x, levelConfig.player.position.y), 
                 levelConfig.player.player_speed);
-            user = new UserSprite(Content.Load<Texture2D>(levelConfig.player.player_sprite), _graphics, userMovements, levelConfig.player.maxHealth);
+            //user = new UserEntity(Content.Load<Texture2D>(levelConfig.player.player_sprite), _graphics, userMovements, levelConfig.player.maxHealth);
+            user = new UserEntity(
+                Content.Load<Texture2D>(levelConfig.player.player_sprite), 
+                new UserControlledBehavior(userMovements), 
+                levelConfig.player.maxHealth);
             inputInterceptor = new InputInterceptor("Keyboard", keyBindings, levelConfig.player, userMovements, Content.Load<Texture2D>("ball"));
+            EntityManager.RegisterUser(user);
 
             // Generate UI
             background = Content.Load<Texture2D>("firstoverlay");
@@ -80,7 +85,7 @@ namespace MainProgram
             easyModeButton.Click += toggleEasyMode;
 
 
-            this.levelDirector = new LevelDirector(levelConfig.phases);
+            this.levelDirector = new LevelDirector(levelConfig.phases, Content);
 
         }
 
@@ -92,7 +97,7 @@ namespace MainProgram
         public void update(GameTime gameTime)
         {
             inputInterceptor.Update(gameTime);
-            user.Update();
+            EntityManager.Update(gameTime);
             sideBar.update();
             easyModeButton.Update(gameTime);
             this.levelDirector.Update(gameTime);
@@ -107,7 +112,6 @@ namespace MainProgram
         {
             spriteBatch.Draw(background, new Rectangle(0, 0, 1600, 1400), Color.White);
             sideBar.draw(spriteBatch);
-            user.Draw(spriteBatch);
             easyModeButton.Draw(gameTime, spriteBatch);
             inputInterceptor.Draw(spriteBatch);
         }

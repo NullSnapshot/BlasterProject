@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MainProgram
 {
-    internal abstract class EntityBehavior
+    public abstract class EntityBehavior
     {
         public EntityBehavior()
         {

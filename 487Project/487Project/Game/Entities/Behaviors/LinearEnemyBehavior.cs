@@ -10,15 +10,16 @@ namespace MainProgram
     internal class LinearEnemyBehavior : EntityBehavior
     {
         protected Vector2 velocity { get; set; }
-        public LinearEnemyBehavior(string Direction, int speed) 
+        public LinearEnemyBehavior(string Direction, int speed, Vector2 startPos) 
         { 
+            this.TargetPosition = startPos;
             switch(Direction)
             {
                 case "left": 
                     this.velocity = new Vector2(-speed, 0); 
                     break;
                 case "down":
-                    this.velocity = new Vector2(0, -speed);
+                    this.velocity = new Vector2(0, speed);
                     break;
                 default: // Assume right direction
                     this.velocity = new Vector2(speed, 0);

@@ -10,18 +10,18 @@ namespace MainProgram
     internal class UserControlledBehavior : EntityBehavior
     {
 
-        UserMovement usersMovements;
+        public UserMovement UsersMovements { get; private set; }
 
 
         public UserControlledBehavior(UserMovement userMovement) 
         {
-            this.usersMovements = userMovement;
+            this.UsersMovements = userMovement;
         }
 
         public override void Update(GameTime gameTime)
         {
-            this.TargetPosition = this.usersMovements.getLocation();
-            this.TargetSpeed = this.usersMovements.getSpeed();
+            this.TargetPosition = this.UsersMovements.getLocation();
+            this.TargetSpeed = this.UsersMovements.getSpeed();
         }
     }
 }

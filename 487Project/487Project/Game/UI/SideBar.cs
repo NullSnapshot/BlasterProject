@@ -12,12 +12,12 @@ namespace mainProgram
     internal class SideBar
     {
         SpriteFont testFont;
-        UserSprite user;
+        UserEntity user;
         int health;
         int score;
         int highScore;
         
-        public SideBar(SpriteFont font, UserSprite user, int highScore)
+        public SideBar(SpriteFont font, UserEntity user, int highScore)
         {
             this.testFont = font;
             this.health = user.health;

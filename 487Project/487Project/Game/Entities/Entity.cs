@@ -7,38 +7,43 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-/*
- * Currently Unused
- * Needs work
- * 
- * 
- */
-
 namespace MainProgram
 {
     public class Entity
     {
-        public Texture2D texture { get; set; }
-        public Vector2 position { get; set; }
-        public float speed { get; set; }
 
-        public void Draw(SpriteBatch sb)
+        public Texture2D Texture { get; set; }
+        public Vector2 Position { get; set; }
+        public float Speed { get; set; }
+
+        public EntityBehavior Behavior { get; set; }
+
+        public Entity(EntityBehavior behavior, Texture2D texture, Vector2 position)
+        {
+            this.Behavior = behavior;
+            Texture = texture;
+            Position = position;
+        }
+
+        public virtual void Draw(SpriteBatch sb)
         {
             sb.Draw(
-                this.texture,
-                this.position,
+                this.Texture,
+                this.Position,
                 null,
                 Color.White,
                 0f,
-                new Vector2(this.texture.Width / 2, this.texture.Height / 2),
+                new Vector2(this.Texture.Width / 2, this.Texture.Height / 2),
                 Vector2.One,
                 SpriteEffects.None,
                 0f);
         }
 
-        public void Update(KeyboardState kstate, GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
-
+            this.Behavior.Update(gameTime);
+            this.Position = this.Behavior.TargetPosition;
+            this.Speed = this.Behavior.TargetSpeed;
         }
 
     }

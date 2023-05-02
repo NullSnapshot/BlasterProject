@@ -85,18 +85,8 @@ namespace MainProgram
         protected override void Update(GameTime gameTime)
         {
             gameController.update(gameTime);
-            //healthReward.Update(gameTime);
-
-            spawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            spawnTwo += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            vanish += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            LoadEnemies();
-            LoadEnemiesTwo();
-            midBoss.Update(gameTime);
-            finalBoss.Update(gameTime);
-            Bullets.UpdateBullets(bullets);
-
-            
+            EntityManager.Update(gameTime);
+            //healthReward.Update(gameTime);   
 
             base.Update(gameTime);
            
@@ -178,28 +168,9 @@ namespace MainProgram
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
             gameController.draw(gameTime, _spriteBatch);
+            EntityManager.Draw(gameTime, _spriteBatch);
 
             //healthReward.Draw(_spriteBatch);
-            foreach(Enemies enemy in enemies)
-            {
-                enemy.Draw(_spriteBatch);
-            }
-            foreach(EnemiesTwo enemy in enemiesTwo)
-            {
-                enemy.Draw(_spriteBatch);
-            }
-            if (vanish >= 35 && vanish < 60)
-            {
-                midBoss.Draw(_spriteBatch);
-            }
-            if (vanish >= 90 && vanish < 110)
-            {
-                finalBoss.Draw(_spriteBatch);
-            }
-            foreach(Bullets bullet in bullets)
-            {
-                bullet.Draw(_spriteBatch);
-            }
             _spriteBatch.End();
         }
     }

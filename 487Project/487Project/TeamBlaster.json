@@ -26,7 +26,7 @@
       "background": "firstoverlay",
       "enemies" : [
         {
-          "enemy_sprite" : "images/grunt1.png",
+          "enemy_sprite" : "ball",
           "enemyType" : "A",
           "enemyAmount" : 2,
           "maxHealth": 100,
@@ -41,11 +41,11 @@
           "enemyMovement" : {
             "movement_type" : "linear",
             "direction" : "right", 
-            "movement_speed" : 5
+            "movement_speed" : 1
           },
           "enemyBulletType" : {
             "color" : "red",
-            "bullet_sprite": "gruntBullet.png",
+            "bullet_sprite": "bullet",
             "bullet_type" : "basicBullet",
             "bullet_movement" : "straight",
             "bullet_count": 20,
@@ -54,7 +54,7 @@
           }
         },
         {
-          "enemy_sprite" : "images/grunt2.png",
+          "enemy_sprite" : "ball",
           "enemyType" : "B",
           "enemyAmount" : 2,
           "maxHealth": 100,
@@ -63,17 +63,17 @@
             "height": 50
           },
           "position" : {
-            "x": 100,
+            "x": 500,
             "y": 400
           },
           "enemyMovement" : {
             "movement_type" : "linear",
             "direction" : "left", 
-            "movement_speed" : 5
+            "movement_speed" : 1
           },
           "enemyBulletType" : {
             "color" : "red",
-            "bullet_sprite": "gruntBullet.png",
+            "bullet_sprite": "bullet",
             "bullet_type" : "basicBullet",
             "bullet_movement" : "straight",
             "bullet_count": 20,
@@ -82,7 +82,7 @@
           }
         },
         {
-          "enemy_sprite" : "images/grunt3.png",
+          "enemy_sprite" : "ball",
           "enemyType" : "C",
           "enemyAmount" : 2,
           "maxHealth": 100,
@@ -91,17 +91,17 @@
             "height": 50
           },
           "position" : {
-            "x": 100,
+            "x": 500,
             "y": 400
           },
           "enemyMovement" : {
             "movement_type" : "linear",
             "direction" : "down", 
-            "movement_speed" : 5
+            "movement_speed" : 1
           },
           "enemyBulletType" : {
             "color" : "red",
-            "bullet_sprite": "gruntBullet.png",
+            "bullet_sprite": "bullet",
             "bullet_type" : "basicBullet",
             "bullet_movement" : "straight",
             "bullet_count": 20,
@@ -110,7 +110,7 @@
           }
         },
         {
-          "enemy_sprite" : "images/elite.png",
+          "enemy_sprite" : "ball",
           "enemyType" : "elite",
           "enemyAmount" : 4,
           "maxHealth": 400,
@@ -119,12 +119,12 @@
             "height": 75
           },
           "position" : {
-            "x": 100,
-            "y": 400
+            "x": 200,
+            "y": 500
           },
           "enemyMovement" : {
             "movement_type" : "linear",
-            "movement_speed" : 5
+            "movement_speed" : 1
           },
           "enemyBulletType" : {
             "color" : "blue",
@@ -179,7 +179,7 @@
       "background": "firstoverlay",
       "enemies" : [
         {
-          "enemy_sprite" : "images/grunt1.png",
+          "enemy_sprite" : "ball",
           "enemyType" : "A",
           "enemyAmount" : 2,
           "maxHealth": 100,
@@ -198,7 +198,7 @@
           },
           "enemyBulletType" : {
             "color" : "red",
-            "bullet_sprite": "gruntBullet.png",
+            "bullet_sprite": "bullet",
             "bullet_type" : "basicBullet",
             "bullet_movement" : "straight",
             "bullet_count": 20,
@@ -207,7 +207,7 @@
           }
         },
         {
-          "enemy_sprite" : "images/grunt2.png",
+          "enemy_sprite" : "ball",
           "enemyType" : "B",
           "enemyAmount" : 2,
           "maxHealth": 100,
@@ -226,7 +226,7 @@
           },
           "enemyBulletType" : {
             "color" : "red",
-            "bullet_sprite": "gruntBullet.png",
+            "bullet_sprite": "bullet",
             "bullet_type" : "basicBullet",
             "bullet_movement" : "straight",
             "bullet_count": 20,
@@ -235,7 +235,7 @@
           }
         },
         {
-          "enemy_sprite" : "images/grunt3.png",
+          "enemy_sprite" : "ball",
           "enemyType" : "C",
           "enemyAmount" : 2,
           "maxHealth": 100,
@@ -254,7 +254,7 @@
           },
           "enemyBulletType" : {
             "color" : "red",
-            "bullet_sprite": "gruntBullet.png",
+            "bullet_sprite": "bullet",
             "bullet_type" : "basicBullet",
             "bullet_movement" : "straight",
             "bullet_count": 20,
@@ -263,7 +263,7 @@
           }
         },
         {
-          "enemy_sprite" : "images/elite.png",
+          "enemy_sprite" : "ball",
           "enemyType" : "elite",
           "enemyAmount" : 1,
           "maxHealth": 400,

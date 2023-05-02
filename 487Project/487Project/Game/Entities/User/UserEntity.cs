@@ -8,21 +8,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System.Reflection.Metadata;
 using System.Net;
+using System.Text.Json.Serialization.Metadata;
 
 namespace MainProgram
 {
-    public class UserSprite
+    internal class UserEntity : MobEntity
     {
-        public Texture2D ballTexture { get; set; }
-        public Vector2 ballPosition { get; set; }
-        public float ballSpeed { get; set; }
-
         UserMovement usersMovements;
 
         public bool isVisible = true;
 
-        public int health { get; set;}
-        public bool alive { get; set; }
         public int score { get; set; }
         public Rectangle boundingBox { get; set; }
 
@@ -33,30 +28,28 @@ namespace MainProgram
         private List<Rectangle> hitList = new List<Rectangle>();
 
 
-        public UserSprite(Texture2D ballTexture, GraphicsDeviceManager _graphics, UserMovement movement, int health)
+        public UserEntity(Texture2D ballTexture, UserControlledBehavior behavior, int health)
+            : base(behavior, ballTexture, behavior.UsersMovements.getLocation(), health)
         {
-            this.ballTexture = ballTexture;
-            this.usersMovements = movement;
-            movement.setTexture(this.ballTexture);
-            this.ballPosition = movement.getLocation();
-            this.ballSpeed = movement.getSpeed();
+            this.usersMovements = behavior.UsersMovements;
+            this.usersMovements.setTexture(this.Texture);
+            this.Speed = behavior.TargetSpeed;
             this.health = health;
-            this.alive = true;
             this.score = 0;
-            this.boundingBox = new Rectangle((int)this.ballPosition.X - ballTexture.Width / 2, (int)this.ballPosition.Y - ballTexture.Height / 2, ballTexture.Width, ballTexture.Height);
+            this.boundingBox = new Rectangle((int)this.Position.X - ballTexture.Width / 2, (int)this.Position.Y - ballTexture.Height / 2, ballTexture.Width, ballTexture.Height);
         }
 
-        public void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb)
         {
             if(immunityLength == 0)
             {
                 sb.Draw(
-                this.ballTexture,
-                this.ballPosition,
+                this.Texture,
+                this.Position,
                 null,
                 Color.White,
                 0f,
-                new Vector2(this.ballTexture.Width / 2, this.ballTexture.Height / 2),
+                new Vector2(this.Texture.Width / 2, this.Texture.Height / 2),
                 Vector2.One,
                 SpriteEffects.None,
                 0f);
@@ -64,29 +57,30 @@ namespace MainProgram
             else
             {
                 sb.Draw(
-                this.ballTexture,
-                this.ballPosition,
+                this.Texture,
+                this.Position,
                 null,
                 Color.Gray,
                 0f,
-                new Vector2(this.ballTexture.Width / 2, this.ballTexture.Height / 2),
+                new Vector2(this.Texture.Width / 2, this.Texture.Height / 2),
                 Vector2.One,
                 SpriteEffects.None,
                 0f);
             }
         }
 
-        public void Update()
+        public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             if(immunityLength != 0)
             {
                 immunityLength--;
             }
             this.score += 1;
-            this.ballPosition = this.usersMovements.getLocation();
-            this.ballTexture = this.usersMovements.getTexture();
-            this.ballSpeed = this.usersMovements.getSpeed();
-            this.boundingBox = new Rectangle((int)this.ballPosition.X - ballTexture.Width / 2, (int)this.ballPosition.Y - ballTexture.Height / 2, ballTexture.Width, ballTexture.Height);
+            this.Position = this.Behavior.TargetPosition;
+            this.Texture = this.usersMovements.getTexture();
+            this.Speed = this.Behavior.TargetSpeed;
+            this.boundingBox = new Rectangle((int)this.Position.X - Texture.Width / 2, (int)this.Position.Y - Texture.Height / 2, Texture.Width, Texture.Height);
         }
 
         public bool CheckCollision(Rectangle otherBoundingBox)
@@ -126,9 +120,7 @@ namespace MainProgram
                 }
                 else
                 {
-                    Vector2 StartingPosition = new Vector2(500, 1200);
                     immunityLength = 200;
-                    this.usersMovements.updateLocation(StartingPosition);
                 }
             }
         }
