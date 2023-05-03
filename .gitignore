@@ -102,6 +102,8 @@ StyleCopReport.xml
 *.svclog
 *.scc
 *.vsidx
+*.dtbcache
+*.dtbcache.v2
 
 # Chutzpah Test files
 _Chutzpah*
