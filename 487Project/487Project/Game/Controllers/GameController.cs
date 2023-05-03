@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using mainProgram;
+using BulletBlaster.Code.Entities.Behaviors.Mob;
+using BulletBlaster.Game.config;
+using BulletBlaster.Game.Controllers.WaveManagement;
+using BulletBlaster.Game.Entities.Enemy;
+using BulletBlaster.Game.Entities.User;
+using BulletBlaster.Game.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGame.Extended.Content;
 
-namespace MainProgram
+namespace BulletBlaster.Game.Controllers
 {
     internal class GameController
     {
@@ -51,7 +52,7 @@ namespace MainProgram
                 { Keys.Space, "Space"},
             };
 
-        public GameController(Game1 game) 
+        public GameController(Game1 game)
         {
             this.game = game;
         }
@@ -63,12 +64,12 @@ namespace MainProgram
             levelConfig = JsonSerializer.Deserialize<LevelConfig>(json);
 
             // Generate user sprite
-            userMovements = new UserMovement(new Vector2(levelConfig.player.position.x, levelConfig.player.position.y), 
+            userMovements = new UserMovement(new Vector2(levelConfig.player.position.x, levelConfig.player.position.y),
                 levelConfig.player.player_speed);
             //user = new UserEntity(Content.Load<Texture2D>(levelConfig.player.player_sprite), _graphics, userMovements, levelConfig.player.maxHealth);
             user = new UserEntity(
-                Content.Load<Texture2D>(levelConfig.player.player_sprite), 
-                new UserControlledBehavior(userMovements), 
+                Content.Load<Texture2D>(levelConfig.player.player_sprite),
+                new UserControlledBehavior(userMovements),
                 levelConfig.player.maxHealth);
             inputInterceptor = new InputInterceptor("Keyboard", keyBindings, levelConfig.player, userMovements, Content.Load<Texture2D>("ball"));
             EntityManager.RegisterUser(user);
@@ -87,7 +88,7 @@ namespace MainProgram
             easyModeButton.Click += toggleEasyMode;
 
 
-            this.levelDirector = new LevelDirector(levelConfig.phases, Content);
+            levelDirector = new LevelDirector(levelConfig.phases, Content);
 
         }
 
@@ -102,7 +103,7 @@ namespace MainProgram
             EntityManager.Update(gameTime);
             sideBar.update();
             easyModeButton.Update(gameTime);
-            this.levelDirector.Update(gameTime);
+            levelDirector.Update(gameTime);
 
             //Exit code
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))

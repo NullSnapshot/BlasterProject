@@ -1,11 +1,8 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.config
 {
     internal class PlayerConfig
     {
@@ -34,7 +31,7 @@ namespace MainProgram
             return returnValues;
         }
 
-        public void BindKeys(Dictionary<Keys, string> keyBindings) 
+        public void BindKeys(Dictionary<Keys, string> keyBindings)
         {
             this.keyBindings = keyBindings;
         }

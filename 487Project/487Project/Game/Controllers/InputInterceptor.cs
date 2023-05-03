@@ -1,15 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BulletBlaster.Game.config;
+using BulletBlaster.Game.Entities.User;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Controllers
 {
     internal class InputInterceptor
     {
@@ -18,25 +15,25 @@ namespace MainProgram
         UserMovement userPosition;
         public Texture2D bulletTexture;
         List<Bullets> bullets = new List<Bullets>();
-        public InputInterceptor(String inputType, Dictionary<Keys, string> config, PlayerConfig playerConfig, UserMovement userPosition, Texture2D bullet) 
+        public InputInterceptor(string inputType, Dictionary<Keys, string> config, PlayerConfig playerConfig, UserMovement userPosition, Texture2D bullet)
         {
             this.config = playerConfig;
             this.config.BindKeys(config);
             this.inputType = inputType;
             this.userPosition = userPosition;
-            this.bulletTexture = bullet;
+            bulletTexture = bullet;
         }
 
 
 
         public void Update(GameTime gameTime)
         {
-            if(this.inputType == "Keyboard")
+            if (inputType == "Keyboard")
             {
                 updateKeyboard(gameTime);
             }
 
-            if(this.inputType == "Mouse")
+            if (inputType == "Mouse")
             {
                 updateMouse(gameTime);
             }
@@ -82,9 +79,9 @@ namespace MainProgram
                 if (direction == "Space")
                 {
                     Vector2 velocity = new Vector2(0, -6);
-                    Vector2 startPosition = new Vector2(userPosition.getLocation().X + (texture.Height / 2) - (bulletTexture.Height / 2), userPosition.getLocation().Y + velocity.Y);
+                    Vector2 startPosition = new Vector2(userPosition.getLocation().X + texture.Height / 2 - bulletTexture.Height / 2, userPosition.getLocation().Y + velocity.Y);
                     Bullets bullet = new Bullets(bulletTexture);
-                    this.bullets.Add(bullet);
+                    bullets.Add(bullet);
                     Bullets.ShootBullets(bullets, bulletTexture, startPosition, velocity + new Vector2(0, -6f), 3);
                 }
 

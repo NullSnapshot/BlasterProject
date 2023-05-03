@@ -2,7 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Entities.Enemy
 {
     class Enemies
     {
@@ -43,7 +44,7 @@ namespace MainProgram
             if (shoot > 1)
             {
                 shoot = 0;
-                Vector2 startPosition = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height / 2), position.Y + velocity.Y);
+                Vector2 startPosition = new Vector2(position.X + texture.Height / 2 - bulletTexture.Height / 2, position.Y + velocity.Y);
                 Bullets.ShootBullets(bullets, bulletTexture, startPosition, velocity + new Vector2(0, 6f), 3);
             }
             Bullets.UpdateBullets(bullets);

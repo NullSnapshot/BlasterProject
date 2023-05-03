@@ -1,12 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BulletBlaster.Game.Entities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Controllers
 {
     internal static class EntityManager
     {
@@ -43,8 +41,8 @@ namespace MainProgram
                 entity.Draw(spriteBatch, gameTime);
             }
         }
-        public static void DeregisterCollidableEntity(Entity collidable) 
-        { 
+        public static void DeregisterCollidableEntity(Entity collidable)
+        {
             entities.Remove(collidable);
             collisionEntities.Remove(collidable);
         }

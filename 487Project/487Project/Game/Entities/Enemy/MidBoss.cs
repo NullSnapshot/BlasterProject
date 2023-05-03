@@ -1,12 +1,9 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
 
-namespace MainProgram 
+
+namespace BulletBlaster.Game.Entities.Enemy
 {
     class MidBoss
     {
@@ -44,7 +41,7 @@ namespace MainProgram
             position += velocity;
             origin = new Vector2(texture.Width / 2, texture.Height / 2);
 
-            if(distance <= 0)
+            if (distance <= 0)
             {
                 right = true;
                 velocity.X = 4f;
@@ -58,7 +55,7 @@ namespace MainProgram
             {
                 distance += 1;
             }
-            else 
+            else
             {
                 distance -= 1;
             }
@@ -73,7 +70,7 @@ namespace MainProgram
 
         public void ShootBullets()
         {
-            Vector2 startPosition = new Vector2(position.X + (texture.Height / 2) - (bulletTexture.Height / 2), position.Y);
+            Vector2 startPosition = new Vector2(position.X + texture.Height / 2 - bulletTexture.Height / 2, position.Y);
             Vector2[] velocities =
             {
                 new Vector2(0, velocity.Y + 6f),
@@ -90,7 +87,7 @@ namespace MainProgram
             {
                 bullet.Draw(spriteBatch);
             }
-            if(velocity.X > 0)
+            if (velocity.X > 0)
             {
                 spriteBatch.Draw(texture, position, null, Color.White, rotation, origin, 1f, SpriteEffects.FlipHorizontally, 0f);
             }

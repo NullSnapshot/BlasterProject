@@ -1,13 +1,8 @@
-﻿using MainProgram;
-using Microsoft.Xna.Framework;
-using MonoGame.Extended.Timers;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Entities.Behaviors.Mob
 {
     internal class SineEnemyBehavior : EntityBehavior
     {
@@ -15,11 +10,11 @@ namespace MainProgram
         private int amplitude;
         private int period;
         public SineEnemyBehavior()
-            :base()
+            : base()
         {
-            this.amplitude = 0;
-            this.period = 0;
-            this.Velocity = Vector2.Zero;
+            amplitude = 0;
+            period = 0;
+            Velocity = Vector2.Zero;
         }
         public SineEnemyBehavior(int amplitude, int period)
         {
@@ -30,8 +25,8 @@ namespace MainProgram
         public override void Update(GameTime gameTime)
         {
             // Double check this math, it might be wrong.
-            this.Velocity = new Vector2(100 / this.period, (float)Math.Sin(gameTime.TotalGameTime.Seconds) * amplitude);
-            this.TargetPosition += this.Velocity;
+            Velocity = new Vector2(100 / period, (float)Math.Sin(gameTime.TotalGameTime.Seconds) * amplitude);
+            TargetPosition += Velocity;
 
             // TODO: Turnaround logic for mid boss to switch right to left.
         }
@@ -42,9 +37,9 @@ namespace MainProgram
             if (copySource.GetType() == typeof(SineEnemyBehavior))
             {
                 SineEnemyBehavior sineCopySource = (SineEnemyBehavior)copySource;
-                this.amplitude = sineCopySource.amplitude;
-                this.period = sineCopySource.period;
-                this.Velocity = new Vector2(sineCopySource.Velocity.X, sineCopySource.Velocity.Y);
+                amplitude = sineCopySource.amplitude;
+                period = sineCopySource.period;
+                Velocity = new Vector2(sineCopySource.Velocity.X, sineCopySource.Velocity.Y);
             }
         }
 

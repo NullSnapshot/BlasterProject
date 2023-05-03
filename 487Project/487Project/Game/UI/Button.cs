@@ -2,12 +2,9 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.UI
 {
     internal class Button
     {
@@ -32,7 +29,7 @@ namespace MainProgram
 
         public Rectangle Rectangle
         {
-            get 
+            get
             {
                 return new Rectangle((int)Position.X, (int)Position.Y, _texture.Width, _texture.Height);
             }
@@ -40,7 +37,7 @@ namespace MainProgram
 
         public Button(Texture2D texture, SpriteFont font)
         {
-            _texture= texture;
+            _texture = texture;
 
             _font = font;
         }
@@ -56,10 +53,10 @@ namespace MainProgram
 
             spriteBatch.Draw(_texture, Rectangle, color);
 
-            if (!string.IsNullOrEmpty(Text)) 
+            if (!string.IsNullOrEmpty(Text))
             {
-                var x = (Rectangle.X + (Rectangle.Width / 2)) - (_font.MeasureString(Text).X / 2);
-                var y = (Rectangle.Y + (Rectangle.Height / 2)) - (_font.MeasureString(Text).Y / 2);
+                var x = Rectangle.X + Rectangle.Width / 2 - _font.MeasureString(Text).X / 2;
+                var y = Rectangle.Y + Rectangle.Height / 2 - _font.MeasureString(Text).Y / 2;
 
                 spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColor);
             }
@@ -72,14 +69,14 @@ namespace MainProgram
 
             var mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 
-            _isHovering= false;
+            _isHovering = false;
 
-            if(mouseRectangle.Intersects(Rectangle))
+            if (mouseRectangle.Intersects(Rectangle))
             {
-                _isHovering= true;
-                if(_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+                _isHovering = true;
+                if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
-                    Click?.Invoke(this,new EventArgs());
+                    Click?.Invoke(this, new EventArgs());
                 }
             }
 

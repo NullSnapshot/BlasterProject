@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System;
-using System.Net.Mime;
-using MainProgram;
+using BulletBlaster.Game.Entities.User;
 
-namespace mainProgram
+
+namespace BulletBlaster.Game.UI
 {
     internal class SideBar
     {
@@ -16,12 +12,12 @@ namespace mainProgram
         int health;
         int score;
         int highScore;
-        
+
         public SideBar(SpriteFont font, UserEntity user, int highScore)
         {
-            this.testFont = font;
-            this.health = user.health;
-            this.score = user.score;
+            testFont = font;
+            health = user.health;
+            score = user.score;
             this.highScore = highScore;
             this.user = user;
         }
@@ -35,8 +31,8 @@ namespace mainProgram
 
         public void update()
         {
-            this.score = user.score;
-            this.health = user.health;
+            score = user.score;
+            health = user.health;
         }
     }
 }

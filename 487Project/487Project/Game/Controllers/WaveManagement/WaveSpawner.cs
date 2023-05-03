@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BulletBlaster.Game.config;
+using BulletBlaster.Game.Entities;
+using BulletBlaster.Game.Entities.Behaviors.Mob;
 
-namespace MainProgram
+namespace BulletBlaster.Game.Controllers.WaveManagement
 {
     internal class WaveSpawner : ISpawnerSubject
     {
@@ -20,33 +19,33 @@ namespace MainProgram
         public WaveSpawner(WaveConfig config, ContentManager content)
         {
             this.config = config;
-            this.enemyGroups = this.config.enemies;
+            enemyGroups = this.config.enemies;
 
             // build factories
-            if (this.enemyGroups == null || this.enemyGroups.Count <= 0)
+            if (enemyGroups == null || enemyGroups.Count <= 0)
                 return;
-            foreach (EnemyConfig conf in this.enemyGroups)
+            foreach (EnemyConfig conf in enemyGroups)
             {
                 EnemyFactory newFactory;
                 switch (conf.enemyMovement.movement_type)
                 {
                     case "linear":
-                         newFactory = new EnemyFactory(
-                            conf.enemy_sprite,
-                            new LinearEnemyBehavior(conf.enemyMovement.direction,
-                                conf.enemyMovement.movement_speed, new Vector2(conf.position.x, conf.position.y)), // TODO: Add bullet spec to behavior type
-                            new Vector2(conf.position.x, conf.position.y),
-                            conf.maxHealth,
-                            content);
+                        newFactory = new EnemyFactory(
+                           conf.enemy_sprite,
+                           new LinearEnemyBehavior(conf.enemyMovement.direction,
+                               conf.enemyMovement.movement_speed, new Vector2(conf.position.x, conf.position.y)), // TODO: Add bullet spec to behavior type
+                           new Vector2(conf.position.x, conf.position.y),
+                           conf.maxHealth,
+                           content);
                         enemyFactories.Add(newFactory);
                         break;
                     case "sine":
-                         newFactory = new EnemyFactory(
-                            conf.enemy_sprite,
-                            new SineEnemyBehavior(conf.enemyMovement.amplitude, conf.enemyMovement.movement_speed), // TODO: see above.
-                            new Vector2(conf.position.x, conf.position.y),
-                            conf.maxHealth,
-                            content);
+                        newFactory = new EnemyFactory(
+                           conf.enemy_sprite,
+                           new SineEnemyBehavior(conf.enemyMovement.amplitude, conf.enemyMovement.movement_speed), // TODO: see above.
+                           new Vector2(conf.position.x, conf.position.y),
+                           conf.maxHealth,
+                           content);
                         enemyFactories.Add(newFactory);
                         break;
                 }
@@ -56,50 +55,50 @@ namespace MainProgram
         public void Update(GameTime gameTime)
         {
             // time to spawn new enemies.
-            if(gameTime.TotalGameTime.TotalMilliseconds - lastSpawn > offset)
+            if (gameTime.TotalGameTime.TotalMilliseconds - lastSpawn > offset)
             {
                 int i = 0;
-                foreach(EnemyFactory factory in enemyFactories)
+                foreach (EnemyFactory factory in enemyFactories)
                 {
-                    if (this.enemyGroups[i].enemyAmount > 0)
+                    if (enemyGroups[i].enemyAmount > 0)
                     {
                         Entity newEnemy = factory.Create();
                         EntityManager.RegisterCollidableEntity(newEnemy);
                     }
-                    this.enemyGroups[i].enemyAmount -= 1;
+                    enemyGroups[i].enemyAmount -= 1;
                     i++;
                 }
-                this.lastSpawn = gameTime.TotalGameTime.TotalMilliseconds;
+                lastSpawn = gameTime.TotalGameTime.TotalMilliseconds;
             }
 
-            if(this.enemyGroups.Count > 0)
+            if (enemyGroups.Count > 0)
             {
                 // Clear check
                 bool done = true;
-                foreach (EnemyConfig conf in this.enemyGroups)
+                foreach (EnemyConfig conf in enemyGroups)
                 {
                     if (conf.enemyAmount > 0)
                         done = false;
                 }
                 if (done)
                 {
-                    foreach (ISpawnerObserver observer in this.observers)
+                    foreach (ISpawnerObserver observer in observers)
                     {
                         observer.UpdateObservers(this);
                     }
                 }
             }
-            
+
         }
 
         public void Attach(ISpawnerObserver observer)
         {
-            this.observers.Add(observer);
+            observers.Add(observer);
         }
 
         public void Detach(ISpawnerObserver observer)
         {
-            this.observers.Remove(observer);
+            observers.Remove(observer);
         }
     }
 }

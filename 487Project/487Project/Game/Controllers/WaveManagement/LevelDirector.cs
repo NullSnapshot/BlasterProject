@@ -1,12 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BulletBlaster.Game.config;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Controllers.WaveManagement
 {
     internal class LevelDirector : ISpawnerObserver
     {
@@ -17,44 +15,44 @@ namespace MainProgram
 
         ContentManager contentManager;
 
-        public LevelDirector(List<WaveConfig> waves, ContentManager Content) 
+        public LevelDirector(List<WaveConfig> waves, ContentManager Content)
         {
-            this.contentManager = Content;
+            contentManager = Content;
             // Transfer list to queue
             foreach (WaveConfig wave in waves)
             {
-                this.waveConfigs.Enqueue(wave);
+                waveConfigs.Enqueue(wave);
             }
-            this.nextWaveConfig = this.waveConfigs.Peek();
+            nextWaveConfig = waveConfigs.Peek();
         }
 
         public void Update(GameTime gameTime)
         {
             // trigger wave spawn
-            if (gameTime.TotalGameTime.TotalSeconds >= this.nextWaveConfig.start_time)
+            if (gameTime.TotalGameTime.TotalSeconds >= nextWaveConfig.start_time)
             {
-                System.Diagnostics.Debug.WriteLine($"Triggering {this.nextWaveConfig.name} at {gameTime.TotalGameTime.TotalSeconds} seconds.");
-                WaveSpawner newSpawner = new WaveSpawner(this.nextWaveConfig, contentManager);
-                this.activeSpawns.Add(newSpawner);
+                System.Diagnostics.Debug.WriteLine($"Triggering {nextWaveConfig.name} at {gameTime.TotalGameTime.TotalSeconds} seconds.");
+                WaveSpawner newSpawner = new WaveSpawner(nextWaveConfig, contentManager);
+                activeSpawns.Add(newSpawner);
                 newSpawner.Attach(this);
                 // END TODO: Wave spawn logic
 
-                this.waveConfigs.Dequeue(); // Remove first element
-                if(this.waveConfigs.Count != 0)
-                    this.nextWaveConfig = this.waveConfigs.Peek(); // update head ref
+                waveConfigs.Dequeue(); // Remove first element
+                if (waveConfigs.Count != 0)
+                    nextWaveConfig = waveConfigs.Peek(); // update head ref
             }
-            
+
             // Run active spawners
-            for(int i=0; i <this.activeSpawns.Count; i++)
+            for (int i = 0; i < activeSpawns.Count; i++)
             {
-                this.activeSpawns[i].Update(gameTime);
+                activeSpawns[i].Update(gameTime);
             }
         }
 
         public void UpdateObservers(WaveSpawner subject)
         {
             // Wave is fully spawned, decomission the spawner.
-            this.activeSpawns.Remove(subject);
+            activeSpawns.Remove(subject);
         }
     }
 }

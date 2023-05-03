@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace MainProgram
+namespace BulletBlaster.Game.Entities.User
 {
     public class UserMovement
     {
@@ -19,17 +19,17 @@ namespace MainProgram
         public UserMovement(Vector2 userPosition, float ballSpeed)
         {
             this.userPosition = userPosition;
-            this.speed = ballSpeed;
+            speed = ballSpeed;
         }
 
         public void updateLocation(Vector2 newPosition)
         {
-            this.userPosition = newPosition;
+            userPosition = newPosition;
         }
 
         public Vector2 getLocation()
         {
-            return this.userPosition;
+            return userPosition;
         }
 
         public void updateSpeed(float speed)
@@ -37,9 +37,9 @@ namespace MainProgram
             this.speed = speed;
         }
 
-        public float getSpeed() 
+        public float getSpeed()
         {
-            return this.speed;
+            return speed;
         }
 
         public void setTexture(Texture2D texture)
@@ -47,9 +47,9 @@ namespace MainProgram
             this.texture = texture;
         }
 
-        public Texture2D getTexture() 
+        public Texture2D getTexture()
         {
-            return this.texture;
+            return texture;
         }
     }
 }

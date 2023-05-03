@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using BulletBlaster.Game.Entities.Behaviors;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Entities
 {
     public class Entity
     {
@@ -20,7 +16,7 @@ namespace MainProgram
 
         public Entity(EntityBehavior behavior, Texture2D texture, Vector2 position)
         {
-            this.Behavior = behavior;
+            Behavior = behavior;
             Texture = texture;
             Position = position;
         }
@@ -28,12 +24,12 @@ namespace MainProgram
         public virtual void Draw(SpriteBatch sb, GameTime gameTime = null)
         {
             sb.Draw(
-                this.Texture,
-                this.Position,
+                Texture,
+                Position,
                 null,
                 Color.White,
                 0f,
-                new Vector2(this.Texture.Width / 2, this.Texture.Height / 2),
+                new Vector2(Texture.Width / 2, Texture.Height / 2),
                 Vector2.One,
                 SpriteEffects.None,
                 0f);
@@ -41,9 +37,9 @@ namespace MainProgram
 
         public virtual void Update(GameTime gameTime)
         {
-            this.Behavior.Update(gameTime);
-            this.Position = this.Behavior.TargetPosition;
-            this.Speed = this.Behavior.TargetSpeed;
+            Behavior.Update(gameTime);
+            Position = Behavior.TargetPosition;
+            Speed = Behavior.TargetSpeed;
         }
 
     }

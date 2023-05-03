@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "487Project", "487Project\487Project.csproj", "{64529C70-C93A-4A37-800C-726B459F12B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulletBlaster", "487Project\BulletBlaster.csproj", "{64529C70-C93A-4A37-800C-726B459F12B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

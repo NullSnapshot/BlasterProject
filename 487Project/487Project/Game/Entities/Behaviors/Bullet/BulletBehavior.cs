@@ -1,12 +1,7 @@
-﻿using MainProgram;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Xna.Framework;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Entities.Behaviors.Bullet
 {
     internal class BulletBehavior : EntityBehavior
     {
@@ -14,23 +9,23 @@ namespace MainProgram
         public BulletBehavior(Vector2 velocity)
         {
             this.velocity = velocity;
-            this.TargetSpeed = this.velocity.Length();
+            TargetSpeed = this.velocity.Length();
         }
 
         public override void Update(GameTime gameTime)
         {
-            this.TargetPosition += this.velocity;
+            TargetPosition += velocity;
 
-            if(this.TargetPosition.Y > 1200 || this.TargetPosition.Y < 104) // off screen Y direction
+            if (TargetPosition.Y > 1200 || TargetPosition.Y < 104) // off screen Y direction
             {
-                this.Visible = false;
+                Visible = false;
             }
         }
 
         public void Copy(BulletBehavior copySource)
         {
             base.Copy(copySource);
-            this.velocity = copySource.velocity;
+            velocity = copySource.velocity;
         }
     }
 }

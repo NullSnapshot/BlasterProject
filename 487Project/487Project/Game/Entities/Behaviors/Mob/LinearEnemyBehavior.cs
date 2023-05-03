@@ -1,11 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Entities.Behaviors.Mob
 {
     internal class LinearEnemyBehavior : EntityBehavior
     {
@@ -13,22 +9,22 @@ namespace MainProgram
         public LinearEnemyBehavior()
             : base()
         {
-            this.velocity = Vector2.Zero;
+            velocity = Vector2.Zero;
         }
 
-        public LinearEnemyBehavior(string Direction, int speed, Vector2 startPos) 
-        { 
-            this.TargetPosition = startPos;
-            switch(Direction)
+        public LinearEnemyBehavior(string Direction, int speed, Vector2 startPos)
+        {
+            TargetPosition = startPos;
+            switch (Direction)
             {
-                case "left": 
-                    this.velocity = new Vector2(-speed, 0); 
+                case "left":
+                    velocity = new Vector2(-speed, 0);
                     break;
                 case "down":
-                    this.velocity = new Vector2(0, speed);
+                    velocity = new Vector2(0, speed);
                     break;
                 default: // Assume right direction
-                    this.velocity = new Vector2(speed, 0);
+                    velocity = new Vector2(speed, 0);
                     break;
 
             }
@@ -36,24 +32,24 @@ namespace MainProgram
 
         public override void Update(GameTime gameTime)
         {
-            this.TargetPosition += this.velocity;
+            TargetPosition += velocity;
 
-            if (this.TargetPosition.Y > 1200 || this.TargetPosition.Y < 104) // off screen Y direction
+            if (TargetPosition.Y > 1200 || TargetPosition.Y < 104) // off screen Y direction
             {
-                this.Visible = false;
+                Visible = false;
             }
 
             // Bullet firing logic goes here.
         }
 
         public override void Copy(EntityBehavior copySource)
-           
+
         {
             base.Copy(copySource);
-            if(copySource.GetType() == typeof(LinearEnemyBehavior))
+            if (copySource.GetType() == typeof(LinearEnemyBehavior))
             {
                 LinearEnemyBehavior linearCopySource = (LinearEnemyBehavior)copySource;
-                this.velocity = new Vector2(linearCopySource.velocity.X, linearCopySource.velocity.Y);
+                velocity = new Vector2(linearCopySource.velocity.X, linearCopySource.velocity.Y);
             }
         }
     }

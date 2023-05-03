@@ -1,11 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BulletBlaster.Game.Entities.Behaviors;
+using BulletBlaster.Game.Entities.User;
+using Microsoft.Xna.Framework;
 
-namespace MainProgram
+
+namespace BulletBlaster.Code.Entities.Behaviors.Mob
 {
     internal class UserControlledBehavior : EntityBehavior
     {
@@ -13,15 +11,15 @@ namespace MainProgram
         public UserMovement UsersMovements { get; private set; }
 
 
-        public UserControlledBehavior(UserMovement userMovement) 
+        public UserControlledBehavior(UserMovement userMovement)
         {
-            this.UsersMovements = userMovement;
+            UsersMovements = userMovement;
         }
 
         public override void Update(GameTime gameTime)
         {
-            this.TargetPosition = this.UsersMovements.getLocation();
-            this.TargetSpeed = this.UsersMovements.getSpeed();
+            TargetPosition = UsersMovements.getLocation();
+            TargetSpeed = UsersMovements.getSpeed();
         }
     }
 }

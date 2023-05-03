@@ -1,13 +1,13 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BulletBlaster.Code.Entities;
+using BulletBlaster.Game.Entities;
+using BulletBlaster.Game.Entities.Behaviors;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MainProgram
+
+namespace BulletBlaster.Game.Controllers.WaveManagement
 {
     internal class EnemyFactory
     {
@@ -20,7 +20,7 @@ namespace MainProgram
         public EnemyFactory(string spritePath, EntityBehavior enemyBehavior, Vector2 startPos, int health, ContentManager content)
         {
             this.spritePath = spritePath;
-            this.enemyBehaviorTemplate = enemyBehavior;
+            enemyBehaviorTemplate = enemyBehavior;
             this.startPos = startPos;
             this.health = health;
             this.content = content;
@@ -33,9 +33,9 @@ namespace MainProgram
             newInstanceBehavior.Copy(enemyBehaviorTemplate);
             Entity newEntity = new MobEntity(
                 newInstanceBehavior,
-                this.content.Load<Texture2D>(this.spritePath),
-                this.startPos,
-                this.health);
+                content.Load<Texture2D>(spritePath),
+                startPos,
+                health);
             return newEntity;
         }
     }
