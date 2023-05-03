@@ -72,20 +72,24 @@ namespace MainProgram
                 this.lastSpawn = gameTime.TotalGameTime.TotalMilliseconds;
             }
 
-            // Clear check
-            bool done = true;
-            foreach(EnemyConfig conf in this.enemyGroups)
+            if(this.enemyGroups.Count > 0)
             {
-                if (conf.enemyAmount > 0)
-                    done = false;
-            }
-            if(done)
-            {
-                foreach(ISpawnerObserver observer in this.observers)
+                // Clear check
+                bool done = true;
+                foreach (EnemyConfig conf in this.enemyGroups)
                 {
-                    observer.UpdateObservers(this);
+                    if (conf.enemyAmount > 0)
+                        done = false;
+                }
+                if (done)
+                {
+                    foreach (ISpawnerObserver observer in this.observers)
+                    {
+                        observer.UpdateObservers(this);
+                    }
                 }
             }
+            
         }
 
         public void Attach(ISpawnerObserver observer)
