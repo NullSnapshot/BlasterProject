@@ -11,6 +11,7 @@ namespace MainProgram
         public string enemy_sprite { get; set; }
         public string enemyType { get; set; }
         public int enemyAmount { get; set; }
+        public int offset { get; set; }
         public int maxHealth { get; set; }
         public SpriteSize size { get; set; }
         public SpritePosition position { get; set; }

@@ -23,6 +23,7 @@ namespace MainProgram
 
         //UI related Variables
         Texture2D background;
+        Texture2D uiForeground;
         Button easyModeButton;
         SpriteFont testFont;
         SideBar sideBar;
@@ -73,7 +74,8 @@ namespace MainProgram
             EntityManager.RegisterUser(user);
 
             // Generate UI
-            background = Content.Load<Texture2D>("firstoverlay");
+            background = Content.Load<Texture2D>(levelConfig.phases[0].background);
+            uiForeground = Content.Load<Texture2D>("ui-foreground");
             testFont = Content.Load<SpriteFont>("Fonts/test");
             sideBar = new SideBar(testFont, user, 10000);
 
@@ -108,12 +110,17 @@ namespace MainProgram
 
         }
 
-        public void draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(background, new Rectangle(0, 0, 1600, 1400), Color.White);
+            spriteBatch.Draw(uiForeground, new Rectangle(0, 0, uiForeground.Width, uiForeground.Height), Color.White);
             sideBar.draw(spriteBatch);
             easyModeButton.Draw(gameTime, spriteBatch);
             inputInterceptor.Draw(spriteBatch);
+        }
+
+        public void DrawBackground(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
         }
     }
 }

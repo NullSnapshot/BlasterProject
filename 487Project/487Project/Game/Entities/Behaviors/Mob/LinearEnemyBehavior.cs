@@ -10,6 +10,12 @@ namespace MainProgram
     internal class LinearEnemyBehavior : EntityBehavior
     {
         protected Vector2 velocity { get; set; }
+        public LinearEnemyBehavior()
+            : base()
+        {
+            this.velocity = Vector2.Zero;
+        }
+
         public LinearEnemyBehavior(string Direction, int speed, Vector2 startPos) 
         { 
             this.TargetPosition = startPos;
@@ -38,6 +44,17 @@ namespace MainProgram
             }
 
             // Bullet firing logic goes here.
+        }
+
+        public override void Copy(EntityBehavior copySource)
+           
+        {
+            base.Copy(copySource);
+            if(copySource.GetType() == typeof(LinearEnemyBehavior))
+            {
+                LinearEnemyBehavior linearCopySource = (LinearEnemyBehavior)copySource;
+                this.velocity = new Vector2(linearCopySource.velocity.X, linearCopySource.velocity.Y);
+            }
         }
     }
 }

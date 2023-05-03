@@ -40,7 +40,7 @@ namespace MainProgram
         {
             foreach (Entity entity in entities)
             {
-                entity.Draw(spriteBatch);
+                entity.Draw(spriteBatch, gameTime);
             }
         }
         public static void DeregisterCollidableEntity(Entity collidable) 

@@ -103,7 +103,6 @@ StyleCopReport.xml
 *.scc
 *.vsidx
 *.dtbcache
-*.dtbcache.v2
 
 # Chutzpah Test files
 _Chutzpah*
@@ -422,6 +421,7 @@ FodyWeavers.xsd
 # User-specific files (MonoDevelop/Xamarin Studio)
 
 # Mono auto generated files
+/project.assets.json
 
 # Build results
 

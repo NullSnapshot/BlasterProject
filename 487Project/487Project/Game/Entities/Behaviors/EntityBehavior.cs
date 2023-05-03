@@ -11,7 +11,13 @@ namespace MainProgram
     {
         public EntityBehavior()
         {
-            // TODO
+            // Empty constructor for subtype overloading
+            this.TargetPosition = new Vector2(0, 0);
+            this.TargetSpeed = 0;
+        }
+        public EntityBehavior(EntityBehavior copySource)
+        {
+            this.Copy(copySource);
         }
 
        public Vector2 TargetPosition { get; protected set; }
@@ -20,5 +26,11 @@ namespace MainProgram
         public bool Visible { get; protected set; } = true;
 
         public abstract void Update(GameTime gameTime);
+
+        public virtual void Copy(EntityBehavior copySource)
+        {
+            this.TargetPosition = new Vector2(copySource.TargetPosition.X, copySource.TargetPosition.Y);
+            this.TargetSpeed = copySource.TargetSpeed;
+        }
     }
 }

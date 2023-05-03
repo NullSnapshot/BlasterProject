@@ -23,9 +23,16 @@ namespace MainProgram
 
         public int immunityLength = 0;
 
+        private List<Rectangle> hitList = new List<Rectangle>();
+
+        // Cheat related vars
         public bool cheatMode = false;
 
-        private List<Rectangle> hitList = new List<Rectangle>();
+        public double lastColorChange = 0;
+        private Color cheatColor = Color.Red;
+        private Color[] cheatColorPalate = new Color[] { Color.Red, Color.Orange, Color.Yellow, Color.Green, Color.Blue, Color.Indigo, Color.Violet };
+        private int nextColor = 1;
+        
 
 
         public UserEntity(Texture2D ballTexture, UserControlledBehavior behavior, int health)
@@ -39,15 +46,25 @@ namespace MainProgram
             this.boundingBox = new Rectangle((int)this.Position.X - ballTexture.Width / 2, (int)this.Position.Y - ballTexture.Height / 2, ballTexture.Width, ballTexture.Height);
         }
 
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, GameTime gameTime)
         {
+            if(cheatMode && gameTime != null)
+            {
+                // Don't want to change colors more than twice a second
+                if (gameTime.TotalGameTime.TotalMilliseconds - this.lastColorChange > 50)
+                {
+                    this.cheatColor = this.cheatColorPalate[this.nextColor];
+                    this.nextColor = (this.nextColor + 1) % this.cheatColorPalate.Length;
+                    this.lastColorChange = gameTime.TotalGameTime.TotalMilliseconds;
+                }
+            }
             if(immunityLength == 0)
             {
                 sb.Draw(
                 this.Texture,
                 this.Position,
                 null,
-                Color.White,
+                this.cheatMode? this.cheatColor : Color.White,
                 0f,
                 new Vector2(this.Texture.Width / 2, this.Texture.Height / 2),
                 Vector2.One,
@@ -83,6 +100,8 @@ namespace MainProgram
             this.boundingBox = new Rectangle((int)this.Position.X - Texture.Width / 2, (int)this.Position.Y - Texture.Height / 2, Texture.Width, Texture.Height);
         }
 
+
+        // UNTESTED CODE
         public bool CheckCollision(Rectangle otherBoundingBox)
         {
             if(immunityLength == 0 || cheatMode == true)

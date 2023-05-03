@@ -26,5 +26,11 @@ namespace MainProgram
                 this.Visible = false;
             }
         }
+
+        public void Copy(BulletBehavior copySource)
+        {
+            base.Copy(copySource);
+            this.velocity = copySource.velocity;
+        }
     }
 }

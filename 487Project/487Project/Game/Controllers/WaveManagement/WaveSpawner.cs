@@ -14,7 +14,7 @@ namespace MainProgram
         List<EnemyConfig> enemyGroups;
         List<EnemyFactory> enemyFactories = new List<EnemyFactory>();
         List<ISpawnerObserver> observers = new List<ISpawnerObserver>();
-        int offset = 10000; // TODO: change to use value from JSON file
+        int offset = 1000; // TODO: change to use value from JSON file
         double lastSpawn = 0; // time since last enemy spawn
 
         public WaveSpawner(WaveConfig config, ContentManager content)
@@ -23,7 +23,7 @@ namespace MainProgram
             this.enemyGroups = this.config.enemies;
 
             // build factories
-            if (this.enemyGroups.Count <= 0)
+            if (this.enemyGroups == null || this.enemyGroups.Count <= 0)
                 return;
             foreach (EnemyConfig conf in this.enemyGroups)
             {

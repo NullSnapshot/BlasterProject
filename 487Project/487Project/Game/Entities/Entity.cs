@@ -25,7 +25,7 @@ namespace MainProgram
             Position = position;
         }
 
-        public virtual void Draw(SpriteBatch sb)
+        public virtual void Draw(SpriteBatch sb, GameTime gameTime = null)
         {
             sb.Draw(
                 this.Texture,
