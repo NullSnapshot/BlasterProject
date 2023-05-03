@@ -422,6 +422,9 @@ FodyWeavers.xsd
 
 # Mono auto generated files
 /project.assets.json
+*.dtbcache.v2
+*.futdcache.v2
+*/.vs/ProjectEvaluation/
 
 # Build results
 
