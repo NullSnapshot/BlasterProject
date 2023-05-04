@@ -16,6 +16,8 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
 
         public static string Name => "sine";
 
+        private double spawnTime = 0;
+
         public SineEnemyBehavior()
             : base()
         {
@@ -33,7 +35,9 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
 
         public override void Update(GameTime gameTime)
         {
-            float tempY = (float)Math.Sin(gameTime.TotalGameTime.TotalSeconds * period) * amplitude * 2 + this.SourceConfig.position.y;
+            if (this.spawnTime == 0)
+                this.spawnTime = gameTime.TotalGameTime.TotalSeconds;
+            float tempY = (float)Math.Sin((gameTime.TotalGameTime.TotalSeconds-this.spawnTime) * period) * amplitude * 2 + this.SourceConfig.position.y;
             float tempX = 1010;
             
             if(movingLeft)
