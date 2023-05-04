@@ -25,7 +25,7 @@ namespace BulletBlaster.Game.Entities.Bullet.Patterns
 
         protected int CoolDownCoefficient = 4;
 
-        protected float CoolDownMinimum = 0.5f;
+        protected float CoolDown = 0.5f;
 
         public static string Pattern => "single";
 
@@ -49,7 +49,7 @@ namespace BulletBlaster.Game.Entities.Bullet.Patterns
 
         public virtual bool ShouldFire(GameTime gameTime)
         {
-            if (gameTime.TotalGameTime.TotalSeconds - lastFire > this.CoolDownMinimum + (this.random.NextDouble() * this.CoolDownCoefficient))
+            if (gameTime.TotalGameTime.TotalSeconds - lastFire > this.CoolDown)
             {
                 this.lastFire = gameTime.TotalGameTime.TotalSeconds;
                 return true;

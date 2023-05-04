@@ -1,4 +1,5 @@
 ﻿using BulletBlaster.Game.config;
+using BulletBlaster.Game.Entities.Behaviors.Mob;
 using BulletBlaster.Game.Entities.Bullet.Patterns;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,6 +16,14 @@ namespace BulletBlaster.Game.Entities
     internal static class EntityTools
     {
         private static IDictionary<string, Type> BulletPatterns = new Dictionary<string, Type>();
+
+        private static IDictionary<string, Type> EnemyBehaviors = new Dictionary<string, Type>();
+
+        static EntityTools()
+        {
+            GenerateBulletPatternCollection();
+            GenerateEnemyBehaviorCollection();
+        }
 
         private static int seed = 0;
         public static Rectangle BuildCollisionBox(Entity entity)
@@ -45,7 +54,14 @@ namespace BulletBlaster.Game.Entities
             return targetLocation;
 
         }
-
+        /// <summary>
+        ///     Returns a position based on the deltaTiming of the current frame.
+        /// </summary>
+        /// <param name="position">The position of the entity</param>
+        /// <param name="gameTime">The current GameTime</param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public static Vector2 DeltaMove(Vector2 position, GameTime gameTime, float ?x = 0, float ?y = 0)
         {
             position.X += x.GetValueOrDefault(0) * 2500 * ( (float)gameTime.ElapsedGameTime.TotalSeconds / Config.TargetFPS);
@@ -56,6 +72,11 @@ namespace BulletBlaster.Game.Entities
         public static BulletPattern BuildBulletPattern(BulletPatternConfig config, Texture2D sprite)
         {
             return (BulletPattern)Activator.CreateInstance(BulletPatterns[config.pattern], config, sprite);
+        }
+
+        public static EnemyBehavior BuildEnemyBehavior(EnemyConfig config)
+        {
+            return (EnemyBehavior)Activator.CreateInstance(EnemyBehaviors[config.enemyMovement.movement_type], config);
         }
 
         public static void GenerateBulletPatternCollection()
@@ -76,6 +97,26 @@ namespace BulletBlaster.Game.Entities
                         BulletPatterns.Add(new KeyValuePair<string, Type>(patternString, type));
                     }
                 }
+            }
+        }
+
+        public static void GenerateEnemyBehaviorCollection()
+        {
+            List<Type> behaviors = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes().Where(t => t.BaseType == typeof(EnemyBehavior))).ToList();
+            
+            foreach(Type type in behaviors)
+            {
+                PropertyInfo behaviorName = type.GetProperty("Name");
+                if(behaviorName != null)
+                {
+                    EnemyBehavior assemblyInstance = (EnemyBehavior)Activator.CreateInstance(type);
+                    object value = behaviorName.GetValue(assemblyInstance);
+                    if (value is string behaviorNameString)
+                    {
+                        EnemyBehaviors.Add(new KeyValuePair<string, Type>(behaviorNameString, type));
+                    }
+                }
+                
             }
         }
 

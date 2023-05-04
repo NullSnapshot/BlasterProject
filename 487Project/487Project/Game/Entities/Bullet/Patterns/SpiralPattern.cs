@@ -23,7 +23,7 @@ namespace BulletBlaster.Game.Entities.Bullet.Patterns
             : base(config, sprite)
         {
             this.CoolDownCoefficient = 5;
-            this.CoolDownMinimum = 15;
+            this.CoolDown = 15;
         }
 
         public override void FirePattern(Vector2 source, GameTime gameTime)

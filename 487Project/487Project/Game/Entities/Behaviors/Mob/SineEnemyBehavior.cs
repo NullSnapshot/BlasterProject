@@ -1,10 +1,11 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BulletBlaster.Game.config;
+using Microsoft.Xna.Framework;
 using System;
 
 
 namespace BulletBlaster.Game.Entities.Behaviors.Mob
 {
-    internal class SineEnemyBehavior : EntityBehavior
+    internal class SineEnemyBehavior : EnemyBehavior
     {
         protected Vector2 Velocity { get; set; }
         private int amplitude;
@@ -16,10 +17,12 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
             period = 0;
             Velocity = Vector2.Zero;
         }
-        public SineEnemyBehavior(int amplitude, int period)
+
+        public SineEnemyBehavior(EnemyConfig behavior)
+            : base(behavior)
         {
-            this.amplitude = amplitude;
-            this.period = period;
+            this.amplitude = behavior.enemyMovement.amplitude;
+            this.period = behavior.enemyMovement.period;
         }
 
         public override void Update(GameTime gameTime)
