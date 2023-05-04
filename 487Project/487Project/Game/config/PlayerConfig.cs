@@ -10,7 +10,8 @@ namespace BulletBlaster.Game.config
         public int player_speed { get; set; }
         public int maxHealth { get; set; }
         public SpritePosition position { get; set; }
-        public PlayerWeapon weapon { get; set; }
+        public int patternSeed { get; set; }
+        public List<BulletPatternConfig> attackPatterns { get; set; }
 
         Dictionary<Keys, string> keyBindings = new Dictionary<Keys, string>();
 
@@ -34,13 +35,5 @@ namespace BulletBlaster.Game.config
         {
             this.keyBindings = keyBindings;
         }
-    }
-
-    internal class PlayerWeapon
-    {
-        public string weapon_sprite { get; set; }
-        public string weapon_type { get; set; }
-        public int weapon_damage { get; set; }
-        public int weapon_speed { get; set; }
     }
 }

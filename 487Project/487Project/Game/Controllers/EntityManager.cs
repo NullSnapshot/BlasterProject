@@ -1,4 +1,5 @@
 ﻿using BulletBlaster.Game.Entities;
+using BulletBlaster.Game.Entities.Bullet;
 using BulletBlaster.Game.Entities.User;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -39,7 +40,7 @@ namespace BulletBlaster.Game.Controllers
         // Register collidable by player bullets
         // Anything that player bullets are allowed to collide with.
 
-        public static void RegisterPlayerBullets(CollidableEntity collidable)
+        public static void RegisterPlayerBullet(CollidableEntity collidable)
         {
             entities.Add(collidable);
             PlayerBullets.Add(collidable);
@@ -86,12 +87,12 @@ namespace BulletBlaster.Game.Controllers
             }
 
             // Enemy Bullets
-            if (false) 
+            if (entity.GetType() == typeof(EnemyBullet)) 
             {
                 PlayerCollidableEntities.Remove((CollidableEntity)entity);
             }
             // Player Bullets
-            if (false)
+            if (entity.GetType() == typeof(PlayerBullet))
             {
                 PlayerBullets.Remove((CollidableEntity)entity);
             }
@@ -109,8 +110,21 @@ namespace BulletBlaster.Game.Controllers
             {
                 if(PlayerCollidableEntities[i].hitBox.Intersects(User.hitBox) && User.cheatMode == false)
                 {
-                    PlayerCollidableEntities[i].OnCollide();
+                    PlayerCollidableEntities[i].OnCollide(User);
                     User.OnCollide(PlayerCollidableEntities[i]);
+                }
+            }
+            // Group 2: Player bullets colliding with enemies
+            for(int i = 0; i < PlayerBullets.Count; i++)
+            {
+                for(int j = 0; j < Enemies.Count; j++)
+                {
+                    if (PlayerBullets[i].hitBox.Intersects(Enemies[j].hitBox))
+                    {
+                        PlayerBullets[i].OnCollide(Enemies[j]);
+                        Enemies[j].OnCollide(PlayerBullets[i]);
+                        break; // Don't want to hit more than one!
+                    }
                 }
             }
         }
@@ -130,7 +144,7 @@ namespace BulletBlaster.Game.Controllers
             return User.Position;
         }
 
-        public static MobEntity GetPlayer()
+        public static UserEntity GetPlayer()
         {
             return User;
         }

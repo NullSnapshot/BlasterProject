@@ -14,7 +14,7 @@ namespace BulletBlaster.Game.Controllers
     {
         private PlayerConfig config;
         private string inputType;
-        private MobEntity User;
+        private UserEntity User;
         private UserControlledBehavior UserIntent;
         private double LastDebugKeyPress = 0;
 
@@ -55,6 +55,11 @@ namespace BulletBlaster.Game.Controllers
             if(movement.Contains("Slowmode"))
             {
                 speed /= 2;
+                this.User.drawHitbox = true;
+            }
+            else
+            {
+                this.User.drawHitbox = false;
             }
             if(movement.Contains("Debug"))
             {
@@ -90,7 +95,7 @@ namespace BulletBlaster.Game.Controllers
 
                 if (direction == "Space")
                 {
-                    this.User.ShootBullet();
+                    this.User.Shoot(gameTime);
                 }
                 
             }
@@ -106,7 +111,7 @@ namespace BulletBlaster.Game.Controllers
 
             if(state.LeftButton.Equals(true))
             {
-                EntityManager.GetPlayer().ShootBullet();
+                this.User.Shoot(gameTime);
             }
 
         }

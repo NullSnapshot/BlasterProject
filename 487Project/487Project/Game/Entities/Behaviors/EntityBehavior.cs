@@ -9,6 +9,8 @@ namespace BulletBlaster.Game.Entities.Behaviors
         public float TargetSpeed { get; protected set; } = 0;
         public bool Visible { get; protected set; } = true;
 
+        public int PatternSeed { get; set; } = 0;
+
 
         public EntityBehavior() { }
         public EntityBehavior(EntityBehavior copySource)

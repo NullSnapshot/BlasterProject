@@ -12,6 +12,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using BulletBlaster.Game.Entities.Bullet.Patterns;
+using BulletBlaster.Game.Entities;
 
 namespace BulletBlaster.Game.Controllers
 {
@@ -58,20 +60,23 @@ namespace BulletBlaster.Game.Controllers
 
         public void LoadContent(ContentManager Content, GraphicsDeviceManager _graphics)
         {
-            string json = File.ReadAllText("../../../test.json");
+            string json = File.ReadAllText("../../../TeamBlaster.json");
             levelConfig = JsonSerializer.Deserialize<LevelConfig>(json);
+            EntityTools.GenerateBulletPatternCollection();
 
             // Generate user
             this.UserIntents = new UserControlledBehavior(levelConfig.player.player_speed, 
                 new Vector2(levelConfig.player.position.x, levelConfig.player.position.y));
 
+            PlayerBulletPattern playerPattern = new PlayerBulletPattern(levelConfig.player.attackPatterns[0],
+                Content.Load<Texture2D>(levelConfig.player.attackPatterns[0].bullet_sprite));
+
             User = new UserEntity(
                 Content.Load<Texture2D>(levelConfig.player.player_sprite),
                 Content.Load<Texture2D>("slowmode-pip"),
                 this.UserIntents,
-                new BulletBehavior(), // TODO
-                levelConfig.player.maxHealth,
-                _graphics);
+                new List<BulletPattern>(){ playerPattern },
+                levelConfig.player.maxHealth);
 
             EntityManager.RegisterUser(User);
             inputInterceptor = new InputInterceptor("Keyboard", keyBindings, levelConfig.player, this.UserIntents);

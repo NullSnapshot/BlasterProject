@@ -10,10 +10,9 @@ namespace BulletBlaster.Game.Entities.Behaviors.Bullet
     {
         public PlayerTargetBulletBehavior() { }
 
-        public override void Fire(GameTime gameTime)
+        public override void Fire()
         {
-            this.velocity = EntityManager.GetPlayerPos().NormalizedCopy() * this.TargetSpeed;
-            base.Fire(gameTime);
+            this.Velocity = EntityManager.GetPlayerPos().NormalizedCopy() * this.TargetSpeed;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BulletBlaster.Game.Controllers;
+﻿using BulletBlaster.Game.config;
+using BulletBlaster.Game.Controllers;
 using Microsoft.Xna.Framework;
 
 
@@ -6,22 +7,25 @@ namespace BulletBlaster.Game.Entities.Behaviors.Bullet
 {
     internal class BulletBehavior : EntityBehavior
     {
-        protected Vector2 velocity { get; set; }
+        public Vector2 Velocity { get; set; } = Vector2.Zero;
+
+        public int Damage { get; protected set; } = 1;
 
         protected bool isActive = false;
 
         public BulletBehavior() { }
-        public BulletBehavior(Vector2 velocity)
+        public BulletBehavior(Vector2 position, BulletPatternConfig bulletConfig)
         {
-            this.velocity = velocity;
-            this.TargetSpeed = this.velocity.Length();
+            this.TargetPosition = position;
+            this.Damage = bulletConfig.damage;
+            this.TargetSpeed = bulletConfig.bullet_speed;
         }
 
         public override void Update(GameTime gameTime)
         {
             if(this.isActive)
             {
-                TargetPosition += velocity;
+                TargetPosition += Velocity;
 
                 if (TargetPosition.Y > 1200 || TargetPosition.Y < 104) // off screen Y direction
                 {
@@ -33,11 +37,11 @@ namespace BulletBlaster.Game.Entities.Behaviors.Bullet
         public void Copy(BulletBehavior copySource)
         {
             base.Copy(copySource);
-            velocity = copySource.velocity;
+            Velocity = copySource.Velocity;
         }
 
         // Called to start Bullet behavior
-        public virtual void Fire(GameTime gameTime)
+        public virtual void Fire()
         {
             this.isActive = true;
         }

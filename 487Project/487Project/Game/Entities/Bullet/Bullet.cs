@@ -16,5 +16,14 @@ namespace BulletBlaster.Game.Entities.Bullet
         {
 
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+            if(this.Position.X > 1100 || this.Position.X < 50 || this.Position.Y > 1300 || this.Position.Y < 50)
+            {
+                this.RemovalFlag = true;
+            }
+        }
     }
 }

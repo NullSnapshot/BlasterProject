@@ -25,7 +25,8 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
         public override void Update(GameTime gameTime)
         {
             // Double check this math, it might be wrong.
-            Velocity = new Vector2(100 / period, (float)Math.Sin(gameTime.TotalGameTime.Seconds) * amplitude);
+            //Velocity = new Vector2(100 / period, (float)Math.Sin(gameTime.TotalGameTime.Seconds) * amplitude);
+            Velocity = Vector2.Zero;
             TargetPosition += Velocity;
 
             // TODO: Turnaround logic for mid boss to switch right to left.

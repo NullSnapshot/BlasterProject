@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using BulletBlaster.Code.Entities.Behaviors.Mob;
 using BulletBlaster.Game.Entities.Behaviors.Bullet;
+using BulletBlaster.Game.Entities.Bullet.Patterns;
 
 namespace BulletBlaster.Game.Entities.User
 {
@@ -11,7 +12,7 @@ namespace BulletBlaster.Game.Entities.User
 
         private Texture2D sprite;
         private Texture2D hitboxSprite;
-        private bool drawHitbox = true;
+        public bool drawHitbox { get; set; } = false;
 
         public int immunityLength = 0;
 
@@ -22,21 +23,16 @@ namespace BulletBlaster.Game.Entities.User
         private Color[] cheatColorPalate = new Color[] { Color.Red, Color.Orange, Color.Yellow, Color.Green, Color.Blue, Color.Indigo, Color.Violet };
         private int nextColor = 1;
 
-        GraphicsDeviceManager graphics;
 
 
-
-        public UserEntity(Texture2D spriteTexture, Texture2D hitboxSprite, UserControlledBehavior behavior, BulletBehavior bulletBehavior, int health, GraphicsDeviceManager graphics)
-            : base(behavior, bulletBehavior, spriteTexture, behavior.TargetPosition, health)
+        public UserEntity(Texture2D spriteTexture, Texture2D hitboxSprite, UserControlledBehavior behavior, List<BulletPattern> bulletPatterns, int health)
+            : base(behavior, bulletPatterns, spriteTexture,  behavior.TargetPosition, health)
         {
             this.MaxSpeed = behavior.TargetSpeed;
             this.health = health;
 
             this.sprite = spriteTexture;
             this.hitboxSprite = hitboxSprite;
-
-            this.graphics = graphics;
-            
         }
 
         public override void Draw(SpriteBatch sb, GameTime gameTime)
@@ -87,7 +83,6 @@ namespace BulletBlaster.Game.Entities.User
         {
             this.Behavior.Update(gameTime);
             this.Position = this.Behavior.TargetPosition;
-            this.bulletTemplate.Update(gameTime);
 
             if (immunityLength != 0)
             {
@@ -112,12 +107,16 @@ namespace BulletBlaster.Game.Entities.User
             return Color.White;
         }
 
-        public void OnCollide(CollidableEntity entity)
+        public override void OnCollide(CollidableEntity entity)
         {
-            if(immunityLength != 0 && !this.cheatMode)
+            if(immunityLength == 0 && !this.cheatMode)
             {
-                base.OnCollide();
                 immunityLength = 500;
+                health -= entity.Damage;
+                if(this.health == 0)
+                {
+                    this.health = -1;
+                }
             }
         }
     }

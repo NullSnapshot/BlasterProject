@@ -1,4 +1,5 @@
 ﻿using BulletBlaster.Game.Entities.Behaviors;
+using BulletBlaster.Game.Entities.User;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -13,6 +14,8 @@ namespace BulletBlaster.Game.Entities
     {
         public Rectangle hitBox { get; protected set; }
 
+        public int Damage { get; set; } = 1;
+
         public CollidableEntity(EntityBehavior behavior, Texture2D texture, Vector2 position)
             : base(behavior, texture, position)
         {
@@ -20,8 +23,14 @@ namespace BulletBlaster.Game.Entities
         }
 
         // ON COLLIDE
-        public virtual void OnCollide()
+        public virtual void OnCollide(CollidableEntity entity)
         {
+            if(entity.GetType() == typeof(UserEntity))
+            {
+                UserEntity user = (UserEntity)entity;
+                if (user.immunityLength > 0)
+                    return;
+            }
             this.RemovalFlag = true;
         }
 
