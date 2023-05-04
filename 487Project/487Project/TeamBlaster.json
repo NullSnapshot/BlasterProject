@@ -26,19 +26,20 @@
       "background": "ui-background1",
       "enemies" : [
         {
-          "enemy_sprite": "enemy1",
-          "enemyAmount": 1,
-          "offset": 500,
+          "enemy_sprite": "enemy3",
+          "enemyAmount": 4,
+          "offset": 1000,
           "start_offset": 0,
           "maxHealth": 1,
           "position": {
             "x": 0,
-            "y": 200
+            "y": 500
           },
           "enemyMovement": {
-            "movement_type": "linear",
+            "movement_type": "sine",
             "direction": "right",
-            "movement_speed": 1
+            "amplitude": 50,
+            "period" :  2
           },
           "patternSeed": 452,
           "attackPatterns": [

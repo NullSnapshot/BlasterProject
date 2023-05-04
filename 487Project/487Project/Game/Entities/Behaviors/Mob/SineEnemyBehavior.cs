@@ -1,5 +1,6 @@
 ﻿using BulletBlaster.Game.config;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 using System;
 
 
@@ -8,8 +9,13 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
     internal class SineEnemyBehavior : EnemyBehavior
     {
         protected Vector2 Velocity { get; set; }
-        private int amplitude;
-        private int period;
+        private int amplitude = 50;
+        private int period = 2;
+
+        private bool movingLeft = false;
+
+        public static string Name => "sine";
+
         public SineEnemyBehavior()
             : base()
         {
@@ -27,24 +33,27 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
 
         public override void Update(GameTime gameTime)
         {
-            // Double check this math, it might be wrong.
-            //Velocity = new Vector2(100 / period, (float)Math.Sin(gameTime.TotalGameTime.Seconds) * amplitude);
-            Velocity = Vector2.Zero;
-            TargetPosition += Velocity;
-
-            // TODO: Turnaround logic for mid boss to switch right to left.
-        }
-
-        public override void Copy(EntityBehavior copySource)
-        {
-            base.Copy(copySource);
-            if (copySource.GetType() == typeof(SineEnemyBehavior))
+            float tempY = (float)Math.Sin(gameTime.TotalGameTime.TotalSeconds * period) * amplitude * 2 + this.SourceConfig.position.y;
+            float tempX = 1010;
+            
+            if(movingLeft)
             {
-                SineEnemyBehavior sineCopySource = (SineEnemyBehavior)copySource;
-                amplitude = sineCopySource.amplitude;
-                period = sineCopySource.period;
-                Velocity = new Vector2(sineCopySource.Velocity.X, sineCopySource.Velocity.Y);
+                tempX = 0;
             }
+
+            if(this.TargetPosition.X > 1000 && this.TargetPosition.X < 1010)
+            {
+                movingLeft = true;
+            }
+            if(this.TargetPosition.X < 10 && this.TargetPosition.X > 5 )
+            {
+                movingLeft = false;
+            }
+
+            Vector2 targetVector = (new Vector2(tempX, tempY) - this.TargetPosition).NormalizedCopy();
+
+            this.TargetPosition = EntityTools.DeltaMove(this.TargetPosition, gameTime, targetVector.X, targetVector.Y * amplitude);
+
         }
 
     }
