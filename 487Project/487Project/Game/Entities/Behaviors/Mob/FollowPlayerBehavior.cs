@@ -27,8 +27,8 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
             playerPos.Y = targetY;
             Vector2 currentPos = this.TargetPosition;
 
-            Vector2 wantedPosition = (playerPos - currentPos).NormalizedCopy() * new Vector2((float)Math.Sqrt(this.TargetSpeed),0);
-            this.TargetPosition += wantedPosition;
+            Vector2 wantedPositionVec = (playerPos - currentPos).NormalizedCopy() * new Vector2((float)Math.Sqrt(this.TargetSpeed),0);
+            this.TargetPosition = EntityTools.DeltaMove(this.TargetPosition, gameTime, x: wantedPositionVec.X, y: wantedPositionVec.Y);
         }
     }
 }

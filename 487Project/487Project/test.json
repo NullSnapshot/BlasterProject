@@ -32,13 +32,15 @@
           "start_offset": 0,
           "maxHealth": 1,
           "position": {
-            "x": 400,
-            "y": 200
+            "x": 500,
+            "y": 400
           },
           "enemyMovement": {
-            "movement_type": "linear",
+            "movement_type": "x-pattern",
             "direction": "right",
-            "movement_speed": 0
+            "movement_speed": 10,
+            "cooldown": 8,
+            "amplitude": 125
           },
           "patternSeed": 452,
           "attackPatterns": [

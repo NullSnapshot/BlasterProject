@@ -302,11 +302,11 @@
             "y": 400
           },
           "enemyMovement": {
-            "movement_type": "linear",
-            "direction": "down",
-            "movement_speed": 0,
-            "amplitude": 100,
-            "period": 4
+            "movement_type": "x-pattern",
+            "direction": "right",
+            "movement_speed": 10,
+            "cooldown": 8,
+            "amplitude": 125
           },
           "patternSeed": 231233,
           "attackPatterns": [

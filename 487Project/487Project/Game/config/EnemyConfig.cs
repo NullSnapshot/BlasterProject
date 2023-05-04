@@ -32,6 +32,8 @@ namespace BulletBlaster.Game.config
         public int movement_speed { get; set; }
         public int amplitude { get; set; }
         public int period { get; set; }
+
+        public int cooldown { get; set; }
     }
 
     internal class BulletPatternConfig

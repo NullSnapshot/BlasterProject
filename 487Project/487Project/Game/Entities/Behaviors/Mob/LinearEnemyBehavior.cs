@@ -16,6 +16,7 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
             velocity = Vector2.Zero;
         }
         public LinearEnemyBehavior(EnemyConfig behavior)
+            : base(behavior)
         {
             this.TargetPosition = new Vector2(behavior.position.x, behavior.position.y);
             float speed = behavior.enemyMovement.movement_speed;

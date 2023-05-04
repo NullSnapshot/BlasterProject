@@ -2,6 +2,7 @@
 using BulletBlaster.Game.Entities;
 using BulletBlaster.Game.Entities.Behaviors;
 using BulletBlaster.Game.Entities.Behaviors.Bullet;
+using BulletBlaster.Game.Entities.Behaviors.Mob;
 using BulletBlaster.Game.Entities.Bullet.Patterns;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -14,7 +15,7 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
     internal class EnemyFactory
     {
         private string spritePath;
-        private EntityBehavior enemyBehaviorTemplate;
+        private EnemyBehavior enemyBehaviorTemplate;
         //BulletEntity Entity
         private Vector2 startPos;
         private int health;
@@ -23,7 +24,7 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
 
         internal double lastSpawn { get; set; }
 
-        public EnemyFactory(string spritePath, EntityBehavior enemyBehavior, List<BulletPattern> attackPatterns, Vector2 startPos, int health, ContentManager content)
+        public EnemyFactory(string spritePath, EnemyBehavior enemyBehavior, List<BulletPattern> attackPatterns, Vector2 startPos, int health, ContentManager content)
         {
             this.spritePath = spritePath;
             enemyBehaviorTemplate = enemyBehavior;
@@ -36,8 +37,8 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
         public MobEntity Create()
         {
             Type behaviorType = enemyBehaviorTemplate.GetType();
-            EntityBehavior newInstanceBehavior = (EntityBehavior)Activator.CreateInstance(behaviorType);
-            newInstanceBehavior.Copy(enemyBehaviorTemplate);
+            EnemyBehavior newInstanceBehavior = (EnemyBehavior)Activator.CreateInstance(behaviorType, enemyBehaviorTemplate.SourceConfig);
+            //newInstanceBehavior.Copy(enemyBehaviorTemplate);
             MobEntity newEntity = new MobEntity(
                 newInstanceBehavior,
                 attackPatterns,
