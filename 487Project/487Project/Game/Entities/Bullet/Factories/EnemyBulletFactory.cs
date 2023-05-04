@@ -20,7 +20,16 @@ namespace BulletBlaster.Game.Entities.Bullet.Factories
         }
         public override Bullet Create(Vector2 velocity, Vector2 startPos)
         {
-            EnemyBulletBehavior newBulletBehavior = new EnemyBulletBehavior(startPos, this.config);
+            BulletBehavior newBulletBehavior;
+            if (this.config.bullet_type == "homing")
+            {
+                PlayerTargetBulletBehavior newPlayerTargetBehavior = new PlayerTargetBulletBehavior(startPos, this.config);
+                newBulletBehavior = (BulletBehavior)newPlayerTargetBehavior;
+            }
+            else
+            {
+                newBulletBehavior = new EnemyBulletBehavior(startPos, this.config);
+            }
             EnemyBullet bullet = new EnemyBullet(newBulletBehavior, this.texture, startPos);
             newBulletBehavior.Velocity = velocity;
             EntityManager.RegisterPlayerCollidableEntity(bullet);

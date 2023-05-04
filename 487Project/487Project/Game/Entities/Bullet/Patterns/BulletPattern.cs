@@ -19,7 +19,15 @@ namespace BulletBlaster.Game.Entities.Bullet.Patterns
 
         protected BulletPatternConfig config;
 
-        public string Pattern { get; set; } = "single";
+        protected double lastFire = 0;
+
+        protected Random random;
+
+        protected int CoolDownCoefficient = 4;
+
+        protected float CoolDownMinimum = 0.5f;
+
+        public static string Pattern => "single";
 
         public BulletPattern() { }
         
@@ -30,11 +38,28 @@ namespace BulletBlaster.Game.Entities.Bullet.Patterns
                 this.bulletFactory = new PlayerBulletFactory(config, sprite);
             else
                 this.bulletFactory = new EnemyBulletFactory(config, sprite);
+
+            this.random = new Random(EntityTools.GetPseudoRandomSeed());
         }
 
         public virtual void FirePattern(Vector2 source, GameTime gameTime)
         {
-            this.bulletFactory.Create(new Vector2(0, this.config.bullet_speed), source);
+            this.bulletFactory.Create(new Vector2(0, this.config.bullet_speed / 10), source);
+        }
+
+        public virtual bool ShouldFire(GameTime gameTime)
+        {
+            if (gameTime.TotalGameTime.TotalSeconds - lastFire > this.CoolDownMinimum + (this.random.NextDouble() * this.CoolDownCoefficient))
+            {
+                this.lastFire = gameTime.TotalGameTime.TotalSeconds;
+                return true;
+            }
+            return false;
+        }
+
+        public virtual void Update(GameTime gameTime, Vector2 Position)
+        {
+            // Does nothing usually
         }
     }
 }

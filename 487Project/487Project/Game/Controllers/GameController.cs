@@ -116,6 +116,11 @@ namespace BulletBlaster.Game.Controllers
             //Exit code
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 game.Exit();
+
+            if(Math.Floor((double)gameTime.TotalGameTime.Seconds) % 2 == 0)
+            {
+                ScoreSystem.addPoints(1);
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

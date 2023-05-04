@@ -27,18 +27,18 @@
       "enemies" : [
         {
           "enemy_sprite": "enemy1",
-          "enemyAmount": 100,
+          "enemyAmount": 1,
           "offset": 500,
           "start_offset": 0,
           "maxHealth": 1,
           "position": {
-            "x": 100,
-            "y": 400
+            "x": 400,
+            "y": 200
           },
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "right",
-            "movement_speed": 1
+            "movement_speed": 0
           },
           "patternSeed": 452,
           "attackPatterns": [
@@ -53,9 +53,9 @@
           ]
         },
         {
-          "enemy_sprite": "enemy1",
+          "enemy_sprite": "enemy2",
           "enemyAmount": 5,
-          "offset": 500,
+          "offset": 1500,
           "start_offset": 0,
           "maxHealth": 1,
           "position": {
@@ -82,12 +82,12 @@
         {
           "enemy_sprite": "enemy1",
           "enemyAmount": 3,
-          "offset": 500,
+          "offset": 1000,
           "start_offset": 0,
           "maxHealth": 1,
           "position": {
-            "x": 500,
-            "y": 400
+            "x": 400,
+            "y": 0
           },
           "enemyMovement": {
             "movement_type": "linear",
@@ -113,8 +113,8 @@
           "start_offset": 0,
           "maxHealth": 1,
           "position": {
-            "x": 200,
-            "y": 500
+            "x": 0,
+            "y": 200
           },
           "enemyMovement": {
             "movement_type": "linear",
@@ -147,13 +147,12 @@
           "start_offset": 0,
           "maxHealth": 15,
           "position": {
-            "x": 100,
+            "x": 500,
             "y": 400
           },
-
           "enemyMovement": {
-            "movement_type": "sine",
-            "direction": "side-to-side",
+            "movement_type": "linear",
+            "movement_speed": 0,
             "amplitude": 50,
             "period": 2
           },
@@ -161,10 +160,10 @@
           "attackPatterns": [
             {
               "bullet_sprite": "bullet",
-              "bullet_type": "basic",
+              "bullet_type": "shotgun",
               "pattern": "single",
-              "bullet_count": 1,
-              "bullet_speed": 10,
+              "bullet_count": 25,
+              "bullet_speed": 5,
               "damage": 1
             }
           ]
@@ -299,11 +298,13 @@
           "start_offset": 0,
           "maxHealth": 30,
           "position": {
-            "x": 100,
+            "x": 500,
             "y": 400
           },
           "enemyMovement": {
-            "movement_type": "zigag",
+            "movement_type": "linear",
+            "direction": "down",
+            "movement_speed": 0,
             "amplitude": 100,
             "period": 4
           },
@@ -311,9 +312,9 @@
           "attackPatterns": [
             {
               "bullet_sprite": "bullet",
-              "bullet_type": "basic",
-              "pattern": "shotgun",
-              "bullet_count": 10,
+              "bullet_type": "homing",
+              "pattern": "spiral",
+              "bullet_count": 125,
               "bullet_speed": 10,
               "damage": 1
             },
@@ -321,22 +322,14 @@
               "bullet_sprite": "bullet",
               "bullet_type": "basic",
               "pattern": "circle",
-              "bullet_count": 20,
+              "bullet_count": 125,
               "bullet_speed": 10,
               "damage": 1
             },
             {
               "bullet_sprite": "bullet",
-              "bullet_type": "basic",
-              "pattern": "triangle",
-              "bullet_count": 20,
-              "bullet_speed": 10,
-              "damage": 1
-            },
-            {
-              "bullet_sprite": "bullet",
-              "bullet_type": "basic",
-              "pattern": "flood",
+              "bullet_type": "shotgun",
+              "pattern": "single",
               "bullet_count": 20,
               "bullet_speed": 10,
               "damage": 1

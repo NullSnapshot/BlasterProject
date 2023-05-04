@@ -58,9 +58,9 @@ namespace BulletBlaster.Game.Controllers
         public static void Update(GameTime gameTime)
         {
             // Update positional/firing logic
-            foreach (Entity entity in entities)
+            for(int i = 0; i < entities.Count; i++)
             {
-                entity.Update(gameTime);
+                entities[i].Update(gameTime);
             }
             HandleCollisions();
             HandleRemovals();

@@ -15,6 +15,8 @@ namespace BulletBlaster.Game.Entities
     internal static class EntityTools
     {
         private static IDictionary<string, Type> BulletPatterns = new Dictionary<string, Type>();
+
+        private static int seed = 0;
         public static Rectangle BuildCollisionBox(Entity entity)
         {
             return new Rectangle((int)entity.Position.X - entity.Texture.Width / 2, (int)entity.Position.Y - entity.Texture.Width / 2, entity.Texture.Width, entity.Texture.Height);
@@ -75,6 +77,19 @@ namespace BulletBlaster.Game.Entities
                     }
                 }
             }
+        }
+
+        // Need a pseudorandom seed so the game is always deterministic.
+        public static int GetPseudoRandomSeed()
+        {
+            int returnedSeed = seed;
+            seed++;
+            return returnedSeed;
+        }
+
+        public static void ResetSeed()
+        {
+            seed = 0;
         }
     }
 }
