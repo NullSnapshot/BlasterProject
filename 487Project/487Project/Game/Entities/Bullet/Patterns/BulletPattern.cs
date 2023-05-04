@@ -17,7 +17,9 @@ namespace BulletBlaster.Game.Entities.Bullet.Patterns
 
         protected BulletFactory bulletFactory;
 
-        protected BulletPatternConfig config;
+        public BulletPatternConfig config;
+
+        public Texture2D BulletSprite;
 
         protected double lastFire = 0;
 
@@ -34,6 +36,7 @@ namespace BulletBlaster.Game.Entities.Bullet.Patterns
         public BulletPattern(BulletPatternConfig config, Texture2D sprite) 
         {
             this.config = config;
+            this.BulletSprite = sprite;
             if (config.bullet_type == "player-bullet")
                 this.bulletFactory = new PlayerBulletFactory(config, sprite);
             else

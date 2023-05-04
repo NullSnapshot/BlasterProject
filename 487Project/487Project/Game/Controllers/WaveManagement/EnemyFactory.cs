@@ -41,7 +41,7 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
             //newInstanceBehavior.Copy(enemyBehaviorTemplate);
             MobEntity newEntity = new MobEntity(
                 newInstanceBehavior,
-                attackPatterns,
+                EntityTools.CopyBulletPatterns(this.attackPatterns),
                 content.Load<Texture2D>(spritePath),
                 startPos,
                 health);

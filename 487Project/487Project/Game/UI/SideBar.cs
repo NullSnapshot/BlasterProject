@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using BulletBlaster.Game.Entities.User;
 using BulletBlaster.Game.Controllers;
+using BulletBlaster.Game.config;
 
 namespace BulletBlaster.Game.UI
 {
@@ -24,8 +25,11 @@ namespace BulletBlaster.Game.UI
 
         public void draw(SpriteBatch _spriteBatch)
         {
-            //_spriteBatch.DrawString(this.Font, "High Score: " + this.highScore.ToString(), new Vector2(1050, 115), Color.Gray);
-            _spriteBatch.DrawString(this.Font, "Entity Count: " + EntityManager.EntityCount, new Vector2(1050, 115), Color.Gray);
+            if(Config.DebugMode)
+                _spriteBatch.DrawString(this.Font, "Entity Count: " + EntityManager.EntityCount, new Vector2(1050, 115), Color.Gray);
+            else
+                _spriteBatch.DrawString(this.Font, "High Score: " + this.highScore.ToString(), new Vector2(1050, 115), Color.Gray);
+
             _spriteBatch.DrawString(this.Font, "Score: " + this.score.ToString(), new Vector2(1050, 165), Color.White);
             _spriteBatch.DrawString(this.Font, "Health: " + this.health.ToString(), new Vector2(1050, 215), Color.Red);
         }

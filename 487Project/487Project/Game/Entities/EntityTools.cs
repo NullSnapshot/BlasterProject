@@ -2,6 +2,7 @@
 using BulletBlaster.Game.Entities.Behaviors.Mob;
 using BulletBlaster.Game.Entities.Bullet.Patterns;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace BulletBlaster.Game.Entities
         private static IDictionary<string, Type> BulletPatterns = new Dictionary<string, Type>();
 
         private static IDictionary<string, Type> EnemyBehaviors = new Dictionary<string, Type>();
+
 
         static EntityTools()
         {
@@ -131,6 +133,16 @@ namespace BulletBlaster.Game.Entities
         public static void ResetSeed()
         {
             seed = 0;
+        }
+
+        public static List<BulletPattern> CopyBulletPatterns(List<BulletPattern> patterns)
+        {
+            List<BulletPattern> returnPatterns = new List<BulletPattern>();
+            foreach (BulletPattern pattern in patterns)
+            {
+                returnPatterns.Add(EntityTools.BuildBulletPattern(pattern.config, pattern.BulletSprite));
+            }
+            return returnPatterns;
         }
     }
 }

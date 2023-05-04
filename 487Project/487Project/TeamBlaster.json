@@ -32,13 +32,13 @@
           "start_offset": 0,
           "maxHealth": 1,
           "position": {
-            "x": 400,
+            "x": 0,
             "y": 200
           },
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "right",
-            "movement_speed": 0
+            "movement_speed": 1
           },
           "patternSeed": 452,
           "attackPatterns": [
@@ -109,7 +109,7 @@
         {
           "enemy_sprite": "enemy2",
           "enemyAmount": 6,
-          "offset": 500,
+          "offset": 1500,
           "start_offset": 0,
           "maxHealth": 1,
           "position": {
@@ -151,19 +151,17 @@
             "y": 400
           },
           "enemyMovement": {
-            "movement_type": "linear",
-            "movement_speed": 0,
-            "amplitude": 50,
-            "period": 2
+            "movement_type": "follow-player",
+            "movement_speed": 10
           },
           "patternSeed": 3242343,
           "attackPatterns": [
             {
               "bullet_sprite": "bullet",
-              "bullet_type": "shotgun",
-              "pattern": "single",
+              "bullet_type": "basic",
+              "pattern": "shotgun",
               "bullet_count": 25,
-              "bullet_speed": 5,
+              "bullet_speed": 10,
               "damage": 1
             }
           ]
@@ -189,7 +187,7 @@
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "right",
-            "movement_speed": 5
+            "movement_speed": 1
           },
           "patternSeed": 345345,
           "attackPatterns": [
@@ -216,7 +214,7 @@
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "left",
-            "movement_speed": 5
+            "movement_speed": 1
           },
           "patternSeed": 6575675,
           "attackPatterns": [
@@ -243,7 +241,7 @@
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "down",
-            "movement_speed": 5
+            "movement_speed": 1
           },
           "patternSeed": 176876876,
           "attackPatterns": [
@@ -269,7 +267,7 @@
           },
           "enemyMovement": {
             "movement_type": "linear",
-            "movement_speed": 5
+            "movement_speed": 1
           },
           "patternSeed": 546345,
           "attackPatterns": [
