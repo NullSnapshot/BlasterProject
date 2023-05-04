@@ -9,7 +9,6 @@ namespace BulletBlaster.Game.config
         public string player_sprite { get; set; }
         public int player_speed { get; set; }
         public int maxHealth { get; set; }
-        public SpriteSize size { get; set; }
         public SpritePosition position { get; set; }
         public PlayerWeapon weapon { get; set; }
 

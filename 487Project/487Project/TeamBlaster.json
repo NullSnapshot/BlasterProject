@@ -1,20 +1,16 @@
 {
   "player": {
     "player_sprite" : "player",
-    "player_speed" : 100,
-    "maxHealth" : 500,
-    "size" : {
-      "width": 50,
-      "height": 50
-    },
+    "player_speed" : 10,
+    "maxHealth" : 10,
     "position" : {
       "x": 500,
       "y": 1200
     },
     "weapon": {
-      "weapon_sprite" : "images/playerBullets.png",
-      "weapon_type": "laser",
-      "weapon_damage": 100,
+      "weapon_sprite" : "bullet",
+      "weapon_type": "bullet",
+      "weapon_damage": 1,
       "weapon_speed": 20
     }
   },
@@ -26,19 +22,15 @@
       "background": "ui-background1",
       "enemies" : [
         {
-          "enemy_sprite" : "enemy1",
+          "enemy_sprite" : "boss",
           "enemyType" : "A",
-          "enemyAmount" : 10,
-          "maxHealth": 100,
-          "size": {
-            "width": 50,
-            "height": 50
-          },
+          "enemyAmount" : 100,
+          "maxHealth": 1,
           "position": {
             "x": 100,
             "y": 400
           },
-          "offset":  100,
+          "offset":  500,
           "enemyMovement" : {
             "movement_type" : "linear",
             "direction" : "right", 
@@ -49,25 +41,21 @@
             "bullet_sprite": "bullet",
             "bullet_type" : "basicBullet",
             "bullet_movement" : "straight",
-            "bullet_count": 20,
+            "bullet_count": 1,
             "bullet_speed" : 10,
-            "damage": 50  
+            "damage": 1  
           }
         },
         {
           "enemy_sprite": "enemy1",
           "enemyType": "A",
           "enemyAmount": 5,
-          "maxHealth": 100,
-          "size": {
-            "width": 50,
-            "height": 50
-          },
+          "maxHealth": 1,
           "position": {
             "x": 500,
             "y": 400
           },
-          "offset": 100,
+          "offset": 500,
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "left",
@@ -80,18 +68,14 @@
             "bullet_movement": "straight",
             "bullet_count": 20,
             "bullet_speed": 10,
-            "damage": 50
+            "damage": 1
           }
         },
         {
           "enemy_sprite": "enemy1",
           "enemyType": "C",
           "enemyAmount": 3,
-          "maxHealth": 100,
-          "size": {
-            "width": 50,
-            "height": 50
-          },
+          "maxHealth": 1,
           "position": {
             "x": 500,
             "y": 400
@@ -116,16 +100,12 @@
           "enemy_sprite": "enemy2",
           "enemyType": "elite",
           "enemyAmount": 6,
-          "maxHealth": 400,
-          "size": {
-            "width": 75,
-            "height": 75
-          },
+          "maxHealth": 1,
           "position": {
             "x": 200,
             "y": 500
           },
-          "offset": 100,
+          "offset": 500,
           "enemyMovement": {
             "movement_type": "linear",
             "movement_speed": 1
@@ -150,16 +130,12 @@
       "MidBoss": {
         "midBoss_sprite": "images/midBoss.png",
         "enemyType": "midBoss",
-        "maxHealth": 1500,
-        "size": {
-          "width": 100,
-          "height": 100
-        },
+        "maxHealth": 5,
         "position": {
           "x": 100,
           "y": 400
         },
-        "offset": 100,
+        "offset": 500,
         "enemyMovement": {
           "movement_type": "sine",
           "direction": "side-to-side",
@@ -187,16 +163,12 @@
           "enemy_sprite": "enemy2",
           "enemyType": "A",
           "enemyAmount": 2,
-          "maxHealth": 100,
-          "size": {
-            "width": 50,
-            "height": 50
-          },
+          "maxHealth": 1,
           "position": {
             "x": 100,
             "y": 400
           },
-          "offset": 100,
+          "offset": 500,
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "right",
@@ -216,16 +188,12 @@
           "enemy_sprite": "enemy2",
           "enemyType": "B",
           "enemyAmount": 2,
-          "maxHealth": 100,
-          "size": {
-            "width": 50,
-            "height": 50
-          },
+          "maxHealth": 1,
           "position": {
             "x": 100,
             "y": 400
           },
-          "offset": 100,
+          "offset": 500,
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "left",
@@ -245,16 +213,12 @@
           "enemy_sprite": "enemy2",
           "enemyType": "C",
           "enemyAmount": 2,
-          "maxHealth": 100,
-          "size": {
-            "width": 50,
-            "height": 50
-          },
+          "maxHealth": 1,
           "position": {
             "x": 100,
             "y": 400
           },
-          "offset": 100,
+          "offset": 500,
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "down",
@@ -274,16 +238,12 @@
           "enemy_sprite": "enemy2",
           "enemyType": "elite",
           "enemyAmount": 1,
-          "maxHealth": 400,
-          "size": {
-            "width": 75,
-            "height": 75
-          },
+          "maxHealth": 1,
           "position": {
             "x": 100,
             "y": 400
           },
-          "offset": 100,
+          "offset": 500,
           "enemyMovement": {
             "movement_type": "linear",
             "movement_speed": 5
@@ -304,19 +264,15 @@
       "name": "Phase 4",
       "finalBoss_sprite": "images/final_boss_enemy.png",
       "enemyType": "FinalBoss",
-      "maxHealth": 3000,
+      "maxHealth": 30,
       "start_time": 90,
       "duration": 60,
       "background": "ui-background2",
-      "size": {
-        "width": 100,
-        "height": 100
-      },
       "position": {
         "x": 100,
         "y": 400
       },
-      "offset": 100,
+      "offset": 500,
       "movement": {
         "movement_type": "zigag",
         "amplitude": 100,

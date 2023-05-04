@@ -10,9 +10,11 @@ namespace BulletBlaster.Game.Entities
 
         public Texture2D Texture { get; set; }
         public Vector2 Position { get; set; }
-        public float Speed { get; set; }
+        public float MaxSpeed { get; set; }
 
         public EntityBehavior Behavior { get; set; }
+
+        public bool RemovalFlag { get; protected set; } = false;
 
         public Entity(EntityBehavior behavior, Texture2D texture, Vector2 position)
         {
@@ -37,9 +39,8 @@ namespace BulletBlaster.Game.Entities
 
         public virtual void Update(GameTime gameTime)
         {
-            Behavior.Update(gameTime);
-            Position = Behavior.TargetPosition;
-            Speed = Behavior.TargetSpeed;
+            this.Behavior.Update(gameTime);
+            this.Position = this.Behavior.TargetPosition;
         }
 
     }

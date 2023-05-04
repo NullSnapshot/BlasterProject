@@ -9,19 +9,12 @@ namespace BulletBlaster.Game.config
         public int enemyAmount { get; set; }
         public int offset { get; set; }
         public int maxHealth { get; set; }
-        public SpriteSize size { get; set; }
         public SpritePosition position { get; set; }
         public EnemyMovement enemyMovement { get; set; }
         public EnemyBulletType enemyBulletType { get; set; }
 
     }
 
-    internal class SpriteSize
-    {
-        public int width { get; set; }
-        public int height { get; set; }
-
-    }
     internal class SpritePosition
     {
         public int x { get; set; }

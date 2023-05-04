@@ -32,12 +32,8 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
 
         public override void Update(GameTime gameTime)
         {
-            TargetPosition += velocity;
+            this.TargetPosition = EntityTools.DeltaMove(this.TargetPosition, gameTime, x: this.velocity.X, y: this.velocity.Y);
 
-            if (TargetPosition.Y > 1200 || TargetPosition.Y < 104) // off screen Y direction
-            {
-                Visible = false;
-            }
 
             // Bullet firing logic goes here.
         }

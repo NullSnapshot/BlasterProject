@@ -29,18 +29,23 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
         public void Update(GameTime gameTime)
         {
             // trigger wave spawn
-            if (gameTime.TotalGameTime.TotalSeconds >= nextWaveConfig.start_time)
+            if(this.nextWaveConfig != null)
             {
-                System.Diagnostics.Debug.WriteLine($"Triggering {nextWaveConfig.name} at {gameTime.TotalGameTime.TotalSeconds} seconds.");
-                WaveSpawner newSpawner = new WaveSpawner(nextWaveConfig, contentManager);
-                activeSpawns.Add(newSpawner);
-                newSpawner.Attach(this);
-                // END TODO: Wave spawn logic
+                if (gameTime.TotalGameTime.TotalSeconds >= nextWaveConfig.start_time)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Triggering {nextWaveConfig.name} at {gameTime.TotalGameTime.TotalSeconds} seconds.");
+                    WaveSpawner newSpawner = new WaveSpawner(nextWaveConfig, contentManager);
+                    activeSpawns.Add(newSpawner);
+                    newSpawner.Attach(this);
 
-                waveConfigs.Dequeue(); // Remove first element
-                if (waveConfigs.Count != 0)
-                    nextWaveConfig = waveConfigs.Peek(); // update head ref
+                    waveConfigs.Dequeue(); // Remove first element
+                    if (waveConfigs.Count != 0)
+                        nextWaveConfig = waveConfigs.Peek(); // update head ref
+                    else if (waveConfigs.Count == 0)
+                        this.nextWaveConfig = null;
+                }
             }
+            
 
             // Run active spawners
             for (int i = 0; i < activeSpawns.Count; i++)

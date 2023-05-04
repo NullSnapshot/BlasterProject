@@ -57,21 +57,24 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
             // time to spawn new enemies.
             if (gameTime.TotalGameTime.TotalMilliseconds - lastSpawn > offset)
             {
-                int i = 0;
-                foreach (EnemyFactory factory in enemyFactories)
+                for(int i = 0; i < enemyFactories.Count; i++)
                 {
+                    EnemyFactory factory = enemyFactories[i];
                     if (enemyGroups[i].enemyAmount > 0)
                     {
-                        Entity newEnemy = factory.Create();
-                        EntityManager.RegisterCollidableEntity(newEnemy);
+                        if(gameTime.TotalGameTime.TotalMilliseconds - factory.lastSpawn > enemyGroups[i].offset)
+                        {
+                            MobEntity newEnemy = factory.Create();
+                            EntityManager.RegisterEnemy(newEnemy);
+                            factory.lastSpawn = gameTime.TotalGameTime.TotalMilliseconds;
+                            enemyGroups[i].enemyAmount -= 1;
+                        }
+                        
                     }
-                    enemyGroups[i].enemyAmount -= 1;
-                    i++;
                 }
-                lastSpawn = gameTime.TotalGameTime.TotalMilliseconds;
             }
 
-            if (enemyGroups.Count > 0)
+            if (enemyGroups != null && enemyGroups.Count > 0)
             {
                 // Clear check
                 bool done = true;

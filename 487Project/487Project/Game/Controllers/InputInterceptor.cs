@@ -1,39 +1,40 @@
-﻿using BulletBlaster.Game.config;
+﻿using BulletBlaster.Code.Entities.Behaviors.Mob;
+using BulletBlaster.Game.config;
+using BulletBlaster.Game.Entities;
 using BulletBlaster.Game.Entities.User;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-
+using System.Reflection.Metadata;
 
 namespace BulletBlaster.Game.Controllers
 {
     internal class InputInterceptor
     {
-        PlayerConfig config;
-        string inputType;
-        UserMovement userPosition;
-        public Texture2D bulletTexture;
-        List<Bullets> bullets = new List<Bullets>();
-        public InputInterceptor(string inputType, Dictionary<Keys, string> config, PlayerConfig playerConfig, UserMovement userPosition, Texture2D bullet)
+        private PlayerConfig config;
+        private string inputType;
+        private MobEntity User;
+        private UserControlledBehavior UserIntent;
+        private double LastDebugKeyPress = 0;
+
+        public InputInterceptor(string inputType, Dictionary<Keys, string> config, PlayerConfig playerConfig, UserControlledBehavior userBehavior)
         {
             this.config = playerConfig;
             this.config.BindKeys(config);
             this.inputType = inputType;
-            this.userPosition = userPosition;
-            bulletTexture = bullet;
+            this.User = EntityManager.GetPlayer();
+            this.UserIntent = userBehavior;
         }
-
-
 
         public void Update(GameTime gameTime)
         {
-            if (inputType == "Keyboard")
+            if (this.inputType == "Keyboard")
             {
                 updateKeyboard(gameTime);
             }
 
-            if (inputType == "Mouse")
+            if (this.inputType == "Mouse")
             {
                 updateMouse(gameTime);
             }
@@ -41,74 +42,59 @@ namespace BulletBlaster.Game.Controllers
 
         private void updateKeyboard(GameTime gameTime)
         {
+
             var kstate = Keyboard.GetState();
 
             List<string> movement = config.lookUpKeys(kstate.GetPressedKeys());
 
-            Vector2 tempV = userPosition.getLocation();
-            float tempSpeed = userPosition.getSpeed();
-            Texture2D texture = userPosition.getTexture();
-
+            // Don't run user inputs if the user hasn't loaded yet.
+            if (this.User == null)
+                return;
+            Vector2 tempV = this.User.Position;
+            int speed = (int)this.User.MaxSpeed;
+            if(movement.Contains("Slowmode"))
+            {
+                speed /= 2;
+            }
+            if(movement.Contains("Debug"))
+            {
+                if(gameTime.TotalGameTime.Seconds - this.LastDebugKeyPress > 1)
+                {
+                    Config.DebugMode = !Config.DebugMode;
+                    this.LastDebugKeyPress = gameTime.TotalGameTime.Seconds;
+                }
+                    
+            }
             foreach (string direction in movement)
             {
-                System.Diagnostics.Debug.WriteLine(direction);
+                //System.Diagnostics.Debug.WriteLine(direction);
                 if (direction == "Up")
                 {
-                    tempV.Y -= tempSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    userPosition.updateLocation(tempV);
+                    tempV = EntityTools.DeltaMove(tempV, gameTime, y:-speed);
                 }
 
                 if (direction == "Down")
                 {
-                    tempV.Y += tempSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    userPosition.updateLocation(tempV);
+                    tempV = EntityTools.DeltaMove(tempV, gameTime, y: speed);
                 }
 
                 if (direction == "Left")
                 {
-                    tempV.X -= tempSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    userPosition.updateLocation(tempV);
+                    tempV = EntityTools.DeltaMove(tempV, gameTime, x: -speed);
                 }
 
                 if (direction == "Right")
                 {
-                    tempV.X += tempSpeed * 6 * (float)gameTime.ElapsedGameTime.TotalSeconds;
-                    userPosition.updateLocation(tempV);
+                    tempV = EntityTools.DeltaMove(tempV, gameTime, x: speed);
                 }
 
                 if (direction == "Space")
                 {
-                    Vector2 velocity = new Vector2(0, -6);
-                    Vector2 startPosition = new Vector2(userPosition.getLocation().X + texture.Height / 2 - bulletTexture.Height / 2, userPosition.getLocation().Y + velocity.Y);
-                    Bullets bullet = new Bullets(bulletTexture);
-                    bullets.Add(bullet);
-                    Bullets.ShootBullets(bullets, bulletTexture, startPosition, velocity + new Vector2(0, -6f), 3);
+                    this.User.ShootBullet();
                 }
-
-                if (tempV.X > 1013 - texture.Width / 2)
-                {
-                    tempV.X = 1013 - texture.Width / 2;
-                    userPosition.updateLocation(tempV);
-                }
-                else if (tempV.X < 89 + texture.Width / 2)
-                {
-                    tempV.X = 89 + texture.Width / 2;
-                    userPosition.updateLocation(tempV);
-                }
-
-
-                if (tempV.Y > 1266 - texture.Height / 2)
-                {
-                    tempV.Y = 1266 - texture.Height / 2;
-                    userPosition.updateLocation(tempV);
-                }
-                else if (tempV.Y < 104 + texture.Height / 2)
-                {
-                    tempV.Y = 104 + texture.Height / 2;
-                    userPosition.updateLocation(tempV);
-                }
+                
             }
-            Bullets.UpdateBullets(bullets);
+            this.UpdateTargetPosition(tempV);
         }
 
         // NEEDS WORK: Mouse is allowed to go outside of boundaries which is something we don't want
@@ -116,38 +102,21 @@ namespace BulletBlaster.Game.Controllers
         {
             MouseState state = Mouse.GetState();
             Vector2 tempV = new Vector2(state.X, state.Y);
-            Texture2D texture = userPosition.getTexture();
+            this.UpdateTargetPosition(tempV);
 
-            // left side
-            if (tempV.X <= 122)
+            if(state.LeftButton.Equals(true))
             {
-                tempV.X = 122;
+                EntityManager.GetPlayer().ShootBullet();
             }
-            // right side
-            if (tempV.X + texture.Width > 1050)
-            {
-                tempV.X = 1050 - texture.Width;
-            }
-            // bottom screen
-            if (tempV.Y > 1230)
-            {
-                tempV.Y = 1230;
-            }
-            // top screen
-            if (tempV.Y + texture.Height < 210)
-            {
-                tempV.Y = 210 - texture.Height;
-            }
-            userPosition.updateLocation(tempV);
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        private void UpdateTargetPosition(Vector2 inputPosition)
         {
-            foreach (Bullets bullet in bullets)
-            {
-                bullet.Draw(spriteBatch);
-            }
+            // First make sure the inputted position will be in bounds.
+            MobEntity player = EntityManager.GetPlayer();
+            Vector2 safePosition = EntityTools.GetNearestInBoundsLocation(inputPosition, player);
+            this.UserIntent.SetTargetPosition(safePosition);
         }
     }
 }
