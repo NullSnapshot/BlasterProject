@@ -1,18 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BulletBlaster.Game.Entities.Behaviors.Mob
 {
-    internal class LinearEnemyBehavior : EntityBehavior
+    internal class BobbingEnemyBehavior : EntityBehavior
     {
         protected Vector2 velocity { get; set; }
-        public LinearEnemyBehavior()
+
+        public BobbingEnemyBehavior()
             : base()
         {
             velocity = Vector2.Zero;
         }
 
-        public LinearEnemyBehavior(string Direction, int speed, Vector2 startPos)
+        public BobbingEnemyBehavior(string Direction, int speed, Vector2 startPos)
         {
             TargetPosition = startPos;
             switch (Direction)
@@ -32,10 +37,17 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
 
         public override void Update(GameTime gameTime)
         {
-            this.TargetPosition = EntityTools.DeltaMove(this.TargetPosition, gameTime, x: this.velocity.X, y: this.velocity.Y);
+            float tempX = this.TargetPosition.X;
+            float tempY = this.TargetPosition.Y;
 
-        // Bullet firing logic goes here.
-    }
+            tempX += this.TargetPosition.Y;
+            tempY = tempY + (-(float)Math.Cos(this.TargetPosition.X / 100) * 100);
+
+            this.TargetPosition = EntityTools.DeltaMove(this.TargetPosition, gameTime, x: tempX, y: tempY);
+
+
+            // Bullet firing logic goes here.
+        }
 
         public override void Copy(EntityBehavior copySource)
 
@@ -43,8 +55,8 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
             base.Copy(copySource);
             if (copySource.GetType() == typeof(LinearEnemyBehavior))
             {
-                LinearEnemyBehavior linearCopySource = (LinearEnemyBehavior)copySource;
-                velocity = new Vector2(linearCopySource.velocity.X, linearCopySource.velocity.Y);
+                BobbingEnemyBehavior bobbingCopySource = (BobbingEnemyBehavior)copySource;
+                velocity = new Vector2(bobbingCopySource.velocity.X, bobbingCopySource.velocity.Y);
             }
         }
     }

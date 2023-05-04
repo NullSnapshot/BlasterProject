@@ -36,7 +36,7 @@
             "y": 200
           },
           "enemyMovement": {
-            "movement_type": "linear",
+            "movement_type": "bobbing",
             "direction": "right",
             "movement_speed": 0
           },

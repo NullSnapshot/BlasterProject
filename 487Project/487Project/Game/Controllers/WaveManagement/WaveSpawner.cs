@@ -58,6 +58,18 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
                            content);
                         enemyFactories.Add(newFactory);
                         break;
+
+                    case "bobbing":
+                        newFactory = new EnemyFactory(
+                           conf.enemy_sprite,
+                           new BobbingEnemyBehavior(conf.enemyMovement.direction,
+                               conf.enemyMovement.movement_speed, new Vector2(conf.position.x, conf.position.y)),
+                           attackPatterns,
+                           new Vector2(conf.position.x, conf.position.y),
+                           conf.maxHealth,
+                           content);
+                        enemyFactories.Add(newFactory);
+                        break;
                 }
             }
         }
