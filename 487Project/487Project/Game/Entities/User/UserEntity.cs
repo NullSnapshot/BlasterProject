@@ -104,7 +104,7 @@ namespace BulletBlaster.Game.Entities.User
             {
                 return Color.Gray;
             }
-            return Color.White;
+            return Color.Black;
         }
 
         public override void OnCollide(CollidableEntity entity)

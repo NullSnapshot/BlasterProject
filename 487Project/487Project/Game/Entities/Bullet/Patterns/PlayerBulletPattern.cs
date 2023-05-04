@@ -35,5 +35,10 @@ namespace BulletBlaster.Game.Entities.Bullet.Patterns
             }
                 
         }
+
+        public override bool ShouldFire(GameTime gameTime)
+        {
+            return true;
+        }
     }
 }
