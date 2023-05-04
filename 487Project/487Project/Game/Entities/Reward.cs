@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BulletBlaster
+namespace BulletBlaster.Game.Entities
 {
     internal class Reward
     {
@@ -35,24 +35,24 @@ namespace BulletBlaster
             this.rewardTexture = rewardTexture;
             this.rewardPosition = rewardPosition;
             this.spawnTime = spawnTime;
-            this.visible = false;
+            visible = false;
             this.despawnTime = despawnTime;
-            this.rectangle = new Rectangle((int)rewardPosition.X, (int)rewardPosition.Y, rewardTexture.Width, rewardTexture.Height);
+            rectangle = new Rectangle((int)rewardPosition.X, (int)rewardPosition.Y, rewardTexture.Width, rewardTexture.Height);
             this.user = user;
-            this.collected = false;
+            collected = false;
         }
 
         public void Draw(SpriteBatch sb)
         {
-            if(this.visible)
+            if (visible)
             {
                 sb.Draw(
-                this.rewardTexture,
-                this.rewardPosition,
+                rewardTexture,
+                rewardPosition,
                 null,
                 Color.White,
                 0f,
-                new Vector2(this.rewardTexture.Width / 2, this.rewardTexture.Height / 2),
+                new Vector2(rewardTexture.Width / 2, rewardTexture.Height / 2),
                 Vector2.One,
                 SpriteEffects.None,
                 0f);
@@ -60,24 +60,15 @@ namespace BulletBlaster
         }
         public void Update(GameTime gameTime)
         {
-            if (this.spawnTime <= gameTime.TotalGameTime && this.collected == false)
+            if (spawnTime <= gameTime.TotalGameTime && collected == false)
             {
-                this.visible = true;
+                visible = true;
             }
 
-            if (this.despawnTime <= gameTime.TotalGameTime && this.collected == false) 
+            if (despawnTime <= gameTime.TotalGameTime && collected == false)
             {
-                this.visible = false;
+                visible = false;
             }
-
-
-            if (this.user.boundingBox.Intersects(rectangle) && this.visible)
-            {
-                this.user.health = this.user.health + 1;
-                this.visible = false;
-                this.collected = true;
-            }
-
         }
     }
 }

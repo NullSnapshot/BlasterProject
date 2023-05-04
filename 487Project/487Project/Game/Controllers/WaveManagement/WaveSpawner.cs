@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using BulletBlaster.Game.config;
 using BulletBlaster.Game.Entities;
 using BulletBlaster.Game.Entities.Behaviors.Mob;
+using BulletBlaster.Game.Entities.Bullet.Patterns;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletBlaster.Game.Controllers.WaveManagement
 {
@@ -26,6 +28,11 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
                 return;
             foreach (EnemyConfig conf in enemyGroups)
             {
+                List<BulletPattern> attackPatterns = new List<BulletPattern>();
+                foreach (BulletPatternConfig pattern in conf.attackPatterns)
+                {
+                    attackPatterns.Add(EntityTools.BuildBulletPattern(pattern, content.Load<Texture2D>(pattern.bullet_sprite)));
+                }
                 EnemyFactory newFactory;
                 switch (conf.enemyMovement.movement_type)
                 {
@@ -33,16 +40,19 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
                         newFactory = new EnemyFactory(
                            conf.enemy_sprite,
                            new LinearEnemyBehavior(conf.enemyMovement.direction,
-                               conf.enemyMovement.movement_speed, new Vector2(conf.position.x, conf.position.y)), // TODO: Add bullet spec to behavior type
+                               conf.enemyMovement.movement_speed, new Vector2(conf.position.x, conf.position.y)),
+                           attackPatterns,
                            new Vector2(conf.position.x, conf.position.y),
                            conf.maxHealth,
                            content);
                         enemyFactories.Add(newFactory);
                         break;
+
                     case "sine":
                         newFactory = new EnemyFactory(
                            conf.enemy_sprite,
-                           new SineEnemyBehavior(conf.enemyMovement.amplitude, conf.enemyMovement.movement_speed), // TODO: see above.
+                           new SineEnemyBehavior(conf.enemyMovement.amplitude, conf.enemyMovement.movement_speed),
+                           attackPatterns,
                            new Vector2(conf.position.x, conf.position.y),
                            conf.maxHealth,
                            content);
@@ -57,21 +67,24 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
             // time to spawn new enemies.
             if (gameTime.TotalGameTime.TotalMilliseconds - lastSpawn > offset)
             {
-                int i = 0;
-                foreach (EnemyFactory factory in enemyFactories)
+                for(int i = 0; i < enemyFactories.Count; i++)
                 {
+                    EnemyFactory factory = enemyFactories[i];
                     if (enemyGroups[i].enemyAmount > 0)
                     {
-                        Entity newEnemy = factory.Create();
-                        EntityManager.RegisterCollidableEntity(newEnemy);
+                        if(gameTime.TotalGameTime.TotalMilliseconds - factory.lastSpawn > enemyGroups[i].offset)
+                        {
+                            MobEntity newEnemy = factory.Create();
+                            EntityManager.RegisterEnemy(newEnemy);
+                            factory.lastSpawn = gameTime.TotalGameTime.TotalMilliseconds;
+                            enemyGroups[i].enemyAmount -= 1;
+                        }
+                        
                     }
-                    enemyGroups[i].enemyAmount -= 1;
-                    i++;
                 }
-                lastSpawn = gameTime.TotalGameTime.TotalMilliseconds;
             }
 
-            if (enemyGroups.Count > 0)
+            if (enemyGroups != null && enemyGroups.Count > 0)
             {
                 // Clear check
                 bool done = true;

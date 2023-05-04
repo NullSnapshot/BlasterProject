@@ -5,21 +5,18 @@ namespace BulletBlaster.Game.Entities.Behaviors
 {
     public abstract class EntityBehavior
     {
-        public EntityBehavior()
-        {
-            // Empty constructor for subtype overloading
-            TargetPosition = new Vector2(0, 0);
-            TargetSpeed = 0;
-        }
+        public Vector2 TargetPosition { get; protected set; } = Vector2.Zero;
+        public float TargetSpeed { get; protected set; } = 0;
+        public bool Visible { get; protected set; } = true;
+
+        public int PatternSeed { get; set; } = 0;
+
+
+        public EntityBehavior() { }
         public EntityBehavior(EntityBehavior copySource)
         {
             Copy(copySource);
         }
-
-        public Vector2 TargetPosition { get; protected set; }
-        public float TargetSpeed { get; protected set; }
-
-        public bool Visible { get; protected set; } = true;
 
         public abstract void Update(GameTime gameTime);
 

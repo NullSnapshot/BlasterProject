@@ -2,26 +2,22 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using BulletBlaster.Code.Entities.Behaviors.Mob;
-
+using BulletBlaster.Game.Entities.Behaviors.Bullet;
+using BulletBlaster.Game.Entities.Bullet.Patterns;
 
 namespace BulletBlaster.Game.Entities.User
 {
     internal class UserEntity : MobEntity
     {
-        UserMovement usersMovements;
 
-        public bool isVisible = true;
-
-        public int score { get; set; }
-        public Rectangle boundingBox { get; set; }
+        private Texture2D sprite;
+        private Texture2D hitboxSprite;
+        public bool drawHitbox { get; set; } = false;
 
         public int immunityLength = 0;
 
-        private List<Rectangle> hitList = new List<Rectangle>();
-
         // Cheat related vars
         public bool cheatMode = false;
-
         public double lastColorChange = 0;
         private Color cheatColor = Color.Red;
         private Color[] cheatColorPalate = new Color[] { Color.Red, Color.Orange, Color.Yellow, Color.Green, Color.Blue, Color.Indigo, Color.Violet };
@@ -29,15 +25,14 @@ namespace BulletBlaster.Game.Entities.User
 
 
 
-        public UserEntity(Texture2D ballTexture, UserControlledBehavior behavior, int health)
-            : base(behavior, ballTexture, behavior.UsersMovements.getLocation(), health)
+        public UserEntity(Texture2D spriteTexture, Texture2D hitboxSprite, UserControlledBehavior behavior, List<BulletPattern> bulletPatterns, int health)
+            : base(behavior, bulletPatterns, spriteTexture,  behavior.TargetPosition, health)
         {
-            usersMovements = behavior.UsersMovements;
-            usersMovements.setTexture(Texture);
-            Speed = behavior.TargetSpeed;
+            this.MaxSpeed = behavior.TargetSpeed;
             this.health = health;
-            score = 0;
-            boundingBox = new Rectangle((int)Position.X - ballTexture.Width / 2, (int)Position.Y - ballTexture.Height / 2, ballTexture.Width, ballTexture.Height);
+
+            this.sprite = spriteTexture;
+            this.hitboxSprite = hitboxSprite;
         }
 
         public override void Draw(SpriteBatch sb, GameTime gameTime)
@@ -52,95 +47,77 @@ namespace BulletBlaster.Game.Entities.User
                     lastColorChange = gameTime.TotalGameTime.TotalMilliseconds;
                 }
             }
-            if (immunityLength == 0)
+
+            // Draw main sprite
+            sb.Draw(
+                texture: this.sprite,
+                position: this.Position,
+                sourceRectangle: null, // region which texture is rendered, null draws full texture
+                color: this.getTargetColor(),
+                rotation:0f,
+                origin:new Vector2(this.Texture.Width / 2, this.Texture.Height / 2),
+                scale:Vector2.One,
+                effects:SpriteEffects.None,
+                layerDepth:0f);
+
+            // Draw hitbox
+            if(this.drawHitbox) 
             {
                 sb.Draw(
-                Texture,
-                Position,
-                null,
-                cheatMode ? cheatColor : Color.White,
-                0f,
-                new Vector2(Texture.Width / 2, Texture.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f);
+                    texture: this.hitboxSprite,
+                    position: this.Position,
+                    sourceRectangle: null, // region which texture is rendered, null draws full texture
+                    color: Color.White,
+                    rotation: 0f,
+                    origin: new Vector2(this.hitBox.Width / 2, this.hitBox.Height / 2),
+                    scale: Vector2.One,
+                    effects: SpriteEffects.None,
+                    layerDepth: 0f);
             }
-            else
-            {
-                sb.Draw(
-                Texture,
-                Position,
-                null,
-                Color.Gray,
-                0f,
-                new Vector2(Texture.Width / 2, Texture.Height / 2),
-                Vector2.One,
-                SpriteEffects.None,
-                0f);
-            }
+
+            if (config.Config.DebugMode)
+                sb.Draw(Debuger.debugTexture, this.hitBox, Color.Blue);
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            this.Behavior.Update(gameTime);
+            this.Position = this.Behavior.TargetPosition;
+
             if (immunityLength != 0)
             {
                 immunityLength--;
             }
-            score += 1;
-            Position = Behavior.TargetPosition;
-            Texture = usersMovements.getTexture();
-            Speed = Behavior.TargetSpeed;
-            boundingBox = new Rectangle((int)Position.X - Texture.Width / 2, (int)Position.Y - Texture.Height / 2, Texture.Width, Texture.Height);
+            this.Position = this.Behavior.TargetPosition;
+            this.hitBox = new Rectangle((int)this.Position.X - this.hitboxSprite.Width / 2, 
+                (int)this.Position.Y + 2 - this.hitboxSprite.Height / 2, this.hitboxSprite.Width, this.hitboxSprite.Height);
+
         }
 
-
-        // UNTESTED CODE
-        public bool CheckCollision(Rectangle otherBoundingBox)
+        private Color getTargetColor()
         {
-            if (immunityLength == 0 || cheatMode == true)
+            if(this.cheatMode) 
             {
-                if (hitList.Contains(otherBoundingBox))
-                {
-                    return false;
-                }
-                else
-                {
-                    if (boundingBox.Intersects(otherBoundingBox))
-                    {
-                        hitList.Add(otherBoundingBox);
-                        return true;
-                    }
+                return this.cheatColor;
+            }
+            if(this.immunityLength != 0)
+            {
+                return Color.Gray;
+            }
+            return Color.White;
+        }
 
-                    return false;
+        public override void OnCollide(CollidableEntity entity)
+        {
+            if(immunityLength == 0 && !this.cheatMode)
+            {
+                immunityLength = 500;
+                health -= entity.Damage;
+                if(this.health == 0)
+                {
+                    this.health = -1;
                 }
             }
-
-            return false;
-
-        }
-
-        public void TakeDamage(int amount)
-        {
-            if (cheatMode != true)
-            {
-                health -= amount;
-                System.Diagnostics.Debug.WriteLine("New Health" + health.ToString());
-                if (health <= 0)
-                {
-                    alive = false;
-                    Dead();
-                }
-                else
-                {
-                    immunityLength = 200;
-                }
-            }
-        }
-
-        private void Dead()
-        {
-            isVisible = false;
         }
     }
 }

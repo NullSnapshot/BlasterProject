@@ -8,18 +8,21 @@ namespace BulletBlaster.Code.Entities.Behaviors.Mob
     internal class UserControlledBehavior : EntityBehavior
     {
 
-        public UserMovement UsersMovements { get; private set; }
 
-
-        public UserControlledBehavior(UserMovement userMovement)
+        public UserControlledBehavior(int targetSpeed, Vector2 startPos)
         {
-            UsersMovements = userMovement;
+            this.TargetSpeed = targetSpeed;
+            this.TargetPosition = startPos;
         }
 
         public override void Update(GameTime gameTime)
         {
-            TargetPosition = UsersMovements.getLocation();
-            TargetSpeed = UsersMovements.getSpeed();
+            // Intentionally blank
+        }
+
+        public void SetTargetPosition(Vector2 targetPosition)
+        {
+            this.TargetPosition = targetPosition;
         }
     }
 }

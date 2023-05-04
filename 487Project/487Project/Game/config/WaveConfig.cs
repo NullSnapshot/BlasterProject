@@ -10,7 +10,5 @@ namespace BulletBlaster.Game.config
         public int duration { get; set; }
         public string background { get; set; }
         public List<EnemyConfig> enemies { get; set; }
-        public EnemyBulletType enemyBulletType { get; set; }
-
     }
 }

@@ -3,10 +3,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using BulletBlaster.Game.Controllers;
-
+using BulletBlaster.Game.Entities;
 
 namespace BulletBlaster
 {
+    public static class Debuger
+    {
+        public static GraphicsDevice graphicsDevice;
+
+        public static Texture2D debugTexture;
+    }
     public class Game1 : Microsoft.Xna.Framework.Game
     {
         Dictionary<Keys, string> keyBindings = new Dictionary<Keys, string>()
@@ -23,7 +29,6 @@ namespace BulletBlaster
             };
 
         GameController gameController;
-        Reward healthReward;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -58,8 +63,10 @@ namespace BulletBlaster
 
             gameController.LoadContent(Content, _graphics);
             //healthReward = new Reward(Content.Load<Texture2D>("health"), new Vector2(800, 500), new TimeSpan(0, 0, 10), new TimeSpan(0,0,15), user);
-            
-  
+            Texture2D hitboxRectangle = new Texture2D(GraphicsDevice, 1, 1);
+            hitboxRectangle.SetData(new[] { Color.White });
+            Debuger.debugTexture = hitboxRectangle;
+
 
         }
 
