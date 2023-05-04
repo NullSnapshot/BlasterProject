@@ -1,21 +1,25 @@
-﻿using Microsoft.Xna.Framework;
-
+﻿using BulletBlaster.Game.config;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BulletBlaster.Game.Entities.Behaviors.Mob
 {
-    internal class LinearEnemyBehavior : EntityBehavior
+    internal class LinearEnemyBehavior : EnemyBehavior
     {
+
+        public static string Name => "linear";
+
         protected Vector2 velocity { get; set; }
         public LinearEnemyBehavior()
             : base()
         {
             velocity = Vector2.Zero;
         }
-
-        public LinearEnemyBehavior(string Direction, int speed, Vector2 startPos)
+        public LinearEnemyBehavior(EnemyConfig behavior)
         {
-            TargetPosition = startPos;
-            switch (Direction)
+            this.TargetPosition = new Vector2(behavior.position.x, behavior.position.y);
+            float speed = behavior.enemyMovement.movement_speed;
+            switch (behavior.enemyMovement.direction)
             {
                 case "left":
                     velocity = new Vector2(-speed, 0);
@@ -26,7 +30,6 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
                 default: // Assume right direction
                     velocity = new Vector2(speed, 0);
                     break;
-
             }
         }
 

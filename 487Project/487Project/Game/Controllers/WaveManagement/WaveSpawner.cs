@@ -34,31 +34,15 @@ namespace BulletBlaster.Game.Controllers.WaveManagement
                     attackPatterns.Add(EntityTools.BuildBulletPattern(pattern, content.Load<Texture2D>(pattern.bullet_sprite)));
                 }
                 EnemyFactory newFactory;
-                switch (conf.enemyMovement.movement_type)
-                {
-                    case "linear":
-                        newFactory = new EnemyFactory(
-                           conf.enemy_sprite,
-                           new LinearEnemyBehavior(conf.enemyMovement.direction,
-                               conf.enemyMovement.movement_speed, new Vector2(conf.position.x, conf.position.y)),
-                           attackPatterns,
-                           new Vector2(conf.position.x, conf.position.y),
-                           conf.maxHealth,
-                           content);
-                        enemyFactories.Add(newFactory);
-                        break;
-
-                    case "sine":
-                        newFactory = new EnemyFactory(
-                           conf.enemy_sprite,
-                           new SineEnemyBehavior(conf.enemyMovement.amplitude, conf.enemyMovement.movement_speed),
-                           attackPatterns,
-                           new Vector2(conf.position.x, conf.position.y),
-                           conf.maxHealth,
-                           content);
-                        enemyFactories.Add(newFactory);
-                        break;
-                }
+                EnemyBehavior newBehavior = EntityTools.BuildEnemyBehavior(conf);
+                newFactory = new EnemyFactory(
+                    conf.enemy_sprite,
+                    newBehavior,
+                    attackPatterns,
+                    new Vector2(conf.position.x, conf.position.y),
+                    conf.maxHealth,
+                    content);
+                enemyFactories.Add(newFactory);
             }
         }
 

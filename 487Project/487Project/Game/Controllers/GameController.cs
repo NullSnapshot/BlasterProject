@@ -64,7 +64,6 @@ namespace BulletBlaster.Game.Controllers
             Config.SaveConfig();
             string json = File.ReadAllText("../../../" + Config.LevelName +".json");
             levelConfig = JsonSerializer.Deserialize<LevelConfig>(json);
-            EntityTools.GenerateBulletPatternCollection();
             
 
             // Generate user
