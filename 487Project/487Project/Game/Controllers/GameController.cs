@@ -60,9 +60,12 @@ namespace BulletBlaster.Game.Controllers
 
         public void LoadContent(ContentManager Content, GraphicsDeviceManager _graphics)
         {
-            string json = File.ReadAllText("../../../TeamBlaster.json");
+            Config.LoadConfig();
+            Config.SaveConfig();
+            string json = File.ReadAllText("../../../" + Config.LevelName +".json");
             levelConfig = JsonSerializer.Deserialize<LevelConfig>(json);
             EntityTools.GenerateBulletPatternCollection();
+            
 
             // Generate user
             this.UserIntents = new UserControlledBehavior(levelConfig.player.player_speed, 

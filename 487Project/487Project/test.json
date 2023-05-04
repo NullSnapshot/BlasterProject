@@ -7,12 +7,16 @@
       "x": 500,
       "y": 1200
     },
-    "weapon": {
-      "weapon_sprite": "bullet",
-      "weapon_type": "bullet",
-      "weapon_damage": 1,
-      "weapon_speed": 20
-    }
+    "patternSeed": 123,
+    "attackPatterns": [
+      {
+        "bullet_sprite": "bullet",
+        "bullet_type": "player-bullet",
+        "pattern": "player-single",
+        "damage": 1,
+        "bullet_speed": 10
+      }
+    ]
   },
   "phases": [
     {
@@ -22,29 +26,31 @@
       "background": "ui-background1",
       "enemies": [
         {
-          "enemy_sprite": "boss",
-          "enemyType": "A",
-          "enemyAmount": 100,
+          "enemy_sprite": "enemy1",
+          "enemyAmount": 1,
+          "offset": 500,
+          "start_offset": 0,
           "maxHealth": 1,
           "position": {
-            "x": 100,
-            "y": 400
+            "x": 400,
+            "y": 200
           },
-          "offset": 500,
           "enemyMovement": {
             "movement_type": "linear",
             "direction": "right",
-            "movement_speed": 1
+            "movement_speed": 0
           },
-          "enemyBulletType": {
-            "color": "red",
-            "bullet_sprite": "bullet",
-            "bullet_type": "basicBullet",
-            "bullet_movement": "straight",
-            "bullet_count": 1,
-            "bullet_speed": 10,
-            "damage": 1
-          }
+          "patternSeed": 452,
+          "attackPatterns": [
+            {
+              "bullet_sprite": "bullet",
+              "bullet_type": "basic",
+              "pattern": "single",
+              "bullet_count": 1,
+              "bullet_speed": 10,
+              "damage": 1
+            }
+          ]
         }
       ]
     }

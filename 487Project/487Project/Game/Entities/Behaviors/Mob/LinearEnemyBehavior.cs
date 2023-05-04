@@ -33,9 +33,6 @@ namespace BulletBlaster.Game.Entities.Behaviors.Mob
         public override void Update(GameTime gameTime)
         {
             this.TargetPosition = EntityTools.DeltaMove(this.TargetPosition, gameTime, x: this.velocity.X, y: this.velocity.Y);
-
-
-            // Bullet firing logic goes here.
         }
 
         public override void Copy(EntityBehavior copySource)

@@ -45,7 +45,14 @@ namespace BulletBlaster.Game.Entities
             return targetLocation;
 
         }
-
+        /// <summary>
+        ///     Returns a position based on the deltaTiming of the current frame.
+        /// </summary>
+        /// <param name="position">The position of the entity</param>
+        /// <param name="gameTime">The current GameTime</param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public static Vector2 DeltaMove(Vector2 position, GameTime gameTime, float ?x = 0, float ?y = 0)
         {
             position.X += x.GetValueOrDefault(0) * 2500 * ( (float)gameTime.ElapsedGameTime.TotalSeconds / Config.TargetFPS);
